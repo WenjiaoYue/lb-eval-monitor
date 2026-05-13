@@ -1,0 +1,17 @@
+{
+  "generated_at": "",
+  "total_runs": 0,
+  "latest_models_count": 0,
+  "quant": {
+    "success": 0,
+    "failed": 0,
+    "running": 0,
+    "unknown": 0
+  },
+  "eval": {
+    "success": 0,
+    "failed": 0,
+    "running": 0,
+    "unknown": 0
+  }
+}

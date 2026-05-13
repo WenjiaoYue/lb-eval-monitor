@@ -59,9 +59,9 @@ def pick_timestamp(*values: str | None) -> str:
 
 
 def parse_run_timestamp(run_id: str | None, fallback_iso: str | None) -> str:
-    match = re.search(r"run_(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})", run_id or "")
-    if match:
-        y, mo, d, h, mi, s = match.groups()
+    timestamp_match = re.search(r"run_(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})", run_id or "")
+    if timestamp_match:
+        y, mo, d, h, mi, s = timestamp_match.groups()
         return f"{y}-{mo}-{d}T{h}:{mi}:{s}Z"
     return fallback_iso or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 

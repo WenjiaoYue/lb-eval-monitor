@@ -6,7 +6,7 @@ let { children } = $props();
 <title>lb_eval monitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </svelte:head>
 
 {@render children()}
@@ -18,8 +18,8 @@ let { children } = $props();
 :global(body) {
 	margin: 0;
 	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-	background: #0f1117;
-	color: #d1d5db;
+	background: #eef2f7;
+	color: #1e293b;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	line-height: 1.5;
@@ -38,10 +38,10 @@ let { children } = $props();
 	background: transparent;
 }
 :global(::-webkit-scrollbar-thumb) {
-	background: #2d3340;
+	background: #cbd5e1;
 	border-radius: 3px;
 }
 :global(::-webkit-scrollbar-thumb:hover) {
-	background: #3b4252;
+	background: #94a3b8;
 }
 </style>

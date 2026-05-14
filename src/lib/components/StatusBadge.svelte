@@ -20,19 +20,23 @@ let { status = 'unknown' }: { status: RunStatus } = $props();
 	white-space: nowrap;
 }
 .badge--success {
-	background: rgba(16, 185, 129, 0.1);
+	background: #ecfdf5;
 	color: #059669;
+	border: 1px solid #a7f3d0;
 }
 .badge--failed {
-	background: rgba(239, 68, 68, 0.1);
+	background: #fef2f2;
 	color: #dc2626;
+	border: 1px solid #fecaca;
 }
 .badge--running {
-	background: rgba(245, 158, 11, 0.1);
+	background: #fffbeb;
 	color: #d97706;
+	border: 1px solid #fde68a;
 }
 .badge--unknown {
-	background: rgba(107, 114, 128, 0.1);
-	color: #6b7280;
+	background: #f1f5f9;
+	color: #64748b;
+	border: 1px solid #e2e8f0;
 }
 </style>

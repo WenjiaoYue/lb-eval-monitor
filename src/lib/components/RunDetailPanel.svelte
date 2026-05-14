@@ -5,387 +5,436 @@ import type { RunRecord } from '$lib/types';
 let { run = null, onClose }: { run: RunRecord | null; onClose: () => void } = $props();
 
 const formatMetric = (value: number | string) => {
-if (typeof value === 'number') return value.toFixed(4);
-return value;
+	if (typeof value === 'number') return value.toFixed(4);
+	return value;
 };
 
 const formatTime = (iso: string) => {
-if (!iso) return '-';
-try { return new Date(iso).toLocaleString(); } catch { return iso; }
+	if (!iso) return '-';
+	try { return new Date(iso).toLocaleString(); } catch { return iso; }
 };
 
 const formatSize = (mb: number | undefined) => {
-if (mb == null) return '-';
-if (mb >= 1024) return `${(mb / 1024).toFixed(2)} GB`;
-return `${mb.toFixed(1)} MB`;
+	if (mb == null) return '-';
+	if (mb >= 1024) return `${(mb / 1024).toFixed(2)} GB`;
+	return `${mb.toFixed(1)} MB`;
 };
 
 const formatDuration = (sec: number | string | undefined) => {
-if (sec == null) return '-';
-const s = typeof sec === 'string' ? parseFloat(sec) : sec;
-if (isNaN(s)) return String(sec);
-if (s < 60) return `${s.toFixed(0)}s`;
-if (s < 3600) return `${Math.floor(s / 60)}m ${Math.round(s % 60)}s`;
-return `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`;
+	if (sec == null) return '-';
+	const s = typeof sec === 'string' ? parseFloat(sec) : sec;
+	if (isNaN(s)) return String(sec);
+	if (s < 60) return `${s.toFixed(0)}s`;
+	if (s < 3600) return `${Math.floor(s / 60)}m ${Math.round(s % 60)}s`;
+	return `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`;
 };
 </script>
 
 {#if run}
-<section class="detail-panel">
-<div class="detail-header">
-<div class="detail-title">
-<h2>{run.owner} / {run.model_id}</h2>
-<div class="detail-meta">
-<StatusBadge status={run.auto_quant_status} /> quant
-<StatusBadge status={run.auto_eval_status} /> eval
-<span class="meta-sep">|</span>
-<span>{run.scheme} / {run.method}</span>
-<span class="meta-sep">|</span>
-<span>{formatTime(run.updated_at)}</span>
-</div>
-</div>
-			<button type="button" class="close-btn" onclick={onClose} aria-label="Close">✕</button>
-</div>
+<section class="panel">
+	<div class="panel-head">
+		<div class="panel-title">
+			<h2>{run.owner} / {run.model_id}</h2>
+			<div class="panel-meta">
+				<StatusBadge status={run.auto_quant_status} /> <span class="meta-label">quant</span>
+				<StatusBadge status={run.auto_eval_status} /> <span class="meta-label">eval</span>
+				<span class="meta-divider"></span>
+				<span class="meta-text">{run.scheme} / {run.method}</span>
+				<span class="meta-divider"></span>
+				<span class="meta-text">{formatTime(run.updated_at)}</span>
+			</div>
+		</div>
+		<button type="button" class="close-btn" onclick={onClose} aria-label="Close">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		</button>
+	</div>
 
-<div class="detail-body" class:single-col={!run.quant_details && !run.eval_details && !run.lm_eval_results && run.tasks.length === 0}>
-<!-- Left column: Info + Quant + Eval details (only if data exists) -->
-{#if run.quant_details || run.eval_details || run.lm_eval_results || run.tasks.length > 0 || Object.keys(run.metrics_preview).length > 0}
-<div class="detail-col">
-<!-- Quant Details -->
-{#if run.quant_details}
-<div class="detail-card">
-<h3>Quantization Details</h3>
-<div class="detail-grid">
-<div class="dg-item"><span class="dg-label">Source Model</span><span class="dg-value">{run.quant_details.model_id || run.model_id}</span></div>
-<div class="dg-item"><span class="dg-label">Original Size</span><span class="dg-value">{formatSize(run.quant_details.original_size_mb)}</span></div>
-<div class="dg-item"><span class="dg-label">Quantized Size</span><span class="dg-value">{formatSize(run.quant_details.quantized_size_mb)}</span></div>
-<div class="dg-item"><span class="dg-label">Compression</span><span class="dg-value">{run.quant_details.compression_ratio != null ? `${(run.quant_details.compression_ratio * 100).toFixed(1)}%` : '-'}</span></div>
-<div class="dg-item"><span class="dg-label">Duration</span><span class="dg-value">{formatDuration(run.quant_details.duration_seconds)}</span></div>
-<div class="dg-item"><span class="dg-label">Format</span><span class="dg-value">{run.quant_details.export_format || '-'}</span></div>
-<div class="dg-item"><span class="dg-label">Device</span><span class="dg-value">{run.quant_details.device || '-'} ({run.quant_num_gpus || '?'} GPU)</span></div>
-{#if run.quant_details.hf_repo}
-<div class="dg-item full"><span class="dg-label">HuggingFace</span><a href={run.quant_details.hf_repo} target="_blank" rel="noreferrer" class="dg-link">{run.quant_details.hf_repo}</a></div>
-{/if}
-</div>
-</div>
-{/if}
+	<div class="panel-body" class:single-col={!run.quant_details && !run.eval_details && !run.lm_eval_results && run.tasks.length === 0}>
+		{#if run.quant_details || run.eval_details || run.lm_eval_results || run.tasks.length > 0 || Object.keys(run.metrics_preview).length > 0}
+		<div class="col">
+			{#if run.quant_details}
+			<div class="card">
+				<h3>Quantization Details</h3>
+				<div class="info-grid">
+					<div class="info-item"><span class="info-label">Source Model</span><span class="info-value">{run.quant_details.model_id || run.model_id}</span></div>
+					<div class="info-item"><span class="info-label">Original Size</span><span class="info-value">{formatSize(run.quant_details.original_size_mb)}</span></div>
+					<div class="info-item"><span class="info-label">Quantized Size</span><span class="info-value">{formatSize(run.quant_details.quantized_size_mb)}</span></div>
+					<div class="info-item"><span class="info-label">Compression</span><span class="info-value">{run.quant_details.compression_ratio != null ? `${(run.quant_details.compression_ratio * 100).toFixed(1)}%` : '-'}</span></div>
+					<div class="info-item"><span class="info-label">Duration</span><span class="info-value">{formatDuration(run.quant_details.duration_seconds)}</span></div>
+					<div class="info-item"><span class="info-label">Format</span><span class="info-value">{run.quant_details.export_format || '-'}</span></div>
+					<div class="info-item"><span class="info-label">Device</span><span class="info-value">{run.quant_details.device || '-'} ({run.quant_num_gpus || '?'} GPU)</span></div>
+					{#if run.quant_details.hf_repo}
+					<div class="info-item full"><span class="info-label">HuggingFace</span><a href={run.quant_details.hf_repo} target="_blank" rel="noreferrer" class="info-link">{run.quant_details.hf_repo}</a></div>
+					{/if}
+				</div>
+			</div>
+			{/if}
 
-<!-- Eval Details & Benchmark Results -->
-{#if run.eval_details || run.tasks.length > 0}
-<div class="detail-card">
-<h3>Evaluation Results</h3>
-{#if run.eval_details}
-<div class="eval-meta">
-{#if run.eval_details.eval_framework}<span>Framework: <strong>{run.eval_details.eval_framework}</strong></span>{/if}
-{#if run.eval_details.duration_seconds}<span>Duration: <strong>{formatDuration(run.eval_details.duration_seconds)}</strong></span>{/if}
-<span>GPUs: <strong>{run.eval_num_gpus || '?'}</strong></span>
-</div>
-{/if}
+			{#if run.eval_details || run.tasks.length > 0}
+			<div class="card">
+				<h3>Evaluation Results</h3>
+				{#if run.eval_details}
+				<div class="eval-meta">
+					{#if run.eval_details.eval_framework}<span>Framework: <strong>{run.eval_details.eval_framework}</strong></span>{/if}
+					{#if run.eval_details.duration_seconds}<span>Duration: <strong>{formatDuration(run.eval_details.duration_seconds)}</strong></span>{/if}
+					<span>GPUs: <strong>{run.eval_num_gpus || '?'}</strong></span>
+				</div>
+				{/if}
 
-{#if run.eval_details?.task_results && Object.keys(run.eval_details.task_results).length > 0}
-<table class="bench-table">
-<thead><tr><th>Task</th><th>Accuracy</th><th>Stderr</th></tr></thead>
-<tbody>
-{#each Object.entries(run.eval_details.task_results) as [task, result]}
-<tr>
-<td>{task}</td>
-<td class="metric-val">{result.accuracy != null ? (typeof result.accuracy === 'number' ? (result.accuracy * 100).toFixed(2) + '%' : result.accuracy) : '-'}</td>
-<td class="metric-stderr">{result.accuracy_stderr != null ? '±' + (typeof result.accuracy_stderr === 'number' ? (result.accuracy_stderr * 100).toFixed(2) + '%' : result.accuracy_stderr) : '-'}</td>
-</tr>
-{/each}
-</tbody>
-</table>
-{:else if Object.keys(run.metrics_preview).length > 0}
-<table class="bench-table">
-<thead><tr><th>Task</th><th>Score</th></tr></thead>
-<tbody>
-{#each Object.entries(run.metrics_preview) as [task, value]}
-<tr><td>{task}</td><td class="metric-val">{formatMetric(value)}</td></tr>
-{/each}
-</tbody>
-</table>
-{:else if run.tasks.length > 0}
-<div class="chips">{#each run.tasks as task}<span class="chip">{task}</span>{/each}</div>
-{/if}
-</div>
-{/if}
+				{#if run.eval_details?.task_results && Object.keys(run.eval_details.task_results).length > 0}
+				<div class="bench-wrap">
+				<table class="bench">
+					<thead><tr><th>Task</th><th>Accuracy</th><th>Stderr</th></tr></thead>
+					<tbody>
+					{#each Object.entries(run.eval_details.task_results) as [task, result]}
+					<tr>
+						<td>{task}</td>
+						<td class="mono">{result.accuracy != null ? (typeof result.accuracy === 'number' ? (result.accuracy * 100).toFixed(2) + '%' : result.accuracy) : '-'}</td>
+						<td class="mono muted">{result.accuracy_stderr != null ? '\u00B1' + (typeof result.accuracy_stderr === 'number' ? (result.accuracy_stderr * 100).toFixed(2) + '%' : result.accuracy_stderr) : '-'}</td>
+					</tr>
+					{/each}
+					</tbody>
+				</table>
+				</div>
+				{:else if Object.keys(run.metrics_preview).length > 0}
+				<div class="bench-wrap">
+				<table class="bench">
+					<thead><tr><th>Task</th><th>Score</th></tr></thead>
+					<tbody>
+					{#each Object.entries(run.metrics_preview) as [task, value]}
+					<tr><td>{task}</td><td class="mono">{formatMetric(value)}</td></tr>
+					{/each}
+					</tbody>
+				</table>
+				</div>
+				{:else if run.tasks.length > 0}
+				<div class="chips">{#each run.tasks as task}<span class="chip">{task}</span>{/each}</div>
+				{/if}
+			</div>
+			{/if}
 
-<!-- Full lm_eval benchmark results -->
-{#if run.lm_eval_results}
-<div class="detail-card">
-<h3>Full Benchmark Results (lm_eval)
-{#if run.lm_eval_results.total_time_seconds}
-<span class="eval-time">{formatDuration(run.lm_eval_results.total_time_seconds)}</span>
-{/if}
-{#if run.lm_eval_results_url}
-<a href={run.lm_eval_results_url} target="_blank" rel="noreferrer" class="source-link">View Raw</a>
-{/if}
-</h3>
-{#if run.lm_eval_results.model_path}
-<div class="eval-meta"><span>Model: <strong>{run.lm_eval_results.model_path}</strong></span></div>
-{/if}
-<table class="bench-table lm-eval-table">
-<thead><tr><th>Task</th><th>Acc</th><th>Stderr</th><th>Acc Norm</th><th>Stderr</th></tr></thead>
-<tbody>
-{#each Object.entries(run.lm_eval_results.results) as [task, m]}
-<tr>
-<td class="task-name">{m.alias || task}</td>
-<td class="metric-val">{m['acc,none'] != null ? (m['acc,none'] * 100).toFixed(2) + '%' : '-'}</td>
-<td class="metric-stderr">{m['acc_stderr,none'] != null ? '±' + (m['acc_stderr,none'] * 100).toFixed(2) + '%' : '-'}</td>
-<td class="metric-val">{m['acc_norm,none'] != null ? (m['acc_norm,none'] * 100).toFixed(2) + '%' : '-'}</td>
-<td class="metric-stderr">{m['acc_norm_stderr,none'] != null ? '±' + (m['acc_norm_stderr,none'] * 100).toFixed(2) + '%' : '-'}</td>
-</tr>
-{/each}
-</tbody>
-</table>
-</div>
-{/if}
-</div>
-{/if}
+			{#if run.lm_eval_results}
+			<div class="card">
+				<h3>
+					Full Benchmark (lm_eval)
+					{#if run.lm_eval_results.total_time_seconds}
+					<span class="h3-aside">{formatDuration(run.lm_eval_results.total_time_seconds)}</span>
+					{/if}
+					{#if run.lm_eval_results_url}
+					<a href={run.lm_eval_results_url} target="_blank" rel="noreferrer" class="h3-link">View Raw</a>
+					{/if}
+				</h3>
+				{#if run.lm_eval_results.model_path}
+				<div class="eval-meta"><span>Model: <strong>{run.lm_eval_results.model_path}</strong></span></div>
+				{/if}
+				<div class="bench-wrap lm-wrap">
+				<table class="bench">
+					<thead><tr><th>Task</th><th>Acc</th><th>Stderr</th><th>Acc Norm</th><th>Stderr</th></tr></thead>
+					<tbody>
+					{#each Object.entries(run.lm_eval_results.results) as [task, m]}
+					<tr>
+						<td class="task-name">{m.alias || task}</td>
+						<td class="mono">{m['acc,none'] != null ? (m['acc,none'] * 100).toFixed(2) + '%' : '-'}</td>
+						<td class="mono muted">{m['acc_stderr,none'] != null ? '\u00B1' + (m['acc_stderr,none'] * 100).toFixed(2) + '%' : '-'}</td>
+						<td class="mono">{m['acc_norm,none'] != null ? (m['acc_norm,none'] * 100).toFixed(2) + '%' : '-'}</td>
+						<td class="mono muted">{m['acc_norm_stderr,none'] != null ? '\u00B1' + (m['acc_norm_stderr,none'] * 100).toFixed(2) + '%' : '-'}</td>
+					</tr>
+					{/each}
+					</tbody>
+				</table>
+				</div>
+			</div>
+			{/if}
+		</div>
+		{/if}
 
-<!-- Right column: Errors + Issues + Links -->
-<div class="detail-col">
-<!-- Errors -->
-{#if run.quant_errors.length > 0 || run.eval_errors.length > 0}
-<div class="detail-card error-card">
-<h3>Error Logs</h3>
-{#if run.quant_errors.length > 0}
-<h4>Quantization Errors</h4>
-{#each run.quant_errors as err}
-<pre class="error-entry">{err}</pre>
-{/each}
-{/if}
-{#if run.eval_errors.length > 0}
-<h4>Evaluation Errors</h4>
-{#each run.eval_errors as err}
-<pre class="error-entry">{err}</pre>
-{/each}
-{/if}
-</div>
-{/if}
+		<!-- Right column: Errors + Issues + Links -->
+		<div class="col">
+			{#if run.quant_errors.length > 0 || run.eval_errors.length > 0}
+			<div class="card card--error">
+				<h3>Error Logs</h3>
+				{#if run.quant_errors.length > 0}
+				<h4>Quantization Errors</h4>
+				{#each run.quant_errors as err}
+				<pre class="err-block">{err}</pre>
+				{/each}
+				{/if}
+				{#if run.eval_errors.length > 0}
+				<h4>Evaluation Errors</h4>
+				{#each run.eval_errors as err}
+				<pre class="err-block">{err}</pre>
+				{/each}
+				{/if}
+			</div>
+			{/if}
 
-<!-- Summary -->
-{#if run.summary}
-<div class="detail-card">
-<h3>Summary</h3>
-<p class="summary-text">{run.summary}</p>
-</div>
-{/if}
+			{#if run.summary}
+			<div class="card">
+				<h3>Summary</h3>
+				<p class="summary-text">{run.summary}</p>
+			</div>
+			{/if}
 
-<!-- Issues -->
-{#if run.issues.length > 0}
-<div class="detail-card">
-<h3>Issues from Session ({run.issues.length})</h3>
-<ul class="issues-list">
-{#each run.issues as issue}
-<li>{issue}</li>
-{/each}
-</ul>
-</div>
-{/if}
+			{#if run.issues.length > 0}
+			<div class="card">
+				<h3>Issues ({run.issues.length})</h3>
+				<ul class="issues-list">
+					{#each run.issues as issue}
+					<li>{issue}</li>
+					{/each}
+				</ul>
+			</div>
+			{/if}
 
-<!-- Source links & run info -->
-<div class="detail-card">
-<h3>Source & Links</h3>
-<div class="links-grid">
-{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer">Session Eval Log</a>{/if}
-{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer">Session Quant Log</a>{/if}
-{#if run.lm_eval_results_url}<a href={run.lm_eval_results_url} target="_blank" rel="noreferrer">lm_eval Results JSON</a>{/if}
-{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer">Aggregate Result</a>{/if}
-</div>
-<div class="run-info">
-<span>Run: <code>{run.run_id}</code></span>
-<span>Path: <code>{run.run_path}</code></span>
-</div>
-</div>
-</div>
-</div>
+			<div class="card">
+				<h3>Source & Links</h3>
+				<div class="links-row">
+					{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
+					{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Session Quant Log</a>{/if}
+					{#if run.lm_eval_results_url}<a href={run.lm_eval_results_url} target="_blank" rel="noreferrer" class="link-pill">lm_eval Results</a>{/if}
+					{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
+				</div>
+				<div class="run-meta">
+					<span>Run: <code>{run.run_id}</code></span>
+					<span>Path: <code>{run.run_path}</code></span>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 {/if}
 
 <style>
-.detail-panel {
-margin-bottom: 1rem;
-border: 1px solid #e5e7eb;
-border-radius: 0.75rem;
-background: #fff;
-overflow: hidden;
+.panel {
+	margin-bottom: 1.25rem;
+	border: 1px solid #e5e7eb;
+	border-radius: 10px;
+	background: #ffffff;
+	overflow: hidden;
 }
-.detail-header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-padding: 0.85rem 1rem;
-background: #f8fafc;
-border-bottom: 1px solid #e5e7eb;
+.panel-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 1rem 1.75rem;
+	background: #f9fafb;
+	border-bottom: 1px solid #e5e7eb;
 }
-.detail-title h2 {
-margin: 0;
-font-size: 1.05rem;
+.panel-title h2 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 700;
+	color: #111827;
 }
-.detail-meta {
-display: flex;
-align-items: center;
-flex-wrap: wrap;
-gap: 0.4rem;
-margin-top: 0.3rem;
-font-size: 0.82rem;
-color: #4b5563;
+.panel-meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+	margin-top: 0.375rem;
+	font-size: 0.8125rem;
 }
-.meta-sep { color: #d1d5db; }
+.meta-label {
+	font-size: 0.75rem;
+	color: #6b7280;
+	margin-right: 0.25rem;
+}
+.meta-divider {
+	width: 1px;
+	height: 14px;
+	background: #d1d5db;
+	margin: 0 0.375rem;
+}
+.meta-text {
+	font-size: 0.8125rem;
+	color: #6b7280;
+}
 .close-btn {
-border: 1px solid #d1d5db;
-background: #fff;
-border-radius: 0.4rem;
-cursor: pointer;
-padding: 0.2rem 0.5rem;
-font-size: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #e5e7eb;
+	background: transparent;
+	border-radius: 6px;
+	cursor: pointer;
+	color: #6b7280;
+	transition: background 0.15s, color 0.15s;
+	flex-shrink: 0;
 }
-.close-btn:hover { background: #f3f4f6; }
+.close-btn:hover { background: #f3f4f6; color: #374151; }
 
-.detail-body {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 0.75rem;
-padding: 0.85rem 1rem;
-max-height: 500px;
-overflow: auto;
+.panel-body {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	padding: 1.125rem 1.75rem;
+	max-height: 560px;
+	overflow: auto;
 }
-.detail-body.single-col {
-grid-template-columns: 1fr;
+.panel-body.single-col {
+	grid-template-columns: 1fr;
 }
-.detail-col {
-display: flex;
-flex-direction: column;
-gap: 0.75rem;
+.col {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
-.detail-card {
-padding: 0.7rem;
-border: 1px solid #f3f4f6;
-border-radius: 0.5rem;
-background: #fafafa;
+.card {
+	padding: 0.875rem 1.125rem;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	background: #fafafa;
 }
-.detail-card h3 {
-margin: 0 0 0.5rem;
-font-size: 0.8rem;
-text-transform: uppercase;
-letter-spacing: 0.03em;
-color: #6b7280;
+.card h3 {
+	margin: 0 0 0.625rem;
+	font-size: 0.6875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #6b7280;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 }
-.detail-card h4 {
-margin: 0.5rem 0 0.3rem;
-font-size: 0.78rem;
-color: #374151;
+.card h4 {
+	margin: 0.75rem 0 0.375rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	color: #374151;
 }
-.error-card { background: #fef2f2; border-color: #fecaca; }
-.error-card h3 { color: #991b1b; }
+.card--error {
+	background: #fef2f2;
+	border-color: #fecaca;
+}
+.card--error h3 { color: #dc2626; }
 
-/* Detail grid for quant info */
-.detail-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 0.3rem 0.75rem;
+/* Info grid */
+.info-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.5rem 1rem;
 }
-.dg-item { display: flex; flex-direction: column; font-size: 0.8rem; }
-.dg-item.full { grid-column: 1 / -1; }
-.dg-label { color: #6b7280; font-size: 0.72rem; text-transform: uppercase; }
-.dg-value { font-weight: 600; color: #111827; }
-.dg-link { color: #2563eb; text-decoration: none; font-size: 0.78rem; word-break: break-all; }
-.dg-link:hover { text-decoration: underline; }
+.info-item { display: flex; flex-direction: column; font-size: 0.8125rem; }
+.info-item.full { grid-column: 1 / -1; }
+.info-label { font-size: 0.6875rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; margin-bottom: 0.125rem; }
+.info-value { font-weight: 700; color: #1f2937; }
+.info-link { color: #0d9488; text-decoration: none; font-size: 0.75rem; word-break: break-all; font-weight: 600; }
+.info-link:hover { text-decoration: underline; }
 
 /* Eval meta */
 .eval-meta {
-display: flex;
-flex-wrap: wrap;
-gap: 0.75rem;
-margin-bottom: 0.5rem;
-font-size: 0.8rem;
-color: #4b5563;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.875rem;
+	margin-bottom: 0.625rem;
+	font-size: 0.8125rem;
+	color: #6b7280;
 }
 
 /* Benchmark table */
-.bench-table {
-width: 100%;
-border-collapse: collapse;
-font-size: 0.82rem;
+.bench-wrap {
+	overflow-x: auto;
 }
-.bench-table th, .bench-table td {
-padding: 0.3rem 0.5rem;
-text-align: left;
-border-bottom: 1px solid #e5e7eb;
+.bench {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.8125rem;
 }
-.bench-table th { color: #6b7280; font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
-.metric-val { font-family: monospace; font-weight: 600; }
-.metric-stderr { font-family: monospace; font-size: 0.75rem; color: #6b7280; }
+.bench th, .bench td {
+	padding: 0.5rem 0.625rem;
+	text-align: left;
+	border-bottom: 1px solid #e5e7eb;
+}
+.bench th {
+	color: #6b7280;
+	font-weight: 600;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	background: #f9fafb;
+}
+.mono { font-family: 'SF Mono', 'Fira Code', monospace; font-weight: 700; font-size: 0.75rem; color: #111827; }
+.muted { color: #9ca3af; font-weight: 400; }
+.lm-wrap { max-height: 360px; overflow-y: auto; }
+.task-name { font-size: 0.75rem; word-break: break-word; }
+.h3-aside { font-size: 0.6875rem; font-weight: 400; color: #9ca3af; }
+.h3-link { font-size: 0.6875rem; font-weight: 600; color: #0d9488; text-decoration: none; }
+.h3-link:hover { text-decoration: underline; }
 
 /* Errors */
-.error-entry {
-margin: 0.3rem 0;
-padding: 0.5rem;
-background: #fff5f5;
-border: 1px solid #fecaca;
-border-radius: 0.4rem;
-font-family: monospace;
-font-size: 0.75rem;
-line-height: 1.5;
-white-space: pre-wrap;
-word-break: break-word;
-color: #7f1d1d;
-max-height: 150px;
-overflow: auto;
+.err-block {
+	margin: 0.375rem 0;
+	padding: 0.75rem;
+	background: #fff5f5;
+	border: 1px solid #fecaca;
+	border-radius: 8px;
+	font-family: 'SF Mono', 'Fira Code', monospace;
+	font-size: 0.6875rem;
+	line-height: 1.6;
+	white-space: pre-wrap;
+	word-break: break-word;
+	color: #991b1b;
+	max-height: 160px;
+	overflow: auto;
 }
 
 /* Summary & issues */
-.summary-text { margin: 0; font-size: 0.82rem; line-height: 1.5; color: #374151; }
+.summary-text { margin: 0; font-size: 0.8125rem; line-height: 1.6; color: #374151; }
 .issues-list {
-margin: 0;
-padding-left: 1rem;
-font-size: 0.8rem;
-line-height: 1.5;
-max-height: 150px;
-overflow: auto;
+	margin: 0;
+	padding-left: 1.25rem;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	max-height: 160px;
+	overflow: auto;
 }
-.issues-list li { margin-bottom: 0.2rem; color: #4b5563; }
+.issues-list li { margin-bottom: 0.25rem; color: #6b7280; }
 
 /* Chips */
-.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-.chip { padding: 0.15rem 0.5rem; background: #eff6ff; color: #1d4ed8; border-radius: 999px; font-size: 0.75rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.chip {
+	padding: 0.25rem 0.625rem;
+	background: rgba(13, 148, 136, 0.08);
+	color: #0d9488;
+	border: 1px solid rgba(13, 148, 136, 0.2);
+	border-radius: 6px;
+	font-size: 0.6875rem;
+	font-weight: 600;
+}
 
 /* Links */
-.links-grid {
-display: flex;
-flex-wrap: wrap;
-gap: 0.5rem;
-margin-bottom: 0.5rem;
+.links-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
 }
-.links-grid a {
-font-size: 0.8rem;
-color: #2563eb;
-text-decoration: none;
-padding: 0.2rem 0.5rem;
-background: #eff6ff;
-border-radius: 0.3rem;
+.link-pill {
+	font-size: 0.75rem;
+	color: #0d9488;
+	text-decoration: none;
+	padding: 0.25rem 0.625rem;
+	background: rgba(13, 148, 136, 0.06);
+	border: 1px solid rgba(13, 148, 136, 0.2);
+	border-radius: 6px;
+	font-weight: 600;
+	transition: background 0.15s;
 }
-.links-grid a:hover { text-decoration: underline; }
-.run-info {
-display: flex;
-flex-direction: column;
-gap: 0.2rem;
-font-size: 0.75rem;
-color: #6b7280;
+.link-pill:hover { background: rgba(13, 148, 136, 0.12); }
+.run-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	font-size: 0.75rem;
+	color: #6b7280;
 }
-.run-info code { font-family: monospace; font-size: 0.72rem; }
+.run-meta code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.6875rem; color: #374151; background: #f3f4f6; padding: 0.125rem 0.375rem; border-radius: 4px; }
 
 @media (max-width: 900px) {
-.detail-body { grid-template-columns: 1fr; }
+	.panel-body { grid-template-columns: 1fr; }
+	.panel-head { padding: 0.875rem 1.25rem; }
+	.panel-body { padding: 0.875rem 1.25rem; }
 }
-
-/* lm_eval full table */
-.lm-eval-table { max-height: 400px; display: block; overflow-y: auto; }
-.lm-eval-table thead, .lm-eval-table tbody, .lm-eval-table tr { display: table; width: 100%; table-layout: fixed; }
-.lm-eval-table thead { position: sticky; top: 0; background: #fafafa; z-index: 1; }
-.task-name { font-size: 0.78rem; word-break: break-word; }
-.eval-time { font-size: 0.7rem; font-weight: 400; color: #6b7280; margin-left: 0.5rem; }
-.source-link { font-size: 0.7rem; font-weight: 400; color: #2563eb; text-decoration: none; margin-left: 0.5rem; }
-.source-link:hover { text-decoration: underline; }
 </style>

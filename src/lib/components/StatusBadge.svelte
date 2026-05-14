@@ -4,32 +4,35 @@ import type { RunStatus } from '$lib/types';
 let { status = 'unknown' }: { status: RunStatus } = $props();
 </script>
 
-<span class={`badge ${status}`}>{status}</span>
+<span class={`badge badge--${status}`}>{status}</span>
 
 <style>
 .badge {
-display: inline-block;
-padding: 0.15rem 0.5rem;
-border-radius: 999px;
-font-size: 0.75rem;
-font-weight: 600;
-line-height: 1.2;
-text-transform: capitalize;
+	display: inline-flex;
+	align-items: center;
+	padding: 0.1875rem 0.5rem;
+	border-radius: 6px;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	line-height: 1.2;
+	text-transform: capitalize;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
 }
-.success {
-background: #dcfce7;
-color: #166534;
+.badge--success {
+	background: rgba(16, 185, 129, 0.1);
+	color: #059669;
 }
-.failed {
-background: #fee2e2;
-color: #991b1b;
+.badge--failed {
+	background: rgba(239, 68, 68, 0.1);
+	color: #dc2626;
 }
-.running {
-background: #fef3c7;
-color: #92400e;
+.badge--running {
+	background: rgba(245, 158, 11, 0.1);
+	color: #d97706;
 }
-.unknown {
-background: #e5e7eb;
-color: #374151;
+.badge--unknown {
+	background: rgba(107, 114, 128, 0.1);
+	color: #6b7280;
 }
 </style>

@@ -1,91 +1,39 @@
-# lb-eval-monitor
+# lb-eval-monitor (v2)
 
-Real-time monitoring dashboard for `WenjiaoYue/lb_eval/results`. Displays quantization & evaluation status, error logs, and full benchmark results.
+A static monitoring dashboard for `WenjiaoYue/lb_eval/results`.
 
 ## Architecture
 
-- **Frontend**: SvelteKit (static export), Vite dev server
-- **Data parser**: Python `parser/scan_results.py` (supports remote GitHub API fetch)
-- **Data artifacts**: `static/data/runs.json`, `latest.json`, `summary.json`
+- **Frontend**: SvelteKit (static export)
+- **Data parser**: Python (`parser/scan_results.py`)
+- **Artifacts**: JSON files in `static/data/`
 
-## Features
+## v2 features
 
-- Parses `run_*/` directories: `quant_summary.json`, `accuracy.json`, `lm_eval_results/*.json`, `session_*.md`
-- Normalized run records: owner, model_id, scheme, method, status, errors, issues
-- Full lm_eval results (60+ subtasks with acc / acc_norm / stderr)
-- Overview cards (quant/eval success/fail counts)
-- Clickable bar charts to filter by status
-- Text/owner/scheme/status filters, sorting, latest-only toggle
-- Expandable detail panel: quant details, eval results table, error logs, GitHub source links
-- Frontend auto-refreshes data every 5 minutes
+- Robust parser traversal for both:
+  - aggregate files like `results_*.json`
+  - per-run folders (`run_*/quant_summary.json`, `accuracy.json`, `session_eval_*.md`, `session_quant_*.md`)
+- Normalized run records with stable dashboard fields:
+  - `owner`, `artifact_name`, `model_id`, `scheme`, `method`
+  - `run_id`, `run_timestamp`, `run_path`, `updated_at`
+  - quant/eval statuses, errors, issues, summary
+  - task list and metrics preview (`piqa`, `mmlu`, `hellaswag` when present)
+  - source URLs to run/session/aggregate artifacts in `WenjiaoYue/lb_eval`
+- Outputs generated to:
+  - `static/data/runs.json`
+  - `static/data/latest.json`
+  - `static/data/summary.json`
+- Dashboard usability improvements:
+  - overview cards (total/latest and quant/eval success/fail)
+  - filters (text, owner, scheme, status)
+  - all runs vs latest-only toggle
+  - sorting by updated/owner/model/artifact
+  - detail side panel with issues, summary, tasks/metrics, source links
+  - stronger status badges for failures/partial runs
 
-## Quick Start
+## Data model
 
-```bash
-npm install
-```
-
-### Option 1: Two terminals (recommended for development)
-
-Terminal 1 — Frontend dev server:
-
-```bash
-npm run dev
-```
-
-Terminal 2 — Data refresh (fetches from GitHub every 5 minutes):
-
-```bash
-npm run parser:watch
-```
-
-### Option 2: Single command
-
-```bash
-npm run start
-```
-
-> Uses `concurrently` to run `vite dev` + `watch_remote.py` together.
-
-## Auto-Update Mechanism
-
-- **Backend**: `watch_remote.py` fetches latest results via GitHub Trees API every 5 minutes, parses and writes to `static/data/`
-- **Frontend**: Page re-fetches JSON every 5 minutes (`cache: 'no-store'`), updates immediately on data change
-
-To adjust the refresh interval (in seconds):
-
-```bash
-python3 parser/watch_remote.py --interval 60 --output-dir ./static/data
-```
-
-## Manual Data Refresh
-
-Fetch from remote once:
-
-```bash
-npm run parser:remote
-```
-
-Parse from a local directory:
-
-```bash
-python3 parser/scan_results.py \
-  --source-root ./source/lb_eval/results \
-  --output-dir ./static/data \
-  --source-repo WenjiaoYue/lb_eval \
-  --source-branch main
-```
-
-## Build Static Site
-
-```bash
-npm run build
-npm run preview
-```
-
-## Data Model
-
-Each record in `runs.json`:
+Each row in `runs.json` follows this shape:
 
 ```json
 {
@@ -96,29 +44,50 @@ Each record in `runs.json`:
   "method": "autoround",
   "run_id": "run_2026-05-09-08-11-52",
   "run_timestamp": "2026-05-09T08:11:52Z",
+  "run_path": "Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-08-11-52",
   "auto_quant_status": "success",
   "auto_eval_status": "failed",
-  "quant_details": { "original_size_mb": 1200, "quantized_size_mb": 600, "..." : "..." },
-  "eval_details": { "task_results": { "piqa": { "accuracy": 0.79 } } },
-  "lm_eval_results": { "results": { "hellaswag": { "acc,none": 0.33, "acc_norm,none": 0.40 } } },
   "quant_errors": [],
-  "eval_errors": [],
+  "eval_errors": ["..."],
+  "issues": ["..."],
+  "summary": "...",
+  "tasks": ["piqa", "hellaswag"],
+  "metrics_preview": { "piqa": 0.79 },
+  "quant_num_gpus": 1,
+  "eval_num_gpus": 1,
+  "session_eval_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/...",
+  "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/...",
+  "aggregate_result_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/...",
   "updated_at": "2026-05-09T08:20:00Z"
 }
 ```
 
-## npm Scripts
+## Local development
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Build static site |
-| `npm run preview` | Preview build output |
-| `npm run parser:remote` | Fetch and parse from GitHub once |
-| `npm run parser:watch` | Periodic fetch (default 300s interval) |
-| `npm run start` | Start frontend + data refresh together |
+```bash
+npm install
+npm run dev
+```
+
+## Refresh data locally
+
+Clone source repo to `source/lb_eval` (or adjust path):
+
+```bash
+python3 parser/scan_results.py \
+  --source-root ./source/lb_eval/results \
+  --output-dir ./static/data \
+  --source-repo WenjiaoYue/lb_eval \
+  --source-branch main
+```
+
+Then run:
+
+```bash
+npm run build
+```
 
 ## GitHub Actions
 
-- `refresh.yml`: Scheduled/manual refresh of `static/data/*.json`
-- `pages.yml`: Build and deploy to GitHub Pages
+- `refresh.yml`: scheduled/manual refresh of `static/data/*.json` from `WenjiaoYue/lb_eval`
+- `pages.yml`: build + deploy static SvelteKit site to GitHub Pages

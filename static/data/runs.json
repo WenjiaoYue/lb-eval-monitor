@@ -398,7 +398,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30/session_quant_292.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-0.6B-MXFP4/results_2026-05-09T13-05-20.294974.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -799,7 +799,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17/session_quant_354.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-0.6B-NVFP4/results_2026-05-09T13-20-49.484536.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -1208,7 +1208,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-07-13-13/session_quant_314.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-07-13-13/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-0.6B-W4A16/results_2026-05-09T07-11-33.873261.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -1609,7 +1609,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-08-11-52/session_quant_333.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-08-11-52/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-0.6B-W4A16/results_2026-05-09T08-10-38.217946.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -2010,7 +2010,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-08-41-55/session_quant_331.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-08-41-55/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-0.6B-W4A16/results_2026-05-09T08-40-22.100034.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -2412,7 +2412,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-09-09-25/session_quant_331.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-09-09-25/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-0.6B-W4A16/results_2026-05-09T09-08-11.119309.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -2811,7 +2811,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/run_2026-05-09-20-35-10/session_quant_353.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/run_2026-05-09-20-35-10/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-1.7B-MXFP4/results_2026-05-09T20-33-54.836309.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -3212,7 +3212,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/run_2026-05-09-21-10-45/session_quant_379.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/run_2026-05-09-21-10-45/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-1.7B-NVFP4/results_2026-05-09T21-08-50.900584.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -3613,7 +3613,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/run_2026-05-09-20-01-49/session_quant_353.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/run_2026-05-09-20-01-49/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-1.7B-W4A16/results_2026-05-09T20-00-14.617547.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -3665,7 +3665,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-MXFP4/run_2026-05-10-11-51-51/session_quant_337.md",
     "lm_eval_results_url": null,
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -4044,7 +4044,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-MXFP4/run_2026-05-11-11-02-50/session_quant_362.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-MXFP4/run_2026-05-11-11-02-50/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-32B-MXFP4/results_2026-05-11T11-02-18.938457.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -4447,7 +4447,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-NVFP4/run_2026-05-09-17-24-31/session_quant_335.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-NVFP4/run_2026-05-09-17-24-31/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-32B-NVFP4/results_2026-05-09T17-07-06.229106.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -4857,7 +4857,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-09-06-22-24/session_quant_296.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-09-06-22-24/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3-32B-W4A16/results_2026-05-09T06-07-49.717162.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -5256,7 +5256,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-09-10-55-21/session_quant_326.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-09-10-55-21/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3.5-2B-W4A16/results_2026-05-09T10-53-39.795594.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -5340,7 +5340,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-MXFP4/run_2026-05-10-05-28-49/session_quant_322.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-MXFP4/run_2026-05-10-05-28-49/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3.5-9B-MXFP4/results_2026-05-10T05-02-35.633678.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -5741,7 +5741,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-08-38-17/session_quant_305.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-08-38-17/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3.5-9B-NVFP4/results_2026-05-10T08-36-03.714320.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -5828,7 +5828,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-09-47-14/session_quant_354.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-09-47-14/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3.5-9B-NVFP4/results_2026-05-10T09-46-40.903389.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "Qwen",
@@ -5911,7 +5911,7 @@
     "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-W4A16/run_2026-05-10-11-29-17/session_quant_281.md",
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-W4A16/run_2026-05-10-11-29-17/lm_eval_results/__root__.openclaw__workspace__quantized__Qwen_Qwen3.5-9B-W4A16__Qwen3.5-9B-w4g128/results_2026-05-10T11-27-05.927182.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "RedHatAI",
@@ -6300,7 +6300,7 @@
     "session_quant_url": null,
     "lm_eval_results_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/RedHatAI/Qwen3-8B-quantized.w4a16-autoround-W4A16/run_2026-05-09-08-52-48/lm_eval_results/RedHatAI__Qwen3-8B-quantized.w4a16/results_2026-05-09T08-47-29.821976.json",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   },
   {
     "owner": "nytopop",
@@ -6349,6 +6349,6 @@
     "session_quant_url": null,
     "lm_eval_results_url": null,
     "aggregate_result_url": null,
-    "updated_at": "2026-05-14T07:08:13Z"
+    "updated_at": "2026-05-14T07:39:44Z"
   }
 ]

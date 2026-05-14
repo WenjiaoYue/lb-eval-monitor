@@ -1,16 +1,16 @@
 {
-  "generated_at": "",
-  "total_runs": 0,
-  "latest_models_count": 0,
+  "generated_at": "2026-05-14T06:48:27Z",
+  "total_runs": 20,
+  "latest_models_count": 15,
   "quant": {
-    "success": 0,
+    "success": 18,
     "failed": 0,
     "running": 0,
-    "unknown": 0
+    "unknown": 2
   },
   "eval": {
-    "success": 0,
-    "failed": 0,
+    "success": 15,
+    "failed": 5,
     "running": 0,
     "unknown": 0
   }

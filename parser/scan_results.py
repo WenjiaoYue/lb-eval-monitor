@@ -3,7 +3,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import tempfile
+import urllib.error
+import urllib.request
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -132,15 +136,19 @@ def metrics_preview_from_accuracy(data: dict[str, Any]) -> dict[str, float | str
 
     if isinstance(data.get("results"), dict):
         candidates.append(data["results"])
+    if isinstance(data.get("tasks"), dict):
+        candidates.append(data["tasks"])
     candidates.append(data)
 
     for blob in candidates:
         if not isinstance(blob, dict):
             continue
         for task in COMMON_TASKS:
+            if task in preview:
+                continue
             task_payload = blob.get(task)
             if isinstance(task_payload, dict):
-                for key in ("acc_norm,none", "acc,none", "acc", "score", "exact_match"):
+                for key in ("accuracy", "acc_norm,none", "acc,none", "acc", "score", "exact_match"):
                     if key in task_payload:
                         preview[task] = task_payload[key]
                         break
@@ -206,6 +214,107 @@ def index_aggregates(results_root: Path) -> dict[str, dict[str, Any]]:
     return lookup
 
 
+def extract_quant_details(quant_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Extract rich quantization details from quant_summary.json."""
+    if not isinstance(quant_data, dict):
+        return None
+    details: dict[str, Any] = {}
+    for key in ("original_size_mb", "quantized_size_mb", "compression_ratio",
+                "duration_seconds", "hf_repo", "export_format", "device",
+                "model_id", "output_dir", "quantized_model_dir"):
+        val = quant_data.get(key)
+        if val is not None and val != "":
+            details[key] = val
+    return details if details else None
+
+
+def extract_eval_details(accuracy_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Extract detailed evaluation results from accuracy.json."""
+    if not isinstance(accuracy_data, dict):
+        return None
+    details: dict[str, Any] = {}
+
+    # Duration
+    dur = accuracy_data.get("duration_seconds")
+    if dur is not None:
+        try:
+            details["duration_seconds"] = float(dur)
+        except (ValueError, TypeError):
+            details["duration_seconds"] = dur
+
+    # Eval framework
+    fw = accuracy_data.get("eval_framework")
+    if fw:
+        details["eval_framework"] = fw
+
+    # Full task results with accuracy + stderr
+    raw_tasks = accuracy_data.get("tasks")
+    if isinstance(raw_tasks, dict):
+        task_results: dict[str, Any] = {}
+        for task_name, task_val in raw_tasks.items():
+            if isinstance(task_val, dict):
+                task_results[task_name] = task_val
+            elif task_val is not None:
+                task_results[task_name] = {"accuracy": task_val}
+        if task_results:
+            details["task_results"] = task_results
+    elif isinstance(raw_tasks, list):
+        # If tasks is a list of strings, no detailed results available
+        pass
+
+    return details if details else None
+
+
+def extract_lm_eval_results(lm_eval_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Extract structured results from lm_eval raw results JSON.
+
+    Returns a dict with:
+      - results: per-task metrics (acc, acc_norm, etc.)
+      - config: model info
+      - metadata: versions, n-shot, timing
+    """
+    if not isinstance(lm_eval_data, dict):
+        return None
+
+    raw_results = lm_eval_data.get("results")
+    if not isinstance(raw_results, dict) or not raw_results:
+        return None
+
+    # Extract per-task metrics, filtering out subtasks (those with " - " prefix in alias)
+    task_metrics: dict[str, dict[str, Any]] = {}
+    for task_name, task_val in raw_results.items():
+        if not isinstance(task_val, dict):
+            continue
+        # Extract metrics we care about
+        entry: dict[str, Any] = {}
+        for key in ("acc,none", "acc_stderr,none", "acc_norm,none", "acc_norm_stderr,none",
+                    "exact_match,none", "exact_match_stderr,none", "alias"):
+            if key in task_val:
+                entry[key] = task_val[key]
+        if entry:
+            task_metrics[task_name] = entry
+
+    if not task_metrics:
+        return None
+
+    output: dict[str, Any] = {"results": task_metrics}
+
+    # Config summary
+    config = lm_eval_data.get("config")
+    if isinstance(config, dict):
+        output["model"] = config.get("model")
+        model_args = config.get("model_args")
+        if isinstance(model_args, dict):
+            output["model_path"] = model_args.get("pretrained")
+
+    # Timing
+    total_time = lm_eval_data.get("total_evaluation_time_seconds")
+    if total_time is not None:
+        output["total_time_seconds"] = total_time
+
+    return output
+
+
 def record_from_run_dir(
     run_dir: Path,
     results_root: Path,
@@ -223,8 +332,12 @@ def record_from_run_dir(
     session_eval_path = sorted(run_dir.glob("session_eval_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
     session_quant_path = sorted(run_dir.glob("session_quant_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
 
+    # Find lm_eval_results JSON
+    lm_eval_results_files = sorted(run_dir.rglob("lm_eval_results/**/results_*.json"), key=lambda p: p.name, reverse=True)
+
     quant_data = read_json(quant_summary_path) if quant_summary_path.exists() else None
     accuracy_data = read_json(accuracy_path) if accuracy_path.exists() else None
+    lm_eval_data = read_json(lm_eval_results_files[0]) if lm_eval_results_files else None
 
     aggregate = aggregate_index.get(str(rel_path)) or aggregate_index.get(run_id) or {}
     aggregate_path = aggregate.get("__aggregate_path")
@@ -272,7 +385,9 @@ def record_from_run_dir(
     tasks: list[str] = []
     if isinstance(accuracy_data, dict):
         raw_tasks = accuracy_data.get("tasks")
-        if isinstance(raw_tasks, list):
+        if isinstance(raw_tasks, dict):
+            tasks = [str(t) for t in raw_tasks.keys()]
+        elif isinstance(raw_tasks, list):
             tasks = [str(t) for t in raw_tasks]
         elif isinstance(accuracy_data.get("results"), dict):
             tasks = [str(k) for k in accuracy_data["results"].keys()]
@@ -288,11 +403,12 @@ def record_from_run_dir(
     eval_rel = (rel_path / session_eval_path[0].name).as_posix() if session_eval_path else None
     quant_rel = (rel_path / session_quant_path[0].name).as_posix() if session_quant_path else None
     aggregate_rel = Path(aggregate_path).relative_to(results_root.parent).as_posix() if aggregate_path else None
+    lm_eval_rel = lm_eval_results_files[0].relative_to(results_root).as_posix() if lm_eval_results_files else None
 
     return {
         "owner": owner,
         "artifact_name": artifact_name,
-        "model_id": first_nonempty(aggregate.get("model_id"), artifact_name),
+        "model_id": first_nonempty(aggregate.get("model_id"), (quant_data or {}).get("model_id") if isinstance(quant_data, dict) else None, artifact_name),
         "scheme": first_nonempty((quant_data or {}).get("scheme") if isinstance(quant_data, dict) else None, aggregate.get("scheme"), "unknown"),
         "method": first_nonempty((quant_data or {}).get("method") if isinstance(quant_data, dict) else None, aggregate.get("method"), "unknown"),
         "run_id": run_id,
@@ -308,8 +424,15 @@ def record_from_run_dir(
         "metrics_preview": metrics_preview,
         "quant_num_gpus": quant_num_gpus,
         "eval_num_gpus": eval_num_gpus,
+        # Quant details from quant_summary.json
+        "quant_details": extract_quant_details(quant_data),
+        # Eval details from accuracy.json
+        "eval_details": extract_eval_details(accuracy_data),
+        # Full lm_eval results (top-level task scores)
+        "lm_eval_results": extract_lm_eval_results(lm_eval_data),
         "session_eval_url": build_file_url(source_repo, source_branch, f"results/{eval_rel}" if eval_rel else None),
         "session_quant_url": build_file_url(source_repo, source_branch, f"results/{quant_rel}" if quant_rel else None),
+        "lm_eval_results_url": build_file_url(source_repo, source_branch, f"results/{lm_eval_rel}" if lm_eval_rel else None),
         "aggregate_result_url": build_file_url(source_repo, source_branch, aggregate_rel),
         "updated_at": updated_at,
     }
@@ -364,6 +487,8 @@ def record_from_aggregate_only(
         "session_quant_url": build_file_url(source_repo, source_branch, aggregate.get("session_quant_path")),
         "aggregate_result_url": build_file_url(source_repo, source_branch, aggregate_rel),
         "updated_at": pick_timestamp(first_nonempty(aggregate.get("updated_at"), aggregate.get("run_timestamp"))),
+        "quant_details": None,
+        "eval_details": None,
     }
 
 
@@ -441,16 +566,121 @@ def scan_results(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Scan lb_eval results into dashboard JSON artifacts")
-    parser.add_argument("--source-root", type=Path, required=True, help="Path to lb_eval/results directory")
+    parser.add_argument("--source-root", type=Path, default=None, help="Path to local lb_eval/results directory")
     parser.add_argument("--output-dir", type=Path, default=Path("static/data"), help="Output directory")
     parser.add_argument("--source-repo", default="WenjiaoYue/lb_eval", help="GitHub source repository")
     parser.add_argument("--source-branch", default="main", help="GitHub source branch")
+    parser.add_argument("--remote", action="store_true", help="Fetch data from GitHub API instead of local directory")
     return parser.parse_args()
+
+
+# ---------------------------------------------------------------------------
+# Remote GitHub fetcher
+# ---------------------------------------------------------------------------
+
+_NEEDED_PATTERNS = re.compile(
+    r"(results_.*\.json$)"
+    r"|(run_[^/]+/quant_summary\.json$)"
+    r"|(run_[^/]+/accuracy\.json$)"
+    r"|(run_[^/]+/session_eval_.*\.md$)"
+    r"|(run_[^/]+/session_quant_.*\.md$)"
+)
+
+
+def _gh_api(url: str, token: str | None = None) -> Any:
+    """Fetch a GitHub API endpoint and return parsed JSON."""
+    headers = {"Accept": "application/vnd.github+json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def _download_raw(repo: str, branch: str, filepath: str, dest: Path, token: str | None = None) -> None:
+    """Download a single file from raw.githubusercontent.com."""
+    url = f"https://raw.githubusercontent.com/{repo}/{branch}/{filepath}"
+    headers: dict[str, str] = {}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(url, headers=headers)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        dest.write_bytes(resp.read())
+
+
+def fetch_remote_results(
+    repo: str,
+    branch: str,
+    results_prefix: str = "results",
+    dest_dir: Path | None = None,
+) -> Path:
+    """Fetch needed files from the remote repo into a local temp directory.
+
+    Returns the path to the local results root (equivalent to --source-root).
+    """
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    tree_url = f"https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1"
+    print(f"Fetching tree from {tree_url} ...")
+    tree_data = _gh_api(tree_url, token)
+    entries = tree_data.get("tree", [])
+
+    # Filter to files under results/ that match needed patterns
+    needed: list[str] = []
+    for entry in entries:
+        path: str = entry.get("path", "")
+        if entry.get("type") != "blob":
+            continue
+        if not path.startswith(f"{results_prefix}/"):
+            continue
+        rel = path[len(results_prefix) + 1:]  # strip "results/"
+        if _NEEDED_PATTERNS.search(rel):
+            needed.append(path)
+
+    print(f"Found {len(needed)} files to download from {repo}")
+
+    if dest_dir is None:
+        dest_dir = Path(tempfile.mkdtemp(prefix="lb_eval_remote_"))
+    results_root = dest_dir / results_prefix
+
+    for i, filepath in enumerate(needed, 1):
+        dest = dest_dir / filepath
+        try:
+            _download_raw(repo, branch, filepath, dest, token)
+        except urllib.error.HTTPError as exc:
+            print(f"  [{i}/{len(needed)}] SKIP {filepath} ({exc.code})")
+            continue
+        if i % 20 == 0 or i == len(needed):
+            print(f"  [{i}/{len(needed)}] downloaded")
+
+    # Ensure run_* directories exist even if empty (so rglob finds them)
+    for entry in entries:
+        path: str = entry.get("path", "")
+        if entry.get("type") != "tree":
+            continue
+        if not path.startswith(f"{results_prefix}/"):
+            continue
+        rel = path[len(results_prefix) + 1:]
+        if re.search(r"run_\d{4}-\d{2}-\d{2}", rel):
+            (dest_dir / path).mkdir(parents=True, exist_ok=True)
+
+    print(f"Remote results cached at {results_root}")
+    return results_root
 
 
 def main() -> int:
     args = parse_args()
-    source_root = args.source_root
+
+    if args.remote:
+        source_root = fetch_remote_results(
+            repo=args.source_repo,
+            branch=args.source_branch,
+        )
+    elif args.source_root is not None:
+        source_root = args.source_root
+    else:
+        raise SystemExit("Either --remote or --source-root must be provided")
+
     if not source_root.exists() or not source_root.is_dir():
         raise SystemExit(f"Source root does not exist or is not a directory: {source_root}")
 

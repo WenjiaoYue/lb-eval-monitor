@@ -34,7 +34,7 @@ const formatDuration = (sec: number | string | undefined) => {
 <section class="panel">
 	<div class="panel-head">
 		<div class="panel-title">
-			<h2>{run.owner} / {run.model_id}</h2>
+			<h2>{#if run.run_path}<a href="https://github.com/XuehaoSun/lb_eval/tree/main/results/{run.run_path}" target="_blank" rel="noreferrer" class="title-link">{run.model_id.includes('/') ? run.model_id : run.owner + ' / ' + run.model_id}</a>{:else}{run.model_id.includes('/') ? run.model_id : run.owner + ' / ' + run.model_id}{/if}</h2>
 			<div class="panel-meta">
 				<StatusBadge status={run.auto_quant_status} /> <span class="meta-label">quant</span>
 				<StatusBadge status={run.auto_eval_status} /> <span class="meta-label">eval</span>
@@ -49,8 +49,8 @@ const formatDuration = (sec: number | string | undefined) => {
 		</button>
 	</div>
 
-	<div class="panel-body" class:single-col={!run.quant_details && !run.eval_details && !run.lm_eval_results && run.tasks.length === 0}>
-		{#if run.quant_details || run.eval_details || run.lm_eval_results || run.tasks.length > 0 || Object.keys(run.metrics_preview).length > 0}
+	<div class="panel-body" class:single-col={!run.quant_details && !run.eval_details && !run.pipeline && run.tasks.length === 0}>
+		{#if run.quant_details || run.eval_details || run.tasks.length > 0 || Object.keys(run.metrics_preview).length > 0}
 		<div class="col">
 			{#if run.quant_details}
 			<div class="card">
@@ -112,39 +112,6 @@ const formatDuration = (sec: number | string | undefined) => {
 				{/if}
 			</div>
 			{/if}
-
-			{#if run.lm_eval_results}
-			<div class="card">
-				<h3>
-					Full Benchmark (lm_eval)
-					{#if run.lm_eval_results.total_time_seconds}
-					<span class="h3-aside">{formatDuration(run.lm_eval_results.total_time_seconds)}</span>
-					{/if}
-					{#if run.lm_eval_results_url}
-					<a href={run.lm_eval_results_url} target="_blank" rel="noreferrer" class="h3-link">View Raw</a>
-					{/if}
-				</h3>
-				{#if run.lm_eval_results.model_path}
-				<div class="eval-meta"><span>Model: <strong>{run.lm_eval_results.model_path}</strong></span></div>
-				{/if}
-				<div class="bench-wrap lm-wrap">
-				<table class="bench">
-					<thead><tr><th>Task</th><th>Acc</th><th>Stderr</th><th>Acc Norm</th><th>Stderr</th></tr></thead>
-					<tbody>
-					{#each Object.entries(run.lm_eval_results.results) as [task, m]}
-					<tr>
-						<td class="task-name">{m.alias || task}</td>
-						<td class="mono">{m['acc,none'] != null ? (m['acc,none'] * 100).toFixed(2) + '%' : '-'}</td>
-						<td class="mono muted">{m['acc_stderr,none'] != null ? '\u00B1' + (m['acc_stderr,none'] * 100).toFixed(2) + '%' : '-'}</td>
-						<td class="mono">{m['acc_norm,none'] != null ? (m['acc_norm,none'] * 100).toFixed(2) + '%' : '-'}</td>
-						<td class="mono muted">{m['acc_norm_stderr,none'] != null ? '\u00B1' + (m['acc_norm_stderr,none'] * 100).toFixed(2) + '%' : '-'}</td>
-					</tr>
-					{/each}
-					</tbody>
-				</table>
-				</div>
-			</div>
-			{/if}
 		</div>
 		{/if}
 
@@ -186,12 +153,43 @@ const formatDuration = (sec: number | string | undefined) => {
 			</div>
 			{/if}
 
+			{#if run.pipeline}
+			<div class="card">
+				<h3>Pipeline Status</h3>
+				<div class="pipeline-timeline">
+					<div class="pipeline-step" class:step-done={run.pipeline.submitted_time} class:step-active={run.pipeline.status === 'pending' && !run.pipeline.triggered_time}>
+						<span class="step-dot"></span>
+						<span class="step-label">Submitted</span>
+						<span class="step-time">{run.pipeline.submitted_time ? formatTime(run.pipeline.submitted_time) : '-'}</span>
+					</div>
+					<div class="pipeline-step" class:step-done={run.pipeline.triggered_time && run.pipeline.status !== 'pending'} class:step-active={run.pipeline.status === 'running' || (run.pipeline.triggered_time && run.pipeline.status === 'pending')}>
+						<span class="step-dot"></span>
+						<span class="step-label">Running</span>
+						<span class="step-time">{run.pipeline.triggered_time ? formatTime(run.pipeline.triggered_time) : '-'}</span>
+					</div>
+					<div class="pipeline-step" class:step-done={run.pipeline.status === 'succeeded'} class:step-failed={run.pipeline.status === 'failed'}>
+						<span class="step-dot"></span>
+						<span class="step-label">{run.pipeline.status === 'failed' ? 'Failed' : 'Succeeded'}</span>
+						<span class="step-time">{run.pipeline.status === 'succeeded' || run.pipeline.status === 'failed' ? formatTime(run.run_timestamp) : '-'}</span>
+					</div>
+				</div>
+				<div class="info-grid" style="margin-top: 0.75rem;">
+					{#if run.pipeline.job_type}<div class="info-item"><span class="info-label">Job Type</span><span class="info-value">{run.pipeline.job_type}</span></div>{/if}
+					{#if run.pipeline.quant_scheme}<div class="info-item"><span class="info-label">Scheme</span><span class="info-value">{run.pipeline.quant_scheme}</span></div>{/if}
+					{#if run.pipeline.hardware}<div class="info-item"><span class="info-label">Hardware</span><span class="info-value">{run.pipeline.hardware} × {run.pipeline.gpu_nums || '?'}</span></div>{/if}
+					{#if run.pipeline.params}<div class="info-item"><span class="info-label">Params</span><span class="info-value">{run.pipeline.params}B</span></div>{/if}
+					{#if run.pipeline.model_weight_gb}<div class="info-item"><span class="info-label">Model Size</span><span class="info-value">{run.pipeline.model_weight_gb} GB</span></div>{/if}
+					{#if run.pipeline.quant_model_size_gb}<div class="info-item"><span class="info-label">Quant Size</span><span class="info-value">{run.pipeline.quant_model_size_gb} GB</span></div>{/if}
+					{#if run.pipeline.ci_run_id}<div class="info-item"><span class="info-label">CI Run</span><span class="info-value">#{run.pipeline.ci_run_id}</span></div>{/if}
+				</div>
+			</div>
+			{/if}
+
 			<div class="card">
 				<h3>Source & Links</h3>
 				<div class="links-row">
 					{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
 					{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Session Quant Log</a>{/if}
-					{#if run.lm_eval_results_url}<a href={run.lm_eval_results_url} target="_blank" rel="noreferrer" class="link-pill">lm_eval Results</a>{/if}
 					{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
 				</div>
 				<div class="run-meta">
@@ -225,6 +223,14 @@ const formatDuration = (sec: number | string | undefined) => {
 	font-size: 1rem;
 	font-weight: 700;
 	color: #fff;
+}
+.title-link {
+	color: #fff;
+	text-decoration: none;
+}
+.title-link:hover {
+	text-decoration: underline;
+	opacity: 0.9;
 }
 .panel-meta {
 	display: flex;
@@ -357,11 +363,6 @@ const formatDuration = (sec: number | string | undefined) => {
 }
 .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-weight: 700; font-size: 0.75rem; color: #0f172a; }
 .muted { color: #94a3b8; font-weight: 400; }
-.lm-wrap { max-height: 360px; overflow-y: auto; }
-.task-name { font-size: 0.75rem; word-break: break-word; }
-.h3-aside { font-size: 0.6875rem; font-weight: 400; color: #94a3b8; }
-.h3-link { font-size: 0.6875rem; font-weight: 600; color: #2563eb; text-decoration: none; }
-.h3-link:hover { text-decoration: underline; }
 
 /* Errors */
 .err-block {
@@ -431,6 +432,54 @@ const formatDuration = (sec: number | string | undefined) => {
 	color: #64748b;
 }
 .run-meta code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.6875rem; color: #334155; background: #f1f5f9; padding: 0.125rem 0.375rem; border-radius: 4px; }
+
+/* Pipeline timeline */
+.pipeline-timeline {
+	display: flex;
+	align-items: flex-start;
+	gap: 0;
+	position: relative;
+}
+.pipeline-step {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+	position: relative;
+}
+.pipeline-step::before {
+	content: '';
+	position: absolute;
+	top: 7px;
+	left: 50%;
+	width: 100%;
+	height: 2px;
+	background: #e5e7eb;
+	z-index: 0;
+}
+.pipeline-step:last-child::before { display: none; }
+.step-dot {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: #e5e7eb;
+	border: 2px solid #d1d5db;
+	position: relative;
+	z-index: 1;
+}
+.step-done .step-dot { background: #10b981; border-color: #059669; }
+.step-active .step-dot { background: #f59e0b; border-color: #d97706; animation: pulse 1.5s infinite; }
+.step-failed .step-dot { background: #ef4444; border-color: #dc2626; }
+.step-label { font-size: 0.6875rem; font-weight: 600; color: #6b7280; text-align: center; }
+.step-done .step-label { color: #059669; }
+.step-active .step-label { color: #d97706; }
+.step-failed .step-label { color: #dc2626; }
+.step-time { font-size: 0.625rem; color: #9ca3af; text-align: center; }
+@keyframes pulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+	50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+}
 
 @media (max-width: 900px) {
 	.panel-body { grid-template-columns: 1fr; }

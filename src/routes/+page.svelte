@@ -2,6 +2,7 @@
 import { base } from '$app/paths';
 import RunDetailPanel from '$lib/components/RunDetailPanel.svelte';
 import StatusBadge from '$lib/components/StatusBadge.svelte';
+import { fetchFromGitHub } from '$lib/fetcher';
 import type { RunRecord, SummaryData } from '$lib/types';
 import { onMount } from 'svelte';
 
@@ -19,6 +20,8 @@ type SortKey = 'updated_at' | 'model_id' | 'artifact_name' | 'owner';
 	});
 
 	let loading = $state(true);
+	let loadingMsg = $state('Initializing...');
+	let fetchError = $state('');
 	let selected = $state<RunRecord | null>(null);
 	let latestOnly = $state(false);
 	let search = $state('');
@@ -43,33 +46,38 @@ tickClock();
 const clockInterval = setInterval(tickClock, 1000);
 (async () => {
 try {
+// Load static JSON first (instant display)
 const [runsRes, latestRes, summaryRes] = await Promise.all([
-fetch(`${base}/data/runs.json`),
-fetch(`${base}/data/latest.json`),
-fetch(`${base}/data/summary.json`)
-]);
-runs = runsRes.ok ? await runsRes.json() : [];
-latest = latestRes.ok ? await latestRes.json() : [];
-summary = summaryRes.ok ? await summaryRes.json() : summary;
-} finally {
-loading = false;
-}
-})();
-
-const interval = setInterval(async () => {
-try {
-const [runsRes, latestRes, summaryRes] = await Promise.all([
-fetch(`${base}/data/runs.json`, { cache: 'no-store' }),
-fetch(`${base}/data/latest.json`, { cache: 'no-store' }),
-fetch(`${base}/data/summary.json`, { cache: 'no-store' })
+	fetch(`${base}/data/runs.json`),
+	fetch(`${base}/data/latest.json`),
+	fetch(`${base}/data/summary.json`)
 ]);
 if (runsRes.ok) runs = await runsRes.json();
 if (latestRes.ok) latest = await latestRes.json();
 if (summaryRes.ok) summary = await summaryRes.json();
-} catch { /* silent retry next interval */ }
-}, 5 * 60 * 1000);
+} catch {
+// Static files not available
+}
+loading = false;
 
-return () => { clearInterval(interval); clearInterval(clockInterval); };
+// Then try to refresh from GitHub API in background
+try {
+const result = await fetchFromGitHub();
+if (result.runs.length > 0) {
+	runs = result.runs;
+	latest = result.latest;
+	summary = result.summary;
+	fetchError = '';
+}
+} catch (e: any) {
+// GitHub API not reachable — static data already displayed
+if (runs.length === 0) {
+	fetchError = e?.message || 'Failed to fetch data';
+}
+}
+})();
+
+return () => { clearInterval(clockInterval); };
 });
 
 const currentRows = $derived(latestOnly ? latest : runs);
@@ -173,7 +181,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 				</div>
 				<div class="hero-pill">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-					Source: WenjiaoYue/lb_eval/results
+					Source: XuehaoSun/lb_eval/results
 				</div>
 			</div>
 		</div>
@@ -309,9 +317,15 @@ return sortAsc ? ' \u2191' : ' \u2193';
 	{#if loading}
 	<div class="loading-state">
 		<div class="spinner"></div>
-		<span>Loading data...</span>
+		<span>{loadingMsg}</span>
 	</div>
 	{:else}
+	{#if fetchError}
+	<div class="error-banner">
+		<span>⚠️ {fetchError}</span>
+		<button onclick={() => location.reload()}>Retry</button>
+	</div>
+	{/if}
 	<div class="results-meta">
 		<span class="results-count">{filteredRows.length} runs</span>
 		{#if statusScope !== 'all'}
@@ -336,6 +350,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 					<th><button type="button" onclick={() => setSort('owner')}>Owner{sortIcon('owner')}</button></th>
 					<th><button type="button" onclick={() => setSort('model_id')}>Model / Artifact{sortIcon('model_id')}</button></th>
 					<th>Scheme</th>
+					<th>Pipeline</th>
 					<th>Quant</th>
 					<th>Eval</th>
 					<th>Errors</th>
@@ -343,7 +358,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 			</thead>
 			<tbody>
 				{#if filteredRows.length === 0}
-				<tr><td colspan="7" class="empty-row">No runs match current filters.</td></tr>
+				<tr><td colspan="8" class="empty-row">No runs match current filters.</td></tr>
 				{:else}
 				{#each filteredRows as run}
 				<tr
@@ -360,6 +375,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 						{/if}
 					</td>
 					<td class="cell-scheme"><span class="scheme-tag">{run.scheme}</span><span class="method-text">{run.method}</span></td>
+					<td><span class="pipeline-badge pipeline-badge--{run.pipeline?.status || 'unknown'}">{run.pipeline?.status || '-'}</span></td>
 					<td><StatusBadge status={run.auto_quant_status} /></td>
 					<td><StatusBadge status={run.auto_eval_status} /></td>
 					<td class="cell-errors">
@@ -759,6 +775,28 @@ return sortAsc ? ' \u2191' : ' \u2193';
 	color: #64748b;
 	font-size: 0.875rem;
 }
+.error-banner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.75rem 1.25rem;
+	margin-bottom: 1rem;
+	background: #fef2f2;
+	border: 1px solid #fecaca;
+	border-radius: 10px;
+	color: #991b1b;
+	font-size: 0.8125rem;
+}
+.error-banner button {
+	padding: 0.35rem 0.75rem;
+	background: #dc2626;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 600;
+}
 .spinner {
 	width: 22px;
 	height: 22px;
@@ -947,6 +985,24 @@ tbody tr.row-failed.active {
 .no-errors {
 	color: #cbd5e1;
 }
+
+/* Pipeline badge */
+.pipeline-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.1875rem 0.5rem;
+	border-radius: 6px;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	text-transform: capitalize;
+	white-space: nowrap;
+}
+.pipeline-badge--pending { background: rgba(99, 102, 241, 0.1); color: #4f46e5; }
+.pipeline-badge--running { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+.pipeline-badge--succeeded { background: rgba(16, 185, 129, 0.1); color: #059669; }
+.pipeline-badge--failed { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+.pipeline-badge--cancelled { background: rgba(107, 114, 128, 0.1); color: #6b7280; }
+.pipeline-badge--unknown { background: rgba(107, 114, 128, 0.06); color: #9ca3af; }
 
 /* ── Responsive ── */
 @media (max-width: 1280px) {

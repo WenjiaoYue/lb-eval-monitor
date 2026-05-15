@@ -265,56 +265,6 @@ def extract_eval_details(accuracy_data: dict[str, Any] | None) -> dict[str, Any]
     return details if details else None
 
 
-def extract_lm_eval_results(lm_eval_data: dict[str, Any] | None) -> dict[str, Any] | None:
-    """Extract structured results from lm_eval raw results JSON.
-
-    Returns a dict with:
-      - results: per-task metrics (acc, acc_norm, etc.)
-      - config: model info
-      - metadata: versions, n-shot, timing
-    """
-    if not isinstance(lm_eval_data, dict):
-        return None
-
-    raw_results = lm_eval_data.get("results")
-    if not isinstance(raw_results, dict) or not raw_results:
-        return None
-
-    # Extract per-task metrics, filtering out subtasks (those with " - " prefix in alias)
-    task_metrics: dict[str, dict[str, Any]] = {}
-    for task_name, task_val in raw_results.items():
-        if not isinstance(task_val, dict):
-            continue
-        # Extract metrics we care about
-        entry: dict[str, Any] = {}
-        for key in ("acc,none", "acc_stderr,none", "acc_norm,none", "acc_norm_stderr,none",
-                    "exact_match,none", "exact_match_stderr,none", "alias"):
-            if key in task_val:
-                entry[key] = task_val[key]
-        if entry:
-            task_metrics[task_name] = entry
-
-    if not task_metrics:
-        return None
-
-    output: dict[str, Any] = {"results": task_metrics}
-
-    # Config summary
-    config = lm_eval_data.get("config")
-    if isinstance(config, dict):
-        output["model"] = config.get("model")
-        model_args = config.get("model_args")
-        if isinstance(model_args, dict):
-            output["model_path"] = model_args.get("pretrained")
-
-    # Timing
-    total_time = lm_eval_data.get("total_evaluation_time_seconds")
-    if total_time is not None:
-        output["total_time_seconds"] = total_time
-
-    return output
-
-
 def record_from_run_dir(
     run_dir: Path,
     results_root: Path,
@@ -332,12 +282,8 @@ def record_from_run_dir(
     session_eval_path = sorted(run_dir.glob("session_eval_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
     session_quant_path = sorted(run_dir.glob("session_quant_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
 
-    # Find lm_eval_results JSON
-    lm_eval_results_files = sorted(run_dir.rglob("lm_eval_results/**/results_*.json"), key=lambda p: p.name, reverse=True)
-
     quant_data = read_json(quant_summary_path) if quant_summary_path.exists() else None
     accuracy_data = read_json(accuracy_path) if accuracy_path.exists() else None
-    lm_eval_data = read_json(lm_eval_results_files[0]) if lm_eval_results_files else None
 
     aggregate = aggregate_index.get(str(rel_path)) or aggregate_index.get(run_id) or {}
     aggregate_path = aggregate.get("__aggregate_path")
@@ -403,7 +349,6 @@ def record_from_run_dir(
     eval_rel = (rel_path / session_eval_path[0].name).as_posix() if session_eval_path else None
     quant_rel = (rel_path / session_quant_path[0].name).as_posix() if session_quant_path else None
     aggregate_rel = Path(aggregate_path).relative_to(results_root.parent).as_posix() if aggregate_path else None
-    lm_eval_rel = lm_eval_results_files[0].relative_to(results_root).as_posix() if lm_eval_results_files else None
 
     return {
         "owner": owner,
@@ -428,11 +373,8 @@ def record_from_run_dir(
         "quant_details": extract_quant_details(quant_data),
         # Eval details from accuracy.json
         "eval_details": extract_eval_details(accuracy_data),
-        # Full lm_eval results (top-level task scores)
-        "lm_eval_results": extract_lm_eval_results(lm_eval_data),
         "session_eval_url": build_file_url(source_repo, source_branch, f"results/{eval_rel}" if eval_rel else None),
         "session_quant_url": build_file_url(source_repo, source_branch, f"results/{quant_rel}" if quant_rel else None),
-        "lm_eval_results_url": build_file_url(source_repo, source_branch, f"results/{lm_eval_rel}" if lm_eval_rel else None),
         "aggregate_result_url": build_file_url(source_repo, source_branch, aggregate_rel),
         "updated_at": updated_at,
     }
@@ -505,6 +447,9 @@ def build_latest(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def build_summary(all_runs: list[dict[str, Any]], latest_runs: list[dict[str, Any]]) -> dict[str, Any]:
     quant_counter = Counter(record.get("auto_quant_status", "unknown") for record in all_runs)
     eval_counter = Counter(record.get("auto_eval_status", "unknown") for record in all_runs)
+    pipeline_counter = Counter(
+        (record.get("pipeline") or {}).get("status", "unknown") for record in all_runs
+    )
     return {
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "total_runs": len(all_runs),
@@ -521,12 +466,204 @@ def build_summary(all_runs: list[dict[str, Any]], latest_runs: list[dict[str, An
             "running": eval_counter.get("running", 0),
             "unknown": eval_counter.get("unknown", 0),
         },
+        "pipeline": {
+            "pending": pipeline_counter.get("pending", 0),
+            "running": pipeline_counter.get("running", 0),
+            "succeeded": pipeline_counter.get("succeeded", 0),
+            "failed": pipeline_counter.get("failed", 0),
+            "cancelled": pipeline_counter.get("cancelled", 0),
+            "unknown": pipeline_counter.get("unknown", 0),
+        },
     }
 
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+# ---------------------------------------------------------------------------
+# Lifecycle / pipeline status (status/, requests/, pending_requests/)
+# ---------------------------------------------------------------------------
+
+def _normalize_pipeline_status(raw_status: str | None) -> str:
+    """Normalize the status field from lifecycle JSON files."""
+    if not raw_status:
+        return "pending"
+    text = raw_status.strip().lower()
+    if text == "finished":
+        return "succeeded"
+    if "fail" in text:
+        return "failed"
+    if text in ("pending", "queued"):
+        return "pending"
+    if text in ("running", "started"):
+        return "running"
+    if "cancel" in text:
+        return "cancelled"
+    return text
+
+
+def _model_key_from_status(data: dict[str, Any]) -> str:
+    """Build a matching key from a status/request file. E.g. 'Qwen/Qwen3-0.6B::MXFP4'"""
+    model = data.get("model", "")
+    scheme = data.get("quant_scheme", "")
+    # Normalize scheme: "INT4 (W4A16)" -> "W4A16"
+    m = re.search(r"\((\w+)\)", scheme)
+    if m:
+        scheme = m.group(1)
+    return f"{model}::{scheme}"
+
+
+def _model_key_from_record(record: dict[str, Any]) -> str:
+    """Build matching key from a run record."""
+    owner = record.get("owner", "")
+    # model_id can be: 'Qwen3-0.6B-autoround-W4A16' or 'Qwen/Qwen3-0.6B' etc.
+    model_id = record.get("model_id", "")
+    scheme = record.get("scheme", "")
+
+    # If model_id already contains owner prefix (e.g. 'Qwen/Qwen3-0.6B'), use it directly
+    if "/" in model_id:
+        base_model = model_id
+    else:
+        # Strip method-scheme suffixes to get base model name
+        base_model = model_id
+        for suffix in (f"-autoround-{scheme}", f"-gptq-{scheme}", f"-awq-{scheme}",
+                       f"-{scheme}", f"_{scheme}"):
+            if base_model.endswith(suffix):
+                base_model = base_model[:-len(suffix)]
+                break
+        base_model = f"{owner}/{base_model}"
+
+    return f"{base_model}::{scheme}"
+
+
+def load_lifecycle_index(repo_root: Path) -> dict[str, dict[str, Any]]:
+    """Load status/, requests/, and pending_requests/ data.
+
+    Returns a dict keyed by model::scheme with merged lifecycle info.
+    Priority: status/ > pending_requests/ > requests/
+    """
+    index: dict[str, dict[str, Any]] = {}
+
+    # Load in priority order (lowest first, higher overwrites)
+    for dirname in ("requests", "pending_requests", "status"):
+        lifecycle_dir = repo_root / dirname
+        if not lifecycle_dir.exists():
+            continue
+        for json_file in lifecycle_dir.rglob("*.json"):
+            data = read_json(json_file)
+            if not isinstance(data, dict):
+                continue
+            key = _model_key_from_status(data)
+            if not key or "::" not in key:
+                continue
+            # Merge: keep all fields, higher priority dirs overwrite
+            if key not in index:
+                index[key] = {}
+            index[key].update(data)
+            index[key]["_lifecycle_dir"] = dirname
+            index[key]["_lifecycle_path"] = str(json_file.relative_to(repo_root))
+
+    return index
+
+
+def extract_pipeline_info(lifecycle_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Extract pipeline status info from a lifecycle record."""
+    if not lifecycle_data:
+        return None
+    info: dict[str, Any] = {}
+
+    status = lifecycle_data.get("status")
+    if status:
+        info["status"] = _normalize_pipeline_status(status)
+
+    for field in ("submitted_time", "triggered_time", "ci_run_id",
+                  "job_type", "quant_scheme", "hardware", "gpu_nums",
+                  "model_weight_gb", "quant_model_size_gb", "params"):
+        val = lifecycle_data.get(field)
+        if val is not None and val != "" and val != -1:
+            info[field] = val
+
+    return info if info else None
+
+
+def records_from_pending_requests(
+    lifecycle_index: dict[str, dict[str, Any]],
+    existing_keys: set[str],
+    source_repo: str,
+    source_branch: str,
+) -> list[dict[str, Any]]:
+    """Create run records for pending jobs that don't have results yet."""
+    pending_records: list[dict[str, Any]] = []
+
+    for key, data in lifecycle_index.items():
+        if key in existing_keys:
+            continue  # Already matched to a result record
+
+        norm_status = _normalize_pipeline_status(data.get("status"))
+        if norm_status == "succeeded":
+            continue  # Finished jobs should have results, skip if not matched
+
+        model = data.get("model", "")
+        parts = model.split("/", 1)
+        owner = parts[0] if len(parts) > 1 else "unknown"
+        base_model = parts[1] if len(parts) > 1 else model
+
+        scheme_raw = data.get("quant_scheme", "unknown")
+        m = re.search(r"\((\w+)\)", scheme_raw)
+        scheme = m.group(1) if m else scheme_raw
+
+        submitted = data.get("submitted_time", "")
+        triggered = data.get("triggered_time")
+
+        # Determine quant/eval status based on pipeline status
+        if norm_status == "pending":
+            quant_status = "running"  # queued = will run
+            eval_status = "unknown"
+        elif norm_status == "running":
+            quant_status = "running"
+            eval_status = "unknown"
+        elif norm_status == "failed":
+            quant_status = "unknown"
+            eval_status = "failed"
+        elif norm_status == "cancelled":
+            quant_status = "unknown"
+            eval_status = "unknown"
+        else:
+            quant_status = "unknown"
+            eval_status = "unknown"
+
+        record: dict[str, Any] = {
+            "owner": owner,
+            "artifact_name": f"{base_model}-{scheme}",
+            "model_id": base_model,
+            "scheme": scheme,
+            "method": "autoround" if "auto_quant" in data.get("script", "") else data.get("script", "unknown"),
+            "run_id": "",
+            "run_timestamp": submitted or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            "run_path": "",
+            "auto_quant_status": quant_status,
+            "auto_eval_status": eval_status,
+            "quant_errors": [],
+            "eval_errors": [],
+            "issues": [],
+            "summary": "",
+            "tasks": [],
+            "metrics_preview": {},
+            "quant_num_gpus": data.get("quant_gpu_nums") or data.get("gpu_nums"),
+            "eval_num_gpus": data.get("eval_gpu_nums") or data.get("gpu_nums"),
+            "quant_details": None,
+            "eval_details": None,
+            "pipeline": extract_pipeline_info(data),
+            "session_eval_url": None,
+            "session_quant_url": None,
+            "aggregate_result_url": None,
+            "updated_at": triggered or submitted or "",
+        }
+        pending_records.append(record)
+
+    return pending_records
 
 
 def scan_results(
@@ -537,11 +674,26 @@ def scan_results(
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
     aggregate_index = index_aggregates(source_root)
 
+    # Load lifecycle data (status/, requests/, pending_requests/)
+    # The repo root is one level above source_root (results/)
+    repo_root = source_root.parent
+    lifecycle_index = load_lifecycle_index(repo_root)
+    print(f"Loaded {len(lifecycle_index)} lifecycle entries from status/requests/pending_requests")
+
     records: list[dict[str, Any]] = []
     seen_run_paths: set[str] = set()
+    matched_lifecycle_keys: set[str] = set()
 
     for run_dir in sorted([p for p in source_root.rglob("run_*") if p.is_dir()]):
         record = record_from_run_dir(run_dir, source_root, aggregate_index, source_repo, source_branch)
+        # Try to match lifecycle data
+        lc_key = _model_key_from_record(record)
+        lc_data = lifecycle_index.get(lc_key)
+        if lc_data:
+            record["pipeline"] = extract_pipeline_info(lc_data)
+            matched_lifecycle_keys.add(lc_key)
+        else:
+            record["pipeline"] = None
         records.append(record)
         seen_run_paths.add(str(record.get("run_path", "")))
 
@@ -551,7 +703,20 @@ def scan_results(
             continue
         if str(candidate.get("run_path", "")) in seen_run_paths:
             continue
+        lc_key = _model_key_from_record(candidate)
+        lc_data = lifecycle_index.get(lc_key)
+        if lc_data:
+            candidate["pipeline"] = extract_pipeline_info(lc_data)
+            matched_lifecycle_keys.add(lc_key)
+        else:
+            candidate["pipeline"] = None
         records.append(candidate)
+
+    # Add records for pending/running jobs that don't have results yet
+    pending = records_from_pending_requests(lifecycle_index, matched_lifecycle_keys, source_repo, source_branch)
+    records.extend(pending)
+    if pending:
+        print(f"Added {len(pending)} pending/queued jobs from requests")
 
     records.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
     latest = build_latest(records)
@@ -568,7 +733,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Scan lb_eval results into dashboard JSON artifacts")
     parser.add_argument("--source-root", type=Path, default=None, help="Path to local lb_eval/results directory")
     parser.add_argument("--output-dir", type=Path, default=Path("static/data"), help="Output directory")
-    parser.add_argument("--source-repo", default="WenjiaoYue/lb_eval", help="GitHub source repository")
+    parser.add_argument("--source-repo", default="XuehaoSun/lb_eval", help="GitHub source repository")
     parser.add_argument("--source-branch", default="main", help="GitHub source branch")
     parser.add_argument("--remote", action="store_true", help="Fetch data from GitHub API instead of local directory")
     return parser.parse_args()
@@ -585,6 +750,9 @@ _NEEDED_PATTERNS = re.compile(
     r"|(run_[^/]+/session_eval_.*\.md$)"
     r"|(run_[^/]+/session_quant_.*\.md$)"
 )
+
+# Prefixes for lifecycle directories (status tracking)
+_LIFECYCLE_PREFIXES = ("status/", "requests/", "pending_requests/")
 
 
 def _gh_api(url: str, token: str | None = None) -> Any:
@@ -631,11 +799,17 @@ def fetch_remote_results(
         path: str = entry.get("path", "")
         if entry.get("type") != "blob":
             continue
-        if not path.startswith(f"{results_prefix}/"):
-            continue
-        rel = path[len(results_prefix) + 1:]  # strip "results/"
-        if _NEEDED_PATTERNS.search(rel):
-            needed.append(path)
+        if path.startswith(f"{results_prefix}/"):
+            # Skip lm_eval_results files
+            if "lm_eval_results" in path:
+                continue
+            rel = path[len(results_prefix) + 1:]  # strip "results/"
+            if _NEEDED_PATTERNS.search(rel):
+                needed.append(path)
+        # Also fetch lifecycle directories (status/, requests/, pending_requests/)
+        elif any(path.startswith(prefix) for prefix in _LIFECYCLE_PREFIXES):
+            if path.endswith(".json"):
+                needed.append(path)
 
     print(f"Found {len(needed)} files to download from {repo}")
 

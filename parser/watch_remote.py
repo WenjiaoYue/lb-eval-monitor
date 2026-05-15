@@ -24,7 +24,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Watch remote repo and refresh data periodically")
     parser.add_argument("--interval", type=int, default=300, help="Refresh interval in seconds (default: 300)")
     parser.add_argument("--output-dir", type=Path, default=Path("static/data"), help="Output directory")
-    parser.add_argument("--source-repo", default="WenjiaoYue/lb_eval", help="GitHub source repository")
+    parser.add_argument("--source-repo", default="XuehaoSun/lb_eval", help="GitHub source repository")
     parser.add_argument("--source-branch", default="main", help="GitHub source branch")
     args = parser.parse_args()
 

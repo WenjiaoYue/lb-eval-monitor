@@ -1,17 +1,25 @@
 {
-  "generated_at": "2026-05-14T08:22:35Z",
-  "total_runs": 20,
-  "latest_models_count": 15,
+  "generated_at": "2026-05-15T07:22:34Z",
+  "total_runs": 28,
+  "latest_models_count": 23,
   "quant": {
     "success": 18,
     "failed": 0,
-    "running": 0,
+    "running": 8,
     "unknown": 2
   },
   "eval": {
     "success": 15,
     "failed": 5,
     "running": 0,
-    "unknown": 0
+    "unknown": 8
+  },
+  "pipeline": {
+    "pending": 8,
+    "running": 0,
+    "succeeded": 13,
+    "failed": 5,
+    "cancelled": 0,
+    "unknown": 2
   }
 }

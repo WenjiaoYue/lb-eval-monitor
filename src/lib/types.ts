@@ -25,21 +25,20 @@ export interface EvalDetails {
 	task_results?: Record<string, TaskResult>;
 }
 
-export interface LmEvalTaskMetrics {
-	'acc,none'?: number;
-	'acc_stderr,none'?: number;
-	'acc_norm,none'?: number;
-	'acc_norm_stderr,none'?: number;
-	'exact_match,none'?: number;
-	'exact_match_stderr,none'?: number;
-	alias?: string;
-}
+export type PipelineStatus = 'pending' | 'running' | 'succeeded' | 'failed' | 'cancelled' | 'unknown';
 
-export interface LmEvalResults {
-	results: Record<string, LmEvalTaskMetrics>;
-	model?: string;
-	model_path?: string;
-	total_time_seconds?: number;
+export interface PipelineInfo {
+	status: PipelineStatus;
+	submitted_time?: string;
+	triggered_time?: string;
+	ci_run_id?: number;
+	job_type?: string;
+	quant_scheme?: string;
+	hardware?: string;
+	gpu_nums?: number;
+	model_weight_gb?: number;
+	quant_model_size_gb?: number;
+	params?: number;
 }
 
 export interface RunRecord {
@@ -63,10 +62,9 @@ export interface RunRecord {
 	eval_num_gpus?: number | string | null;
 	quant_details?: QuantDetails | null;
 	eval_details?: EvalDetails | null;
-	lm_eval_results?: LmEvalResults | null;
+	pipeline?: PipelineInfo | null;
 	session_eval_url?: string | null;
 	session_quant_url?: string | null;
-	lm_eval_results_url?: string | null;
 	aggregate_result_url?: string | null;
 	updated_at: string;
 }
@@ -77,4 +75,5 @@ export interface SummaryData {
 	latest_models_count: number;
 	quant: Record<RunStatus, number>;
 	eval: Record<RunStatus, number>;
+	pipeline?: Record<PipelineStatus, number>;
 }

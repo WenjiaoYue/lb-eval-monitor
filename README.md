@@ -1,6 +1,6 @@
 # lb-eval-monitor (v2)
 
-A static monitoring dashboard for `WenjiaoYue/lb_eval/results`.
+A static monitoring dashboard for `XuehaoSun/lb_eval/results`.
 
 ## Architecture
 
@@ -18,7 +18,7 @@ A static monitoring dashboard for `WenjiaoYue/lb_eval/results`.
   - `run_id`, `run_timestamp`, `run_path`, `updated_at`
   - quant/eval statuses, errors, issues, summary
   - task list and metrics preview (`piqa`, `mmlu`, `hellaswag` when present)
-  - source URLs to run/session/aggregate artifacts in `WenjiaoYue/lb_eval`
+  - source URLs to run/session/aggregate artifacts in `XuehaoSun/lb_eval`
 - Outputs generated to:
   - `static/data/runs.json`
   - `static/data/latest.json`
@@ -55,9 +55,9 @@ Each row in `runs.json` follows this shape:
   "metrics_preview": { "piqa": 0.79 },
   "quant_num_gpus": 1,
   "eval_num_gpus": 1,
-  "session_eval_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/...",
-  "session_quant_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/...",
-  "aggregate_result_url": "https://github.com/WenjiaoYue/lb_eval/blob/main/results/...",
+  "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/...",
+  "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/...",
+  "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/...",
   "updated_at": "2026-05-09T08:20:00Z"
 }
 ```
@@ -77,7 +77,7 @@ Clone source repo to `source/lb_eval` (or adjust path):
 python3 parser/scan_results.py \
   --source-root ./source/lb_eval/results \
   --output-dir ./static/data \
-  --source-repo WenjiaoYue/lb_eval \
+  --source-repo XuehaoSun/lb_eval \
   --source-branch main
 ```
 
@@ -89,5 +89,5 @@ npm run build
 
 ## GitHub Actions
 
-- `refresh.yml`: scheduled/manual refresh of `static/data/*.json` from `WenjiaoYue/lb_eval`
+- `refresh.yml`: scheduled/manual refresh of `static/data/*.json` from `XuehaoSun/lb_eval`
 - `pages.yml`: build + deploy static SvelteKit site to GitHub Pages

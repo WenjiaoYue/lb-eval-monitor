@@ -1,10 +1,850 @@
 [
   {
+    "owner": "ByteDance-Seed",
+    "artifact_name": "Seed-Coder-8B-Base-autoround-W4A16",
+    "model_id": "ByteDance-Seed/Seed-Coder-8B-Base",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-06-39-06",
+    "run_timestamp": "2026-05-21T06:39:06Z",
+    "run_path": "ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/run_2026-05-21-06-39-06",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/ByteDance-Seed_Seed-Coder-8B-Base-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation complete. Here's the summary:",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6839,
+      "mmlu": 0.381,
+      "hellaswag": 0.4039
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 16384.0,
+      "quantized_size_mb": 5893.99,
+      "compression_ratio": 0.36,
+      "duration_seconds": 157.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Seed-Coder-8B-Base-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "ByteDance-Seed/Seed-Coder-8B-Base",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/ByteDance-Seed_Seed-Coder-8B-Base-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/ByteDance-Seed_Seed-Coder-8B-Base-W4A16"
+    },
+    "eval_details": {
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.6839,
+          "accuracy_stderr": 0.0108
+        },
+        "hellaswag": {
+          "accuracy": 0.4039,
+          "accuracy_stderr": 0.0049
+        },
+        "mmlu": {
+          "accuracy": 0.381,
+          "accuracy_stderr": 0.0041
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/run_2026-05-21-06-39-06/session_eval_402.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/run_2026-05-21-06-39-06/session_quant_402.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T03:47:05Z",
+      "triggered_time": "2026-05-21T05:19:02Z",
+      "ci_run_id": 63597,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 16.5,
+      "quant_model_size_gb": 4.12,
+      "params": 8.25
+    }
+  },
+  {
+    "owner": "FrontiersMind",
+    "artifact_name": "Nandi-Mini-150M-Tool-Calling-autoround-W4A16",
+    "model_id": "FrontiersMind/Nandi-Mini-150M-Tool-Calling",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-16-19-41",
+    "run_timestamp": "2026-05-21T16:19:41Z",
+    "run_path": "FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/run_2026-05-21-16-19-41",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/FrontiersMind_Nandi-Mini-150M-Tool-Calling-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation completed successfully. Here's the summary:",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.5331882480957563,
+      "mmlu": 0.2548070075487822,
+      "hellaswag": 0.2605058753236407
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 292.69,
+      "quantized_size_mb": 121.0,
+      "compression_ratio": 0.41,
+      "duration_seconds": 25.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Nandi-Mini-150M-Tool-Calling-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "FrontiersMind/Nandi-Mini-150M-Tool-Calling",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/FrontiersMind_Nandi-Mini-150M-Tool-Calling-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/FrontiersMind_Nandi-Mini-150M-Tool-Calling-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 348.32628995203413,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.5331882480957563,
+          "accuracy_stderr": 0.011640096923563308
+        },
+        "hellaswag": {
+          "accuracy": 0.2605058753236407,
+          "accuracy_stderr": 0.004380136468544087
+        },
+        "mmlu": {
+          "accuracy": 0.2548070075487822,
+          "accuracy_stderr": 0.0036611077780752724
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/run_2026-05-21-16-19-41/session_eval_425.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/run_2026-05-21-16-19-41/session_quant_425.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T03:47:47Z",
+      "triggered_time": "2026-05-21T07:10:02Z",
+      "ci_run_id": 63624,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 0.31,
+      "quant_model_size_gb": 0.07,
+      "params": 0.15
+    }
+  },
+  {
+    "owner": "FrontiersMind",
+    "artifact_name": "Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16",
+    "model_id": "FrontiersMind/Nandi-Mini-600M-Early-Checkpoint",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-19-53-08",
+    "run_timestamp": "2026-05-21T19:53:08Z",
+    "run_path": "FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/run_2026-05-21-19-53-08",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/FrontiersMind_Nandi-Mini-600M-Early-Checkpoint-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "1. The model was quantized using auto_quant with scheme=W4A16 (4-bit weight, 16-bit activation) and export_format=auto_round",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6844396082698585,
+      "mmlu": 0.2852157812277453,
+      "hellaswag": 0.3572993427604063
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "quantized_size_mb": 1163.0,
+      "duration_seconds": 52.48,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "FrontiersMind/Nandi-Mini-600M-Early-Checkpoint",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/FrontiersMind_Nandi-Mini-600M-Early-Checkpoint-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/FrontiersMind_Nandi-Mini-600M-Early-Checkpoint-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 712.1540902850684,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.6844396082698585,
+          "accuracy_stderr": 0.010843119201758775
+        },
+        "mmlu": {
+          "accuracy": 0.2852157812277453,
+          "accuracy_stderr": 0.003790494294674164
+        },
+        "hellaswag": {
+          "accuracy": 0.3572993427604063,
+          "accuracy_stderr": 0.004782246931195002
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/run_2026-05-21-19-53-08/session_eval_352.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/run_2026-05-21-19-53-08/session_quant_352.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T14:20:48Z",
+      "triggered_time": "2026-05-21T18:58:32Z",
+      "ci_run_id": 63673,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 1.29,
+      "quant_model_size_gb": 0.33,
+      "params": 0.65
+    }
+  },
+  {
+    "owner": "Intel",
+    "artifact_name": "Qwen2.5-Omni-7B-int4-AutoRound-autoround-W4A16",
+    "model_id": "Qwen2.5-Omni-7B-int4-AutoRound-autoround-W4A16",
+    "scheme": "unknown",
+    "method": "unknown",
+    "run_id": "run_2026-05-21-16-15-29",
+    "run_timestamp": "2026-05-21T16:15:29Z",
+    "run_path": "Intel/Qwen2.5-Omni-7B-int4-AutoRound-autoround-W4A16/run_2026-05-21-16-15-29",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Intel_Qwen2.5-Omni-7B-int4-AutoRound-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU and memory tuning",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- Summary: `/root/.openclaw/workspace/quantized/runs/Intel_Qwen2.5-Omni-7B-int4-AutoRound-W4A16/accuracy.json`",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.779651795429815,
+      "mmlu": 0.6889332003988036,
+      "hellaswag": 0.5723959370643298
+    },
+    "quant_num_gpus": null,
+    "eval_num_gpus": "1",
+    "quant_details": null,
+    "eval_details": {
+      "duration_seconds": 1763.8229722870165,
+      "eval_framework": "lm_eval+vllm",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.779651795429815,
+          "accuracy_stderr": 0.009670535456853159
+        },
+        "mmlu": {
+          "accuracy": 0.6889332003988036,
+          "accuracy_stderr": 0.0036628983680357125
+        },
+        "hellaswag": {
+          "accuracy": 0.5723959370643298,
+          "accuracy_stderr": 0.00493719975994817
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen2.5-Omni-7B-int4-AutoRound-autoround-W4A16/run_2026-05-21-16-15-29/session_eval_410.md",
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T08:48:31Z",
+      "triggered_time": "2026-05-21T15:29:57Z",
+      "ci_run_id": 63666,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "params": 6.58
+    }
+  },
+  {
+    "owner": "Intel",
+    "artifact_name": "Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-autoround-W4A16",
+    "model_id": "Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-autoround-W4A16",
+    "scheme": "unknown",
+    "method": "unknown",
+    "run_id": "run_2026-05-21-16-53-31",
+    "run_timestamp": "2026-05-21T16:53:31Z",
+    "run_path": "Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-autoround-W4A16/run_2026-05-21-16-53-31",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "failed",
+    "quant_errors": [],
+    "eval_errors": [
+      "evaluation failed before final summary was written"
+    ],
+    "issues": [
+      "evaluation failed before final summary was written",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Intel_Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU and memory tuning",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "**Tool:** `exec` | **Status:** `completed` | **Exit code:** `0`",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": null,
+    "eval_num_gpus": "1",
+    "quant_details": null,
+    "eval_details": null,
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-autoround-W4A16/run_2026-05-21-16-53-31/session_eval_318.md",
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T08:51:36Z",
+      "triggered_time": "2026-05-21T16:35:32Z",
+      "ci_run_id": 63669,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "params": 30.13
+    }
+  },
+  {
+    "owner": "Intel",
+    "artifact_name": "Qwen3.6-27B-int4-AutoRound-autoround-W4A16",
+    "model_id": "Qwen3.6-27B-int4-AutoRound-autoround-W4A16",
+    "scheme": "unknown",
+    "method": "unknown",
+    "run_id": "run_2026-05-21-18-43-45",
+    "run_timestamp": "2026-05-21T18:43:45Z",
+    "run_path": "Intel/Qwen3.6-27B-int4-AutoRound-autoround-W4A16/run_2026-05-21-18-43-45",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "failed",
+    "quant_errors": [],
+    "eval_errors": [
+      "Model architecture Qwen3_5ForConditionalGeneration is not supported by any available vLLM version (tested: 0.8.5, 0.9.1, 0.11.0)",
+      "HF backend OOM: CUDA out of memory (23.08 GiB allocated, 23.53 GiB total). Model requires ~30+ GiB due to AutoRound W4A16 quantization not fitting in 24GB GPU.",
+      "The AutoRound W4A16 quantized model uses Qwen3_5ForConditionalGeneration architecture which is not supported by vLLM and has high GPU memory requirements due to bf16 activation memory"
+    ],
+    "issues": [
+      "Model architecture Qwen3_5ForConditionalGeneration is not supported by any available vLLM version (tested: 0.8.5, 0.9.1, 0.11.0)",
+      "HF backend OOM: CUDA out of memory (23.08 GiB allocated, 23.53 GiB total). Model requires ~30+ GiB due to AutoRound W4A16 quantization not fitting in 24GB GPU.",
+      "The AutoRound W4A16 quantized model uses Qwen3_5ForConditionalGeneration architecture which is not supported by vLLM and has high GPU memory requirements due to bf16 activation memory",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Intel_Qwen3.6-27B-int4-AutoRound-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU and memory tuning",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "| `/root/.../Intel_Qwen3.6-27B-int4-AutoRound-W4A16/accuracy.json` | ✅ Written (failed) |",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": null,
+    "eval_num_gpus": "1",
+    "quant_details": null,
+    "eval_details": {
+      "eval_framework": "manual"
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen3.6-27B-int4-AutoRound-autoround-W4A16/run_2026-05-21-18-43-45/session_eval_329.md",
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T08:56:16Z",
+      "triggered_time": "2026-05-21T16:54:24Z",
+      "ci_run_id": 63670,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "params": 24.89
+    }
+  },
+  {
+    "owner": "Intel",
+    "artifact_name": "Qwen3.6-27B-int4-mlx-AutoRound-autoround-W4A16",
+    "model_id": "Qwen3.6-27B-int4-mlx-AutoRound-autoround-W4A16",
+    "scheme": "unknown",
+    "method": "unknown",
+    "run_id": "run_2026-05-21-18-58-24",
+    "run_timestamp": "2026-05-21T18:58:24Z",
+    "run_path": "Intel/Qwen3.6-27B-int4-mlx-AutoRound-autoround-W4A16/run_2026-05-21-18-58-24",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "failed",
+    "quant_errors": [],
+    "eval_errors": [
+      "HuggingFace hub cache contains only config files (20MB blob) - no model weights downloaded",
+      "The model was exported with mlx format but weights were never fetched to local cache",
+      "Cannot load model: AutoModelForCausalLM.from_pretrained fails because safetensors files are absent",
+      "Both vLLM and HF backends failed: vLLM requires recognized quantization method (auto_round not supported), HF fails with 'quant_method missing' in quantization config",
+      "The model uses a custom AutoRound quantization format incompatible with both vLLM 0.7.3 and transformers 5.9.0"
+    ],
+    "issues": [
+      "HuggingFace hub cache contains only config files (20MB blob) - no model weights downloaded",
+      "The model was exported with mlx format but weights were never fetched to local cache",
+      "Cannot load model: AutoModelForCausalLM.from_pretrained fails because safetensors files are absent",
+      "Both vLLM and HF backends failed: vLLM requires recognized quantization method (auto_round not supported), HF fails with 'quant_method missing' in quantization config",
+      "The model uses a custom AutoRound quantization format incompatible with both vLLM 0.7.3 and transformers 5.9.0",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Intel_Qwen3.6-27B-int4-mlx-AutoRound-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU and memory tuning",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- `/root/.openclaw/workspace/quantized/runs/Intel_Qwen3.6-27B-int4-mlx-AutoRound-W4A16/accuracy.json` — failed status with detailed errors",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": null,
+    "eval_num_gpus": "1",
+    "quant_details": null,
+    "eval_details": {
+      "duration_seconds": 0.0,
+      "eval_framework": "lm_eval+hf"
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen3.6-27B-int4-mlx-AutoRound-autoround-W4A16/run_2026-05-21-18-58-24/session_eval_409.md",
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T08:59:41Z",
+      "triggered_time": "2026-05-21T18:44:33Z",
+      "ci_run_id": 63672,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "params": 37.97
+    }
+  },
+  {
+    "owner": "Intel",
+    "artifact_name": "gemma-4-26B-A4B-it-int4-mixed-AutoRound-autoround-W4A16",
+    "model_id": "gemma-4-26B-A4B-it-int4-mixed-AutoRound-autoround-W4A16",
+    "scheme": "unknown",
+    "method": "unknown",
+    "run_id": "run_2026-05-21-21-23-02",
+    "run_timestamp": "2026-05-21T21:23:02Z",
+    "run_path": "Intel/gemma-4-26B-A4B-it-int4-mixed-AutoRound-autoround-W4A16/run_2026-05-21-21-23-02",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "failed",
+    "quant_errors": [],
+    "eval_errors": [
+      "evaluation failed before final summary was written"
+    ],
+    "issues": [
+      "evaluation failed before final summary was written",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Intel_gemma-4-26B-A4B-it-int4-mixed-AutoRound-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU and memory tuning",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "The evaluation of Intel/gemma-4-26B-A4B-it-int4-mixed-AutoRound (W4A16 quantized) has completed with results:",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": null,
+    "eval_num_gpus": "1",
+    "quant_details": null,
+    "eval_details": null,
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/gemma-4-26B-A4B-it-int4-mixed-AutoRound-autoround-W4A16/run_2026-05-21-21-23-02/session_eval_345.md",
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T08:50:25Z",
+      "triggered_time": "2026-05-21T17:43:34Z",
+      "ci_run_id": 63671,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "params": 26.36
+    }
+  },
+  {
+    "owner": "OBLITERATUS",
+    "artifact_name": "gemma-4-E4B-it-OBLITERATED-autoround-W4A16",
+    "model_id": "OBLITERATUS/gemma-4-E4B-it-OBLITERATED",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-05-18-38",
+    "run_timestamp": "2026-05-21T05:18:38Z",
+    "run_path": "OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/run_2026-05-21-05-18-38",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/OBLITERATUS_gemma-4-E4B-it-OBLITERATED-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- `accuracy.json` — parsed summary",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.5652883569096845,
+      "mmlu": 0.24248682523857001,
+      "hellaswag": 0.28440549691296557
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 15282.63,
+      "quantized_size_mb": 9607.49,
+      "compression_ratio": 0.6287,
+      "duration_seconds": 15.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/gemma-4-E4B-it-OBLITERATED-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "OBLITERATUS/gemma-4-E4B-it-OBLITERATED",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/OBLITERATUS_gemma-4-E4B-it-OBLITERATED-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/OBLITERATUS_gemma-4-E4B-it-OBLITERATED-W4A16/gemma-4-E4B-it-OBLITERATED-w4g128"
+    },
+    "eval_details": {
+      "duration_seconds": 1445.987,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.5652883569096845,
+          "accuracy_stderr": 0.011565943814308907
+        },
+        "mmlu": {
+          "accuracy": 0.24248682523857001,
+          "accuracy_stderr": 0.003610410057966093
+        },
+        "hellaswag": {
+          "accuracy": 0.28440549691296557,
+          "accuracy_stderr": 0.004502088287470376
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/run_2026-05-21-05-18-38/session_eval_369.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/run_2026-05-21-05-18-38/session_quant_369.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T03:33:52Z",
+      "triggered_time": "2026-05-21T04:15:40Z",
+      "ci_run_id": 63594,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 15.99,
+      "quant_model_size_gb": 4.0,
+      "params": 8.0
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen2.5-0.5B-autoround-MXFP4",
+    "model_id": "Qwen/Qwen2.5-0.5B",
+    "scheme": "MXFP4",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-03-49-47",
+    "run_timestamp": "2026-05-20T03:49:47Z",
+    "run_path": "Qwen/Qwen2.5-0.5B-autoround-MXFP4/run_2026-05-20-03-49-47",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen2.5-0.5B-MXFP4/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation complete. Here's the summary:",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6218715995647442,
+      "mmlu": 0.3017376442102265,
+      "hellaswag": 0.33210515833499304
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 942.32,
+      "quantized_size_mb": 441.13,
+      "compression_ratio": 2.14,
+      "duration_seconds": 13.17,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen2.5-0.5B-autoround-MXFP4",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen2.5-0.5B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen2.5-0.5B-MXFP4",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen2.5-0.5B-MXFP4"
+    },
+    "eval_details": {
+      "duration_seconds": 1193.714063206222,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.6218715995647442,
+          "accuracy_stderr": 0.011313980666854472
+        },
+        "mmlu": {
+          "accuracy": 0.3017376442102265,
+          "accuracy_stderr": 0.0038659889626461315
+        },
+        "hellaswag": {
+          "accuracy": 0.33210515833499304,
+          "accuracy_stderr": 0.004700059671374276
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-MXFP4/run_2026-05-20-03-49-47/session_eval_340.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-MXFP4/run_2026-05-20-03-49-47/session_quant_340.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T03:17:49Z",
+      "triggered_time": "2026-05-20T03:18:45Z",
+      "ci_run_id": 63546,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "MXFP4",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 0.99,
+      "quant_model_size_gb": 0.24,
+      "params": 0.49
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen2.5-0.5B-autoround-NVFP4",
+    "model_id": "Qwen/Qwen2.5-0.5B",
+    "scheme": "NVFP4",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-05-33-18",
+    "run_timestamp": "2026-05-20T05:33:18Z",
+    "run_path": "Qwen/Qwen2.5-0.5B-autoround-NVFP4/run_2026-05-20-05-33-18",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen2.5-0.5B-NVFP4/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- Model: Qwen/Qwen2.5-0.5B with NVFP4 quantization (via auto_round)",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6643090315560392,
+      "mmlu": 0.41917105825381,
+      "hellaswag": 0.38020314678350925
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 990.0,
+      "quantized_size_mb": 463.0,
+      "compression_ratio": 2.14,
+      "duration_seconds": 38.49,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen2.5-0.5B-autoround-NVFP4",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen2.5-0.5B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen2.5-0.5B-NVFP4",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen2.5-0.5B-NVFP4"
+    },
+    "eval_details": {
+      "duration_seconds": 1075.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.6643090315560392,
+          "accuracy_stderr": 0.011017938116656379
+        },
+        "mmlu": {
+          "accuracy": 0.41917105825381,
+          "accuracy_stderr": 0.004080242383743432
+        },
+        "hellaswag": {
+          "accuracy": 0.38020314678350925,
+          "accuracy_stderr": 0.004844445265582494
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-NVFP4/run_2026-05-20-05-33-18/session_eval_370.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-NVFP4/run_2026-05-20-05-33-18/session_quant_370.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T04:27:21Z",
+      "triggered_time": "2026-05-20T04:28:22Z",
+      "ci_run_id": 63547,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "NVFP4",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 0.99,
+      "quant_model_size_gb": 0.24,
+      "params": 0.49
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen2.5-0.5B-autoround-W4A16",
+    "model_id": "Qwen/Qwen2.5-0.5B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-19-02-25-49",
+    "run_timestamp": "2026-05-19T02:25:49Z",
+    "run_path": "Qwen/Qwen2.5-0.5B-autoround-W4A16/run_2026-05-19-02-25-49",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen2.5-0.5B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation complete. Here's the summary:",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.675734494015234,
+      "mmlu": 0.4113374163224612,
+      "hellaswag": 0.38946425014937264
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 984.0,
+      "quantized_size_mb": 437.0,
+      "compression_ratio": 0.444,
+      "duration_seconds": 46.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen2.5-0.5B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen2.5-0.5B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen2.5-0.5B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen2.5-0.5B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 467.4746348639892,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.675734494015234,
+          "accuracy_stderr": 0.010921539041347943
+        },
+        "mmlu": {
+          "accuracy": 0.4113374163224612,
+          "accuracy_stderr": 0.004058027594034973
+        },
+        "hellaswag": {
+          "accuracy": 0.38946425014937264,
+          "accuracy_stderr": 0.004866322258335946
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-W4A16/run_2026-05-19-02-25-49/session_eval_371.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-W4A16/run_2026-05-19-02-25-49/session_quant_371.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-19T02:04:23Z",
+      "triggered_time": "2026-05-19T02:04:54Z",
+      "ci_run_id": 63402,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 0.99,
+      "quant_model_size_gb": 0.24,
+      "params": 0.49
+    }
+  },
+  {
     "owner": "Qwen",
     "artifact_name": "Qwen3-0.6B-autoround-MXFP4",
     "model_id": "Qwen/Qwen3-0.6B",
     "scheme": "MXFP4",
-    "method": "RTN",
+    "method": "AutoRound",
     "run_id": "run_2026-05-09-13-07-30",
     "run_timestamp": "2026-05-09T13:07:30Z",
     "run_path": "Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30",
@@ -66,7 +906,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30/session_eval_292.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30/session_quant_292.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T12:39:41Z",
@@ -86,7 +926,7 @@
     "artifact_name": "Qwen3-0.6B-autoround-NVFP4",
     "model_id": "Qwen/Qwen3-0.6B",
     "scheme": "NVFP4",
-    "method": "RTN",
+    "method": "AutoRound",
     "run_id": "run_2026-05-09-13-23-17",
     "run_timestamp": "2026-05-09T13:23:17Z",
     "run_path": "Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17",
@@ -148,7 +988,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17/session_eval_354.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17/session_quant_354.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T12:40:09Z",
@@ -168,7 +1008,7 @@
     "artifact_name": "Qwen3-0.6B-autoround-W4A16",
     "model_id": "Qwen/Qwen3-0.6B",
     "scheme": "W4A16",
-    "method": "RTN",
+    "method": "AutoRound",
     "run_id": "run_2026-05-09-09-09-25",
     "run_timestamp": "2026-05-09T09:09:25Z",
     "run_path": "Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-09-09-25",
@@ -231,7 +1071,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-09-09-25/session_eval_331.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-09-09-25/session_quant_331.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T07:36:17Z",
@@ -244,6 +1084,170 @@
       "model_weight_gb": 1.5,
       "quant_model_size_gb": 0.38,
       "params": 0.75
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3-1.7B-Base-autoround-NVFP4",
+    "model_id": "Qwen/Qwen3-1.7B-Base",
+    "scheme": "NVFP4",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-12-13-19",
+    "run_timestamp": "2026-05-20T12:13:19Z",
+    "run_path": "Qwen/Qwen3-1.7B-Base-autoround-NVFP4/run_2026-05-20-12-13-19",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-1.7B-Base-NVFP4/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation complete. Here's the summary:",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.7143634385201306,
+      "mmlu": 0.5352513886910697,
+      "hellaswag": 0.4673371838279227
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 3371.14,
+      "quantized_size_mb": 1349.83,
+      "compression_ratio": 2.5,
+      "duration_seconds": 53.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Qwen3-1.7B-Base-autoround-NVFP4",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-1.7B-Base",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-1.7B-Base-NVFP4",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-1.7B-Base-NVFP4"
+    },
+    "eval_details": {
+      "duration_seconds": 1941.6793029978871,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.7143634385201306,
+          "accuracy_stderr": 0.010539303948661828
+        },
+        "hellaswag": {
+          "accuracy": 0.4673371838279227,
+          "accuracy_stderr": 0.004979123236507924
+        },
+        "mmlu": {
+          "accuracy": 0.5352513886910697,
+          "accuracy_stderr": 0.004038851930117755
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-NVFP4/run_2026-05-20-12-13-19/session_eval_329.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-NVFP4/run_2026-05-20-12-13-19/session_quant_329.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T10:49:21Z",
+      "triggered_time": "2026-05-20T10:49:55Z",
+      "ci_run_id": 63573,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "NVFP4",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 3.44,
+      "quant_model_size_gb": 0.86,
+      "params": 1.72
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3-1.7B-Base-autoround-W4A16",
+    "model_id": "Qwen/Qwen3-1.7B-Base",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-18-08-21-28",
+    "run_timestamp": "2026-05-18T08:21:28Z",
+    "run_path": "Qwen/Qwen3-1.7B-Base-autoround-W4A16/run_2026-05-18-08-21-28",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-1.7B-Base-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- `accuracy.json` — final summary with task-level metrics",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.7372143634385201,
+      "mmlu": 0.5485685799743626,
+      "hellaswag": 0.4678350926110337
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 3242.49,
+      "quantized_size_mb": 1292.06,
+      "compression_ratio": 2.51,
+      "duration_seconds": 72.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3-1.7B-Base-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-1.7B-Base",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-1.7B-Base-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-1.7B-Base-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 584.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.7372143634385201,
+          "accuracy_stderr": 0.01026935406814087
+        },
+        "hellaswag": {
+          "accuracy": 0.4678350926110337,
+          "accuracy_stderr": 0.00497944603882463
+        },
+        "mmlu": {
+          "accuracy": 0.5485685799743626,
+          "accuracy_stderr": 0.004026369172096781
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-W4A16/run_2026-05-18-08-21-28/session_eval_337.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-W4A16/run_2026-05-18-08-21-28/session_quant_337.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-18T07:58:54Z",
+      "triggered_time": "2026-05-18T07:59:14Z",
+      "ci_run_id": 63342,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 3.44,
+      "quant_model_size_gb": 0.86,
+      "params": 1.72
     }
   },
   {
@@ -311,7 +1315,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/run_2026-05-09-20-35-10/session_eval_353.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/run_2026-05-09-20-35-10/session_quant_353.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T13:37:51Z",
@@ -393,7 +1397,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/run_2026-05-09-21-10-45/session_eval_379.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/run_2026-05-09-21-10-45/session_quant_379.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T13:38:08Z",
@@ -475,7 +1479,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/run_2026-05-09-20-01-49/session_eval_353.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/run_2026-05-09-20-01-49/session_quant_353.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T13:36:23Z",
@@ -492,10 +1496,92 @@
   },
   {
     "owner": "Qwen",
+    "artifact_name": "Qwen3-14B-autoround-W4A16",
+    "model_id": "Qwen/Qwen3-14B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-18-04-59-08",
+    "run_timestamp": "2026-05-18T04:59:08Z",
+    "run_path": "Qwen/Qwen3-14B-autoround-W4A16/run_2026-05-18-04-59-08",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-14B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "**Tool:** `exec` | **Status:** `completed` | **Exit code:** `0`",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.7992383025027203,
+      "mmlu": 0.7542372881355932,
+      "hellaswag": 0.6034654451304521
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 28672.0,
+      "quantized_size_mb": 9525.49,
+      "compression_ratio": 3.01,
+      "duration_seconds": 270.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3-14B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-14B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-14B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-14B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 1457.0794544080272,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.7992383025027203,
+          "accuracy_stderr": 0.009345961674823385
+        },
+        "mmlu": {
+          "accuracy": 0.7542372881355932,
+          "accuracy_stderr": 0.0034268379769745094
+        },
+        "hellaswag": {
+          "accuracy": 0.6034654451304521,
+          "accuracy_stderr": 0.0048817803994990515
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-14B-autoround-W4A16/run_2026-05-18-04-59-08/session_eval_329.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-14B-autoround-W4A16/run_2026-05-18-04-59-08/session_quant_329.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-18T03:09:33Z",
+      "triggered_time": "2026-05-18T03:10:27Z",
+      "ci_run_id": 63298,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 29.54,
+      "quant_model_size_gb": 7.38,
+      "params": 14.77
+    }
+  },
+  {
+    "owner": "Qwen",
     "artifact_name": "Qwen3-32B-autoround-MXFP4",
     "model_id": "Qwen/Qwen3-32B",
     "scheme": "MXFP4",
-    "method": "RTN",
+    "method": "AutoRound",
     "run_id": "run_2026-05-11-11-02-50",
     "run_timestamp": "2026-05-11T11:02:50Z",
     "run_path": "Qwen/Qwen3-32B-autoround-MXFP4/run_2026-05-11-11-02-50",
@@ -535,7 +1621,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-MXFP4/run_2026-05-11-11-02-50/session_eval_362.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-MXFP4/run_2026-05-11-11-02-50/session_quant_362.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "failed",
       "submitted_time": "2026-05-09T12:43:34Z",
@@ -555,7 +1641,7 @@
     "artifact_name": "Qwen3-32B-autoround-NVFP4",
     "model_id": "Qwen/Qwen3-32B",
     "scheme": "NVFP4",
-    "method": "RTN",
+    "method": "AutoRound",
     "run_id": "run_2026-05-09-17-24-31",
     "run_timestamp": "2026-05-09T17:24:31Z",
     "run_path": "Qwen/Qwen3-32B-autoround-NVFP4/run_2026-05-09-17-24-31",
@@ -619,7 +1705,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-NVFP4/run_2026-05-09-17-24-31/session_eval_335.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-NVFP4/run_2026-05-09-17-24-31/session_quant_335.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
       "submitted_time": "2026-05-09T12:42:33Z",
@@ -639,7 +1725,7 @@
     "artifact_name": "Qwen3-32B-autoround-W4A16",
     "model_id": "Qwen/Qwen3-32B",
     "scheme": "W4A16",
-    "method": "RTN",
+    "method": "AutoRound",
     "run_id": "run_2026-05-09-06-22-24",
     "run_timestamp": "2026-05-09T06:22:24Z",
     "run_path": "Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-09-06-22-24",
@@ -710,7 +1796,7 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-09-06-22-24/session_eval_296.md",
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-09-06-22-24/session_quant_296.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "failed",
       "submitted_time": "2026-05-09T03:50:30Z",
@@ -727,13 +1813,416 @@
   },
   {
     "owner": "Qwen",
+    "artifact_name": "Qwen3-4B-Instruct-2507-autoround-W4A16",
+    "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-18-03-46-54",
+    "run_timestamp": "2026-05-18T03:46:54Z",
+    "run_path": "Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/run_2026-05-18-03-46-54",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-Instruct-2507-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "**Tool:** `exec` | **Status:** `completed` | **Exit code:** `0`",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.7573449401523396,
+      "mmlu": 0.6913545079048569,
+      "hellaswag": 0.5113523202549293
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "quantized_size_mb": 2541.5,
+      "duration_seconds": 145.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3-4B-Instruct-2507-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-Instruct-2507-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-4B-Instruct-2507-W4A16"
+    },
+    "eval_details": {
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.7573449401523396,
+          "accuracy_stderr": 0.010002002569708613
+        },
+        "hellaswag": {
+          "accuracy": 0.5113523202549293,
+          "accuracy_stderr": 0.004988495127747521
+        },
+        "mmlu": {
+          "accuracy": 0.6913545079048569,
+          "accuracy_stderr": 0.003670538359703441
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/run_2026-05-18-03-46-54/session_eval_341.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/run_2026-05-18-03-46-54/session_quant_341.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-18T03:08:47Z",
+      "triggered_time": "2026-05-18T03:10:27Z",
+      "ci_run_id": 63297,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 8.04,
+      "quant_model_size_gb": 2.01,
+      "params": 4.02
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3-4B-Thinking-2507-autoround-W4A16",
+    "model_id": "Qwen/Qwen3-4B-Thinking-2507",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-18-04-52-19",
+    "run_timestamp": "2026-05-18T04:52:19Z",
+    "run_path": "Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/run_2026-05-18-04-52-19",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-Thinking-2507-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "## Workflow Summary",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.750272034820457,
+      "mmlu": 0.6625124626121635,
+      "hellaswag": 0.48755228042222665
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "quantized_size_mb": 2542.5,
+      "duration_seconds": 106.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3-4B-Thinking-2507-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-4B-Thinking-2507",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-Thinking-2507-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-4B-Thinking-2507-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 1071.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.750272034820457,
+          "accuracy_stderr": 0.010099232969867361
+        },
+        "mmlu": {
+          "accuracy": 0.6625124626121635,
+          "accuracy_stderr": 0.0037372426690767398
+        },
+        "hellaswag": {
+          "accuracy": 0.48755228042222665,
+          "accuracy_stderr": 0.004988234881206774
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/run_2026-05-18-04-52-19/session_eval_326.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/run_2026-05-18-04-52-19/session_quant_326.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-18T03:09:41Z",
+      "triggered_time": "2026-05-18T03:47:27Z",
+      "ci_run_id": 63305,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 8.04,
+      "quant_model_size_gb": 2.01,
+      "params": 4.02
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3-4B-autoround-W4A16",
+    "model_id": "Qwen/Qwen3-4B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-15-09-27-21",
+    "run_timestamp": "2026-05-15T09:27:21Z",
+    "run_path": "Qwen/Qwen3-4B-autoround-W4A16/run_2026-05-15-09-27-21",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- Summary: `/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-W4A16/accuracy.json`",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.7470076169749728,
+      "mmlu": 0.669341060869565,
+      "hellaswag": 0.5064339950246461
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 7030.0,
+      "quantized_size_mb": 2483.1,
+      "compression_ratio": 2.83,
+      "duration_seconds": 137.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3-4B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-4B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-4B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-4B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 1180.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.7470076169749728,
+          "accuracy_stderr": 0.010142888698862351
+        },
+        "hellaswag": {
+          "accuracy": 0.5064339950246461,
+          "accuracy_stderr": 0.005027515976285671
+        },
+        "mmlu": {
+          "accuracy": 0.669341060869565,
+          "accuracy_stderr": 0.0037595394178916055
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-W4A16/run_2026-05-15-09-27-21/session_eval_350.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-W4A16/run_2026-05-15-09-27-21/session_quant_350.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-15T08:45:01Z",
+      "triggered_time": "2026-05-15T08:45:26Z",
+      "ci_run_id": 63163,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 8.04,
+      "quant_model_size_gb": 2.01,
+      "params": 4.02
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3-8B-autoround-W4A16",
+    "model_id": "Qwen/Qwen3-8B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-18-07-09-56",
+    "run_timestamp": "2026-05-18T07:09:56Z",
+    "run_path": "Qwen/Qwen3-8B-autoround-W4A16/run_2026-05-18-07-09-56",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-8B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "**Summary:**",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.7611534276387377,
+      "mmlu": 0.7104401082466885,
+      "hellaswag": 0.5625373431587333
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "quantized_size_mb": 5827.03,
+      "duration_seconds": 198.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3-8B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3-8B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3-8B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3-8B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 2208.1525200330652,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.7611534276387377,
+          "accuracy_stderr": 0.009948120385337331
+        },
+        "hellaswag": {
+          "accuracy": 0.5625373431587333,
+          "accuracy_stderr": 0.004950598300667601
+        },
+        "mmlu": {
+          "accuracy": 0.7104401082466885,
+          "accuracy_stderr": 0.0035912075631936405
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-8B-autoround-W4A16/run_2026-05-18-07-09-56/session_eval_329.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-8B-autoround-W4A16/run_2026-05-18-07-09-56/session_quant_329.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-18T03:10:03Z",
+      "triggered_time": "2026-05-18T06:15:19Z",
+      "ci_run_id": 63316,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 16.38,
+      "quant_model_size_gb": 4.09,
+      "params": 8.19
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3.5-0.8B-autoround-W4A16",
+    "model_id": "Qwen/Qwen3.5-0.8B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-06-57-37",
+    "run_timestamp": "2026-05-20T06:57:37Z",
+    "run_path": "Qwen/Qwen3.5-0.8B-autoround-W4A16/run_2026-05-20-06-57-37",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-0.8B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- **Summary:** `/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-0.8B-W4A16/accuracy.json`",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6627,
+      "mmlu": 0.4022,
+      "hellaswag": 0.3727
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 1750.0,
+      "quantized_size_mb": 430.0,
+      "compression_ratio": 4.07,
+      "duration_seconds": 70.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Qwen3.5-0.8B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/Qwen3.5-0.8B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-0.8B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3.5-0.8B-W4A16/Qwen3.5-0.8B-w4g128"
+    },
+    "eval_details": {
+      "duration_seconds": 1277.87,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.6627,
+          "accuracy_stderr": 0.011
+        },
+        "hellaswag": {
+          "accuracy": 0.3727,
+          "accuracy_stderr": 0.0048
+        },
+        "mmlu": {
+          "accuracy": 0.4022,
+          "accuracy_stderr": 0.0041
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-W4A16/run_2026-05-20-06-57-37/session_eval_338.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-W4A16/run_2026-05-20-06-57-37/session_quant_338.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T06:20:54Z",
+      "triggered_time": "2026-05-20T06:21:16Z",
+      "ci_run_id": 63556,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 1.75,
+      "quant_model_size_gb": 0.43,
+      "params": 0.87
+    }
+  },
+  {
+    "owner": "Qwen",
     "artifact_name": "Qwen3.5-2B-autoround-W4A16",
     "model_id": "Qwen/Qwen3.5-2B",
     "scheme": "W4A16",
     "method": "AutoRound",
-    "run_id": "run_2026-05-09-10-55-21",
-    "run_timestamp": "2026-05-09T10:55:21Z",
-    "run_path": "Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-09-10-55-21",
+    "run_id": "run_2026-05-20-09-55-10",
+    "run_timestamp": "2026-05-20T09:55:10Z",
+    "run_path": "Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-20-09-55-10",
     "auto_quant_status": "success",
     "auto_eval_status": "success",
     "quant_errors": [],
@@ -746,23 +2235,25 @@
       "Handling OOM errors** with multi-GPU suggestions",
       "### Common Errors and Solutions"
     ],
-    "summary": "### Results Summary — `Qwen/Qwen3.5-2B` (W4A16, auto_round)",
+    "summary": "Evaluation complete. Here's a summary:",
     "tasks": [
       "piqa",
       "hellaswag",
       "mmlu"
     ],
     "metrics_preview": {
-      "piqa": 0.4951,
-      "mmlu": 0.2295,
-      "hellaswag": 0.2504
+      "piqa": 0.495103,
+      "mmlu": 0.229454,
+      "hellaswag": 0.250448
     },
     "quant_num_gpus": "1",
     "eval_num_gpus": "1",
     "quant_details": {
-      "quantized_size_mb": 2335,
-      "duration_seconds": 1616.38,
-      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3.5-2B-autoround-W4A16",
+      "original_size_mb": 4900.0,
+      "quantized_size_mb": 2314.0,
+      "compression_ratio": 0.461,
+      "duration_seconds": 777.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Qwen3.5-2B-autoround-W4A16",
       "export_format": "auto_round",
       "device": "cuda",
       "model_id": "Qwen/Qwen3.5-2B",
@@ -770,32 +2261,32 @@
       "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3.5-2B-W4A16"
     },
     "eval_details": {
-      "duration_seconds": 1042.0,
+      "duration_seconds": 641.7698871158063,
       "eval_framework": "lm_eval+hf",
       "task_results": {
         "piqa": {
-          "accuracy": 0.4951,
+          "accuracy": 0.495103,
           "accuracy_stderr": 0.011665
         },
         "hellaswag": {
-          "accuracy": 0.2504,
+          "accuracy": 0.250448,
           "accuracy_stderr": 0.004324
         },
         "mmlu": {
-          "accuracy": 0.2295,
+          "accuracy": 0.229454,
           "accuracy_stderr": 0.003543
         }
       }
     },
-    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-09-10-55-21/session_eval_326.md",
-    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-09-10-55-21/session_quant_326.md",
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-20-09-55-10/session_eval_422.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-20-09-55-10/session_quant_422.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
-      "submitted_time": "2026-05-09T09:44:22Z",
-      "triggered_time": "2026-05-09T09:45:19Z",
-      "ci_run_id": 61618,
+      "submitted_time": "2026-05-20T08:24:16Z",
+      "triggered_time": "2026-05-20T08:24:39Z",
+      "ci_run_id": 63571,
       "job_type": "quantization & evaluation",
       "quant_scheme": "INT4 (W4A16)",
       "hardware": "NVIDIA GeForce RTX 4090",
@@ -807,104 +2298,22 @@
   },
   {
     "owner": "Qwen",
-    "artifact_name": "Qwen3.5-9B-autoround-MXFP4",
-    "model_id": "Qwen/Qwen3.5-9B",
-    "scheme": "MXFP4",
+    "artifact_name": "Qwen3.6-35B-A3B-autoround-W4A16",
+    "model_id": "Qwen/Qwen3.6-35B-A3B",
+    "scheme": "W4A16",
     "method": "AutoRound",
-    "run_id": "run_2026-05-10-05-28-49",
-    "run_timestamp": "2026-05-10T05:28:49Z",
-    "run_path": "Qwen/Qwen3.5-9B-autoround-MXFP4/run_2026-05-10-05-28-49",
-    "auto_quant_status": "success",
-    "auto_eval_status": "success",
-    "quant_errors": [],
-    "eval_errors": [],
-    "issues": [
-      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-MXFP4/accuracy.json before exiting non-zero, also atomically.",
-      "\"status\": \"success\" or \"failed\",",
-      "\"errors\": [<list of error strings if any>]",
-      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
-      "Handling OOM errors** with multi-GPU suggestions",
-      "### Common Errors and Solutions"
-    ],
-    "summary": "- **`/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-MXFP4/accuracy.json`** — final evaluation summary",
-    "tasks": [
-      "piqa",
-      "mmlu",
-      "hellaswag"
-    ],
-    "metrics_preview": {
-      "piqa": 0.46,
-      "mmlu": 0.23789473684210527,
-      "hellaswag": 0.26
-    },
-    "quant_num_gpus": "1",
-    "eval_num_gpus": "1",
-    "quant_details": {
-      "original_size_mb": 18411.84,
-      "quantized_size_mb": 8721.24,
-      "compression_ratio": 2.11,
-      "duration_seconds": 194.0,
-      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3.5-9B-autoround-MXFP4",
-      "export_format": "auto_round",
-      "device": "cuda",
-      "model_id": "Qwen/Qwen3.5-9B",
-      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-MXFP4",
-      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3.5-9B-MXFP4"
-    },
-    "eval_details": {
-      "duration_seconds": 0.0,
-      "eval_framework": "lm_eval+hf",
-      "task_results": {
-        "piqa": {
-          "accuracy": 0.46,
-          "accuracy_stderr": null
-        },
-        "mmlu": {
-          "accuracy": 0.23789473684210527,
-          "accuracy_stderr": null
-        },
-        "hellaswag": {
-          "accuracy": 0.26,
-          "accuracy_stderr": null
-        }
-      }
-    },
-    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-MXFP4/run_2026-05-10-05-28-49/session_eval_322.md",
-    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-MXFP4/run_2026-05-10-05-28-49/session_quant_322.md",
-    "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
-    "pipeline": {
-      "status": "succeeded",
-      "submitted_time": "2026-05-09T13:42:24Z",
-      "triggered_time": "2026-05-09T21:46:34Z",
-      "ci_run_id": 61628,
-      "job_type": "quantization & evaluation",
-      "quant_scheme": "MXFP4",
-      "hardware": "NVIDIA GeForce RTX 4090",
-      "gpu_nums": 1,
-      "model_weight_gb": 19.31,
-      "quant_model_size_gb": 4.83,
-      "params": 9.65
-    }
-  },
-  {
-    "owner": "Qwen",
-    "artifact_name": "Qwen3.5-9B-autoround-NVFP4",
-    "model_id": "Qwen/Qwen3.5-9B",
-    "scheme": "NVFP4",
-    "method": "AutoRound",
-    "run_id": "run_2026-05-10-09-47-14",
-    "run_timestamp": "2026-05-10T09:47:14Z",
-    "run_path": "Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-09-47-14",
+    "run_id": "run_2026-05-21-15-19-21",
+    "run_timestamp": "2026-05-21T15:19:21Z",
+    "run_path": "Qwen/Qwen3.6-35B-A3B-autoround-W4A16/run_2026-05-21-15-19-21",
     "auto_quant_status": "success",
     "auto_eval_status": "failed",
     "quant_errors": [],
     "eval_errors": [
-      "hellaswag not yet completed"
+      "evaluation failed before final summary was written"
     ],
     "issues": [
-      "hellaswag not yet completed",
-      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-NVFP4/accuracy.json before exiting non-zero, also atomically.",
+      "evaluation failed before final summary was written",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.6-35B-A3B-W4A16/accuracy.json before exiting non-zero, also atomically.",
       "\"status\": \"success\" or \"failed\",",
       "\"errors\": [<list of error strings if any>]",
       "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
@@ -912,145 +2321,282 @@
       "### Common Errors and Solutions"
     ],
     "summary": "**Tool:** `exec` | **Status:** `completed` | **Exit code:** `0`",
-    "tasks": [
-      "piqa",
-      "mmlu",
-      "hellaswag"
-    ],
-    "metrics_preview": {
-      "piqa": 0.49510337323177367,
-      "mmlu": 0.22945449366187154,
-      "hellaswag": null
-    },
+    "tasks": [],
+    "metrics_preview": {},
     "quant_num_gpus": "1",
     "eval_num_gpus": "1",
     "quant_details": {
-      "original_size_mb": 19310.0,
-      "quantized_size_mb": 8800.0,
-      "compression_ratio": 2.19,
-      "duration_seconds": 443.0,
-      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3.5-9B-autoround-NVFP4",
+      "original_size_mb": 71680.0,
+      "quantized_size_mb": 18652.6,
+      "compression_ratio": 3.84,
+      "duration_seconds": 1275.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Qwen3.6-35B-A3B-autoround-W4A16",
       "export_format": "auto_round",
       "device": "cuda",
-      "model_id": "Qwen/Qwen3.5-9B",
-      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-NVFP4",
-      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3.5-9B-NVFP4"
+      "model_id": "Qwen/Qwen3.6-35B-A3B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.6-35B-A3B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3.6-35B-A3B-W4A16"
     },
-    "eval_details": {
-      "duration_seconds": 0.0,
-      "eval_framework": "lm_eval+hf",
-      "task_results": {
-        "piqa": {
-          "accuracy": 0.49510337323177367,
-          "accuracy_stderr": 0.011665264730078137
-        },
-        "mmlu": {
-          "accuracy": 0.22945449366187154,
-          "accuracy_stderr": 0.00354269136928236
-        },
-        "hellaswag": {
-          "accuracy": null,
-          "accuracy_stderr": null
-        }
-      }
-    },
-    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-09-47-14/session_eval_354.md",
-    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-NVFP4/run_2026-05-10-09-47-14/session_quant_354.md",
+    "eval_details": null,
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-35B-A3B-autoround-W4A16/run_2026-05-21-15-19-21/session_eval_348.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-35B-A3B-autoround-W4A16/run_2026-05-21-15-19-21/session_quant_348.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "failed",
-      "submitted_time": "2026-05-09T13:41:15Z",
-      "triggered_time": "2026-05-10T05:51:47Z",
-      "ci_run_id": 61631,
+      "submitted_time": "2026-05-21T03:49:09Z",
+      "triggered_time": "2026-05-21T08:20:38Z",
+      "ci_run_id": 63637,
       "job_type": "quantization & evaluation",
-      "quant_scheme": "NVFP4",
+      "quant_scheme": "INT4 (W4A16)",
       "hardware": "NVIDIA GeForce RTX 4090",
       "gpu_nums": 1,
-      "model_weight_gb": 19.31,
-      "quant_model_size_gb": 4.83,
-      "params": 9.65
+      "model_weight_gb": 71.9,
+      "quant_model_size_gb": 17.98,
+      "params": 35.95
     }
   },
   {
     "owner": "Qwen",
-    "artifact_name": "Qwen3.5-9B-autoround-W4A16",
-    "model_id": "Qwen/Qwen3.5-9B",
+    "artifact_name": "WebWorld-14B-autoround-W4A16",
+    "model_id": "Qwen/WebWorld-14B",
     "scheme": "W4A16",
-    "method": "RTN",
-    "run_id": "run_2026-05-10-11-29-17",
-    "run_timestamp": "2026-05-10T11:29:17Z",
-    "run_path": "Qwen/Qwen3.5-9B-autoround-W4A16/run_2026-05-10-11-29-17",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-19-07-54-33",
+    "run_timestamp": "2026-05-19T07:54:33Z",
+    "run_path": "Qwen/WebWorld-14B-autoround-W4A16/run_2026-05-19-07-54-33",
     "auto_quant_status": "success",
     "auto_eval_status": "success",
     "quant_errors": [],
     "eval_errors": [],
     "issues": [
-      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_WebWorld-14B-W4A16/accuracy.json before exiting non-zero, also atomically.",
       "\"status\": \"success\" or \"failed\",",
       "\"errors\": [<list of error strings if any>]",
       "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
       "Handling OOM errors** with multi-GPU suggestions",
       "### Common Errors and Solutions"
     ],
-    "summary": "**Evaluation note:** `--limit 500` was used per task (MMLU has 14 sub-categories + aggregated; piqa and hellaswag run full eval). The piqa and hellaswag numbers look degraded due to the quantization format mismatch — the model was exported with auto_round but the HF backend falls",
+    "summary": "- vLLM was temporarily installed (0.6.7) but is not compatible with the current vLLM/transformers/cuda combo. HF backend completed successfully.",
     "tasks": [
       "piqa",
-      "mmlu",
-      "hellaswag"
+      "hellaswag",
+      "mmlu"
     ],
     "metrics_preview": {
-      "piqa": 0.494,
-      "mmlu": 0.22812782387250471,
-      "hellaswag": 0.264
+      "piqa": 0.8003264417845484,
+      "mmlu": 0.744195983478137,
+      "hellaswag": 0.5934076877116112
     },
     "quant_num_gpus": "1",
     "eval_num_gpus": "1",
     "quant_details": {
-      "original_size_mb": 19310.0,
-      "quantized_size_mb": 8367.0,
-      "compression_ratio": 2.31,
-      "duration_seconds": 238.0,
-      "hf_repo": "https://huggingface.co/lvkaokao/Qwen3.5-9B-autoround-W4A16",
+      "quantized_size_mb": 9400.0,
+      "duration_seconds": 30.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/WebWorld-14B-autoround-W4A16",
       "export_format": "auto_round",
       "device": "cuda",
-      "model_id": "Qwen/Qwen3.5-9B",
-      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_Qwen3.5-9B-W4A16",
-      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_Qwen3.5-9B-W4A16"
+      "model_id": "Qwen/WebWorld-14B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_WebWorld-14B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_WebWorld-14B-W4A16"
     },
     "eval_details": {
+      "duration_seconds": 3986.7064625299536,
       "eval_framework": "lm_eval+hf",
       "task_results": {
         "piqa": {
-          "accuracy": 0.494,
-          "accuracy_stderr": 0.022381462412439424
-        },
-        "mmlu": {
-          "accuracy": 0.22812782387250471,
-          "accuracy_stderr": 0.0037964474266302794
+          "accuracy": 0.8003264417845484,
+          "accuracy_stderr": 0.009326942154519157
         },
         "hellaswag": {
-          "accuracy": 0.264,
-          "accuracy_stderr": 0.01973288558592215
+          "accuracy": 0.5934076877116112,
+          "accuracy_stderr": 0.004901936511546001
+        },
+        "mmlu": {
+          "accuracy": 0.744195983478137,
+          "accuracy_stderr": 0.0034510384818100645
         }
       }
     },
-    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-W4A16/run_2026-05-10-11-29-17/session_eval_281.md",
-    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-9B-autoround-W4A16/run_2026-05-10-11-29-17/session_quant_281.md",
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-14B-autoround-W4A16/run_2026-05-19-07-54-33/session_eval_398.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-14B-autoround-W4A16/run_2026-05-19-07-54-33/session_quant_398.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
       "status": "succeeded",
-      "submitted_time": "2026-05-09T13:41:58Z",
-      "triggered_time": "2026-05-10T08:38:45Z",
-      "ci_run_id": 61632,
+      "submitted_time": "2026-05-19T03:06:46Z",
+      "triggered_time": "2026-05-19T05:29:11Z",
+      "ci_run_id": 63439,
       "job_type": "quantization & evaluation",
       "quant_scheme": "INT4 (W4A16)",
       "hardware": "NVIDIA GeForce RTX 4090",
       "gpu_nums": 1,
-      "model_weight_gb": 19.31,
-      "quant_model_size_gb": 4.83,
-      "params": 9.65
+      "model_weight_gb": 29.54,
+      "quant_model_size_gb": 7.38,
+      "params": 14.77
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "WebWorld-32B-autoround-W4A16",
+    "model_id": "Qwen/WebWorld-32B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-15-13-55-38",
+    "run_timestamp": "2026-05-15T13:55:38Z",
+    "run_path": "Qwen/WebWorld-32B-autoround-W4A16/run_2026-05-15-13-55-38",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_WebWorld-32B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "This 32B model (W4A16 quantization) loaded 18.12 GiB of weights, leaving only 0.28 GiB (~1136 tokens) for KV cache on a single 24GB GPU. The max_model_len was constrained to 128 tokens to complete evaluation, meaning many context windows were truncated (as visible in thousands of",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.8030467899891186,
+      "mmlu": 0.7743198974505057,
+      "hellaswag": 0.6192989444333798
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 65536.0,
+      "quantized_size_mb": 19325.48,
+      "compression_ratio": 0.295,
+      "duration_seconds": 864.32,
+      "hf_repo": "https://huggingface.co/lvkaokao/WebWorld-32B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/WebWorld-32B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_WebWorld-32B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_WebWorld-32B-W4A16/WebWorld-32B-w4g128"
+    },
+    "eval_details": {
+      "duration_seconds": 5364.0,
+      "eval_framework": "lm_eval+vllm",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.8030467899891186,
+          "accuracy_stderr": 0.009278918898006477
+        },
+        "hellaswag": {
+          "accuracy": 0.6192989444333798,
+          "accuracy_stderr": 0.0048456687991085875
+        },
+        "mmlu": {
+          "accuracy": 0.7743198974505057,
+          "accuracy_stderr": 0.003312453282051694
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-32B-autoround-W4A16/run_2026-05-15-13-55-38/session_eval_331.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-32B-autoround-W4A16/run_2026-05-15-13-55-38/session_quant_331.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-15T08:45:50Z",
+      "triggered_time": "2026-05-15T10:05:08Z",
+      "ci_run_id": 63192,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 65.52,
+      "quant_model_size_gb": 16.38,
+      "params": 32.76
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "WebWorld-8B-autoround-W4A16",
+    "model_id": "Qwen/WebWorld-8B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-19-05-44-27",
+    "run_timestamp": "2026-05-19T05:44:27Z",
+    "run_path": "Qwen/WebWorld-8B-autoround-W4A16/run_2026-05-19-05-44-27",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [
+      "mmlu: not evaluated (incomplete run)",
+      "hellaswag: limited to 500 samples (out of ~10000)"
+    ],
+    "issues": [
+      "mmlu: not evaluated (incomplete run)",
+      "hellaswag: limited to 500 samples (out of ~10000)",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Qwen_WebWorld-8B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Home-page: https://github.com/EleutherAI/lm-evaluation-harness",
+    "tasks": [
+      "piqa",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.778563656147987,
+      "hellaswag": 0.526
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 16000.0,
+      "quantized_size_mb": 5827.03,
+      "compression_ratio": 2.75,
+      "duration_seconds": 161.0,
+      "hf_repo": "https://huggingface.co/lvkaokao/WebWorld-8B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Qwen/WebWorld-8B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Qwen_WebWorld-8B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Qwen_WebWorld-8B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 4442.478533744812,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.778563656147987,
+          "accuracy_stderr": 0.009687616456840284
+        },
+        "hellaswag": {
+          "accuracy": 0.526,
+          "accuracy_stderr": 0.022352791650914174
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-8B-autoround-W4A16/run_2026-05-19-05-44-27/session_eval_352.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-8B-autoround-W4A16/run_2026-05-19-05-44-27/session_quant_352.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-19T02:44:40Z",
+      "triggered_time": "2026-05-19T02:45:24Z",
+      "ci_run_id": 63416,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 16.38,
+      "quant_model_size_gb": 4.09,
+      "params": 8.19
     }
   },
   {
@@ -1108,192 +2654,143 @@
     "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/RedHatAI/Qwen3-8B-quantized.w4a16-autoround-W4A16/run_2026-05-09-08-52-48/session_eval_353.md",
     "session_quant_url": null,
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
-    "pipeline": null
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-09T07:54:36Z",
+      "triggered_time": "2026-05-09T07:55:15Z",
+      "ci_run_id": 61584,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "params": 12.2
+    }
   },
   {
-    "owner": "nytopop",
-    "artifact_name": "Qwen3-32B.w4a16-autoround-W4A16",
-    "model_id": "Qwen3-32B.w4a16-autoround-W4A16",
+    "owner": "RedHatAI",
+    "artifact_name": "Qwen3.5-9B-quantized.w4a16-autoround-W4A16",
+    "model_id": "Qwen3.5-9B-quantized.w4a16-autoround-W4A16",
     "scheme": "unknown",
     "method": "unknown",
-    "run_id": "run_2026-05-09-07-46-32",
-    "run_timestamp": "2026-05-09T07:46:32Z",
-    "run_path": "nytopop/Qwen3-32B.w4a16-autoround-W4A16/run_2026-05-09-07-46-32",
+    "run_id": "run_2026-05-19-05-28-59",
+    "run_timestamp": "2026-05-19T05:28:59Z",
+    "run_path": "RedHatAI/Qwen3.5-9B-quantized.w4a16-autoround-W4A16/run_2026-05-19-05-28-59",
     "auto_quant_status": "unknown",
     "auto_eval_status": "failed",
     "quant_errors": [],
     "eval_errors": [
-      "CUDA out of memory: Tried to allocate 80.00 MiB but GPU has 22.04 GiB total capacity with 21.96 GiB already in use",
-      "Model requires approximately 76GB for bf16 decompression but only 22GB available",
-      "Compressed tensors W4A16 quantization with Qwen3-32B cannot be evaluated on RTX 4090 22GB",
-      "Both HF backend (compressed_tensors meta tensor issue) and vLLM backend (OOM during model loading) fail",
-      "vLLM falls back to Transformers backend which decompresses int4 weights to bf16 requiring 76GB memory"
+      "Disk space exhausted during lm_eval model loading",
+      "Model verified working via direct transformers API",
+      "Free disk: 9.7GB, needed: ~25GB. Model: 14.3GB + datasets cache exceeds available space"
     ],
     "issues": [
-      "CUDA out of memory: Tried to allocate 80.00 MiB but GPU has 22.04 GiB total capacity with 21.96 GiB already in use",
-      "Model requires approximately 76GB for bf16 decompression but only 22GB available",
-      "Compressed tensors W4A16 quantization with Qwen3-32B cannot be evaluated on RTX 4090 22GB",
-      "Both HF backend (compressed_tensors meta tensor issue) and vLLM backend (OOM during model loading) fail",
-      "vLLM falls back to Transformers backend which decompresses int4 weights to bf16 requiring 76GB memory",
-      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/nytopop_Qwen3-32B.w4a16-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "Disk space exhausted during lm_eval model loading",
+      "Model verified working via direct transformers API",
+      "Free disk: 9.7GB, needed: ~25GB. Model: 14.3GB + datasets cache exceeds available space",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/RedHatAI_Qwen3.5-9B-quantized.w4a16-W4A16/accuracy.json before exiting non-zero, also atomically.",
       "\"status\": \"success\" or \"failed\",",
       "\"errors\": [<list of error strings if any>]",
       "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
       "Handling OOM errors** with multi-GPU and memory tuning",
       "### Common Errors and Solutions"
     ],
-    "summary": "The evaluation of `nytopop/Qwen3-32B.w4a16` has **failed** due to a fundamental GPU memory limitation.",
+    "summary": "Home-page: https://github.com/vllm-project/vllm",
     "tasks": [],
     "metrics_preview": {},
     "quant_num_gpus": null,
     "eval_num_gpus": "1",
     "quant_details": null,
     "eval_details": {
-      "duration_seconds": 0.0,
-      "eval_framework": "lm_eval+vllm"
+      "eval_framework": "lm_eval"
     },
-    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/nytopop/Qwen3-32B.w4a16-autoround-W4A16/run_2026-05-09-07-46-32/session_eval_330.md",
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/RedHatAI/Qwen3.5-9B-quantized.w4a16-autoround-W4A16/run_2026-05-19-05-28-59/session_eval_349.md",
     "session_quant_url": null,
     "aggregate_result_url": null,
-    "updated_at": "2026-05-15T07:22:33Z",
-    "pipeline": null
-  },
-  {
-    "owner": "Qwen",
-    "artifact_name": "Qwen2-0.5B-W4A16",
-    "model_id": "Qwen2-0.5B",
-    "scheme": "W4A16",
-    "method": "autoround",
-    "run_id": "",
-    "run_timestamp": "2026-05-15T06:08:36Z",
-    "run_path": "",
-    "auto_quant_status": "running",
-    "auto_eval_status": "unknown",
-    "quant_errors": [],
-    "eval_errors": [],
-    "issues": [],
-    "summary": "",
-    "tasks": [],
-    "metrics_preview": {},
-    "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
-    "quant_details": null,
-    "eval_details": null,
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
-      "status": "pending",
-      "submitted_time": "2026-05-15T06:08:36Z",
-      "job_type": "quantization & evaluation",
-      "quant_scheme": "INT4 (W4A16)",
+      "status": "failed",
+      "submitted_time": "2026-05-19T02:49:29Z",
+      "triggered_time": "2026-05-19T02:50:25Z",
+      "ci_run_id": 63418,
+      "job_type": "evaluation",
       "hardware": "NVIDIA GeForce RTX 4090",
       "gpu_nums": 1,
-      "model_weight_gb": 0.99,
-      "quant_model_size_gb": 0.24,
-      "params": 0.49
-    },
-    "session_eval_url": null,
-    "session_quant_url": null,
-    "aggregate_result_url": null,
-    "updated_at": "2026-05-15T06:08:36Z"
-  },
-  {
-    "owner": "Qwen",
-    "artifact_name": "Qwen3.5-0.8B-W4A16",
-    "model_id": "Qwen3.5-0.8B",
-    "scheme": "W4A16",
-    "method": "autoround",
-    "run_id": "",
-    "run_timestamp": "2026-05-15T05:52:00Z",
-    "run_path": "",
-    "auto_quant_status": "running",
-    "auto_eval_status": "unknown",
-    "quant_errors": [],
-    "eval_errors": [],
-    "issues": [],
-    "summary": "",
-    "tasks": [],
-    "metrics_preview": {},
-    "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
-    "quant_details": null,
-    "eval_details": null,
-    "pipeline": {
-      "status": "pending",
-      "submitted_time": "2026-05-15T05:52:00Z",
-      "job_type": "quantization & evaluation",
-      "quant_scheme": "INT4 (W4A16)",
-      "hardware": "NVIDIA GeForce RTX 4090",
-      "gpu_nums": 1,
-      "model_weight_gb": 1.75,
-      "quant_model_size_gb": 0.43,
-      "params": 0.87
-    },
-    "session_eval_url": null,
-    "session_quant_url": null,
-    "aggregate_result_url": null,
-    "updated_at": "2026-05-15T05:52:00Z"
-  },
-  {
-    "owner": "Qwen",
-    "artifact_name": "Qwen3-14B-W4A16",
-    "model_id": "Qwen3-14B",
-    "scheme": "W4A16",
-    "method": "autoround",
-    "run_id": "",
-    "run_timestamp": "2026-05-15T03:07:49Z",
-    "run_path": "",
-    "auto_quant_status": "running",
-    "auto_eval_status": "unknown",
-    "quant_errors": [],
-    "eval_errors": [],
-    "issues": [],
-    "summary": "",
-    "tasks": [],
-    "metrics_preview": {},
-    "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
-    "quant_details": null,
-    "eval_details": null,
-    "pipeline": {
-      "status": "pending",
-      "submitted_time": "2026-05-15T03:07:49Z",
-      "job_type": "quantization & evaluation",
-      "quant_scheme": "INT4 (W4A16)",
-      "hardware": "NVIDIA GeForce RTX 4090",
-      "gpu_nums": 1,
-      "model_weight_gb": 29.54,
-      "quant_model_size_gb": 7.38,
-      "params": 14.77
-    },
-    "session_eval_url": null,
-    "session_quant_url": null,
-    "aggregate_result_url": null,
-    "updated_at": "2026-05-15T03:07:49Z"
+      "params": 21.9
+    }
   },
   {
     "owner": "Zyphra",
-    "artifact_name": "ZAYA1-8B-W4A16",
-    "model_id": "ZAYA1-8B",
+    "artifact_name": "ZAYA1-8B-autoround-W4A16",
+    "model_id": "Zyphra/ZAYA1-8B",
     "scheme": "W4A16",
-    "method": "autoround",
-    "run_id": "",
-    "run_timestamp": "2026-05-11T10:13:12Z",
-    "run_path": "",
-    "auto_quant_status": "running",
-    "auto_eval_status": "unknown",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-15-47-28",
+    "run_timestamp": "2026-05-20T15:47:28Z",
+    "run_path": "Zyphra/ZAYA1-8B-autoround-W4A16/run_2026-05-20-15-47-28",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
     "quant_errors": [],
     "eval_errors": [],
-    "issues": [],
-    "summary": "",
-    "tasks": [],
-    "metrics_preview": {},
-    "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
-    "quant_details": null,
-    "eval_details": null,
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Zyphra_ZAYA1-8B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation complete. Here's the summary for **Zyphra/ZAYA1-8B** quantized with W4A16 (auto_round):",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6969532100108814,
+      "mmlu": 0.5410910126762569,
+      "hellaswag": 0.46992630950009956
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 18104.32,
+      "quantized_size_mb": 5193.06,
+      "compression_ratio": 0.2868,
+      "duration_seconds": 57.3,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/ZAYA1-8B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Zyphra/ZAYA1-8B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Zyphra_ZAYA1-8B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Zyphra_ZAYA1-8B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 4317.791390553117,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.6969532100108814,
+          "accuracy_stderr": 0.01072264868953154
+        },
+        "mmlu": {
+          "accuracy": 0.5410910126762569,
+          "accuracy_stderr": 0.004094246368116097
+        },
+        "hellaswag": {
+          "accuracy": 0.46992630950009956,
+          "accuracy_stderr": 0.00498074744881341
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZAYA1-8B-autoround-W4A16/run_2026-05-20-15-47-28/session_eval_340.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZAYA1-8B-autoround-W4A16/run_2026-05-20-15-47-28/session_quant_340.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
-      "status": "pending",
-      "submitted_time": "2026-05-11T10:13:12Z",
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T13:09:53Z",
+      "triggered_time": "2026-05-20T13:10:31Z",
+      "ci_run_id": 63577,
       "job_type": "quantization & evaluation",
       "quant_scheme": "INT4 (W4A16)",
       "hardware": "NVIDIA GeForce RTX 4090",
@@ -1301,60 +2798,670 @@
       "model_weight_gb": 17.68,
       "quant_model_size_gb": 4.42,
       "params": 8.84
-    },
-    "session_eval_url": null,
-    "session_quant_url": null,
-    "aggregate_result_url": null,
-    "updated_at": "2026-05-11T10:13:12Z"
+    }
   },
   {
-    "owner": "Qwen",
-    "artifact_name": "Qwen3.6-27B-W4A16",
-    "model_id": "Qwen3.6-27B",
+    "owner": "Zyphra",
+    "artifact_name": "ZR1-1.5B-autoround-W4A16",
+    "model_id": "Zyphra/ZR1-1.5B",
     "scheme": "W4A16",
-    "method": "autoround",
-    "run_id": "",
-    "run_timestamp": "2026-05-11T06:36:00Z",
-    "run_path": "",
-    "auto_quant_status": "running",
-    "auto_eval_status": "unknown",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-14-00-08",
+    "run_timestamp": "2026-05-20T14:00:08Z",
+    "run_path": "Zyphra/ZR1-1.5B-autoround-W4A16/run_2026-05-20-14-00-08",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
     "quant_errors": [],
     "eval_errors": [],
-    "issues": [],
-    "summary": "",
-    "tasks": [],
-    "metrics_preview": {},
-    "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
-    "quant_details": null,
-    "eval_details": null,
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/Zyphra_ZR1-1.5B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- Stage A (lm_eval HF backend) completed successfully with `max_gen_toks=2048`",
+    "tasks": [
+      "mmlu",
+      "hellaswag",
+      "piqa"
+    ],
+    "metrics_preview": {
+      "piqa": 0.6392818280739935,
+      "mmlu": 0.33941034040734935,
+      "hellaswag": 0.34863572993427605
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 3072.0,
+      "quantized_size_mb": 1638.0,
+      "compression_ratio": 1.88,
+      "duration_seconds": 100.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/ZR1-1.5B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "Zyphra/ZR1-1.5B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/Zyphra_ZR1-1.5B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/Zyphra_ZR1-1.5B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 553.1652030795813,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "mmlu": {
+          "accuracy": 0.33941034040734935,
+          "accuracy_stderr": 0.003964485452533085
+        },
+        "hellaswag": {
+          "accuracy": 0.34863572993427605,
+          "accuracy_stderr": 0.004755645016263529
+        },
+        "piqa": {
+          "accuracy": 0.6392818280739935,
+          "accuracy_stderr": 0.01120406480908839
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZR1-1.5B-autoround-W4A16/run_2026-05-20-14-00-08/session_eval_294.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZR1-1.5B-autoround-W4A16/run_2026-05-20-14-00-08/session_quant_294.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
     "pipeline": {
-      "status": "pending",
-      "submitted_time": "2026-05-11T06:36:00Z",
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T13:35:10Z",
+      "triggered_time": "2026-05-20T13:35:32Z",
+      "ci_run_id": 63578,
       "job_type": "quantization & evaluation",
       "quant_scheme": "INT4 (W4A16)",
       "hardware": "NVIDIA GeForce RTX 4090",
       "gpu_nums": 1,
-      "model_weight_gb": 55.56,
-      "quant_model_size_gb": 13.89,
-      "params": 27.78
+      "model_weight_gb": 7.11,
+      "quant_model_size_gb": 0.89,
+      "params": 1.78
+    }
+  },
+  {
+    "owner": "google",
+    "artifact_name": "gemma-4-E2B-it-autoround-W4A16",
+    "model_id": "google/gemma-4-E2B-it",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-20-06-46-41",
+    "run_timestamp": "2026-05-20T06:46:41Z",
+    "run_path": "google/gemma-4-E2B-it-autoround-W4A16/run_2026-05-20-06-46-41",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/google_gemma-4-E2B-it-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- `accuracy.json` — parsed summary with real evaluated numbers",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.49510337323177367,
+      "mmlu": 0.22945449366187154,
+      "hellaswag": 0.2504481179047998
     },
-    "session_eval_url": null,
-    "session_quant_url": null,
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "duration_seconds": 10.14,
+      "hf_repo": "https://huggingface.co/lvkaokao/gemma-4-E2B-it-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "google/gemma-4-E2B-it",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/google_gemma-4-E2B-it-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/google_gemma-4-E2B-it-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 615.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.49510337323177367,
+          "accuracy_stderr": 0.011665264730078137
+        },
+        "hellaswag": {
+          "accuracy": 0.2504481179047998,
+          "accuracy_stderr": 0.00432385630053922
+        },
+        "mmlu": {
+          "accuracy": 0.22945449366187154,
+          "accuracy_stderr": 0.00354269136928236
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-E2B-it-autoround-W4A16/run_2026-05-20-06-46-41/session_eval_352.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-E2B-it-autoround-W4A16/run_2026-05-20-06-46-41/session_quant_352.md",
     "aggregate_result_url": null,
-    "updated_at": "2026-05-11T06:36:00Z"
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-20T05:50:11Z",
+      "triggered_time": "2026-05-20T05:50:33Z",
+      "ci_run_id": 63555,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 10.25,
+      "quant_model_size_gb": 2.56,
+      "params": 5.12
+    }
   },
   {
     "owner": "nytopop",
-    "artifact_name": "Qwen3-32B.w4a16-unknown",
-    "model_id": "Qwen3-32B.w4a16",
+    "artifact_name": "Qwen3-32B.w4a16-autoround-W4A16",
+    "model_id": "Qwen3-32B.w4a16-autoround-W4A16",
     "scheme": "unknown",
-    "method": "auto_eval",
-    "run_id": "",
-    "run_timestamp": "2026-05-09T14:01:44Z",
-    "run_path": "",
-    "auto_quant_status": "running",
+    "method": "unknown",
+    "run_id": "run_2026-05-15-09-38-58",
+    "run_timestamp": "2026-05-15T09:38:58Z",
+    "run_path": "nytopop/Qwen3-32B.w4a16-autoround-W4A16/run_2026-05-15-09-38-58",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "failed",
+    "quant_errors": [],
+    "eval_errors": [
+      "evaluation failed before final summary was written"
+    ],
+    "issues": [
+      "evaluation failed before final summary was written",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/nytopop_Qwen3-32B.w4a16-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU and memory tuning",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Please analyze this error: failed: analyze the issue",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": null,
+    "eval_num_gpus": "1",
+    "quant_details": null,
+    "eval_details": null,
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/nytopop/Qwen3-32B.w4a16-autoround-W4A16/run_2026-05-15-09-38-58/session_eval_335.md",
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-09T14:01:44Z",
+      "triggered_time": "2026-05-15T08:45:26Z",
+      "ci_run_id": 63162,
+      "job_type": "evaluation",
+      "hardware": "NVIDIA A100-SXM4-80GB",
+      "gpu_nums": 1,
+      "params": 38.41
+    }
+  },
+  {
+    "owner": "poolside",
+    "artifact_name": "Laguna-XS.2-autoround-W4A16",
+    "model_id": "poolside/Laguna-XS.2",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-21-51-57",
+    "run_timestamp": "2026-05-21T21:51:57Z",
+    "run_path": "poolside/Laguna-XS.2-autoround-W4A16/run_2026-05-21-21-51-57",
+    "auto_quant_status": "success",
+    "auto_eval_status": "failed",
+    "quant_errors": [],
+    "eval_errors": [
+      "evaluation failed before final summary was written"
+    ],
+    "issues": [
+      "evaluation failed before final summary was written",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/poolside_Laguna-XS.2-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Home-page: https://github.com/vllm-project/vllm",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 66890.0,
+      "quantized_size_mb": 16800.0,
+      "compression_ratio": 3.9809,
+      "duration_seconds": 851.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/Laguna-XS.2-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "poolside/Laguna-XS.2",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/poolside_Laguna-XS.2-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/poolside_Laguna-XS.2-W4A16"
+    },
+    "eval_details": null,
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/poolside/Laguna-XS.2-autoround-W4A16/run_2026-05-21-21-51-57/session_eval_339.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/poolside/Laguna-XS.2-autoround-W4A16/run_2026-05-21-21-51-57/session_quant_339.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T03:47:27Z",
+      "triggered_time": "2026-05-21T06:40:03Z",
+      "ci_run_id": 63598,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 66.89,
+      "quant_model_size_gb": 16.72,
+      "params": 33.44
+    }
+  },
+  {
+    "owner": "sapientinc",
+    "artifact_name": "HRM-Text-1B-autoround-MXFP4",
+    "model_id": "sapientinc/HRM-Text-1B",
+    "scheme": "MXFP4",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-07-09-35",
+    "run_timestamp": "2026-05-21T07:09:35Z",
+    "run_path": "sapientinc/HRM-Text-1B-autoround-MXFP4/run_2026-05-21-07-09-35",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/sapientinc_HRM-Text-1B-MXFP4/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "Evaluation completed successfully for **sapientinc/HRM-Text-1B-MXFP4** (MXFP4 quantized, auto_round export).",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.49510337323177367,
+      "mmlu": 0.23092770868202372,
+      "hellaswag": 0.2504481179047998
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 2255.56,
+      "quantized_size_mb": 886.0,
+      "compression_ratio": 0.393,
+      "duration_seconds": 35.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/HRM-Text-1B-autoround-MXFP4",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "sapientinc/HRM-Text-1B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/sapientinc_HRM-Text-1B-MXFP4",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/sapientinc_HRM-Text-1B-MXFP4"
+    },
+    "eval_details": {
+      "duration_seconds": 3603.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.49510337323177367,
+          "accuracy_stderr": 0.011665264730078137
+        },
+        "hellaswag": {
+          "accuracy": 0.2504481179047998,
+          "accuracy_stderr": 0.00432385630053922
+        },
+        "mmlu": {
+          "accuracy": 0.23092770868202372,
+          "accuracy_stderr": 0.003996069292881402
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-MXFP4/run_2026-05-21-07-09-35/session_eval_363.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-MXFP4/run_2026-05-21-07-09-35/session_quant_363.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T03:08:45Z",
+      "triggered_time": "2026-05-21T05:15:02Z",
+      "ci_run_id": 63596,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "MXFP4",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 2.37,
+      "quant_model_size_gb": 0.59,
+      "params": 1.18
+    }
+  },
+  {
+    "owner": "sapientinc",
+    "artifact_name": "HRM-Text-1B-autoround-W4A16",
+    "model_id": "sapientinc/HRM-Text-1B",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-04-06-22",
+    "run_timestamp": "2026-05-21T04:06:22Z",
+    "run_path": "sapientinc/HRM-Text-1B-autoround-W4A16/run_2026-05-21-04-06-22",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/sapientinc_HRM-Text-1B-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "All done. Let me provide a summary.",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.624,
+      "mmlu": 0.2695,
+      "hellaswag": 0.3504
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 2350.0,
+      "quantized_size_mb": 870.4,
+      "compression_ratio": 2.7,
+      "duration_seconds": 201.15,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/HRM-Text-1B-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "sapientinc/HRM-Text-1B",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/sapientinc_HRM-Text-1B-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/sapientinc_HRM-Text-1B-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 1077.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.624,
+          "accuracy_stderr": 0.0113
+        },
+        "mmlu": {
+          "accuracy": 0.2695,
+          "accuracy_stderr": 0.0037
+        },
+        "hellaswag": {
+          "accuracy": 0.3504,
+          "accuracy_stderr": 0.0048
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-W4A16/run_2026-05-21-04-06-22/session_eval_365.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-W4A16/run_2026-05-21-04-06-22/session_quant_365.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T03:08:03Z",
+      "triggered_time": "2026-05-21T03:08:42Z",
+      "ci_run_id": 63579,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 2.37,
+      "quant_model_size_gb": 0.59,
+      "params": 1.18
+    }
+  },
+  {
+    "owner": "z-lab",
+    "artifact_name": "Qwen3.6-27B-DFlash-autoround-W4A16",
+    "model_id": "z-lab/Qwen3.6-27B-DFlash",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-20-01-44",
+    "run_timestamp": "2026-05-21T20:01:44Z",
+    "run_path": "z-lab/Qwen3.6-27B-DFlash-autoround-W4A16/run_2026-05-21-20-01-44",
+    "auto_quant_status": "failed",
     "auto_eval_status": "unknown",
+    "quant_errors": [
+      "quantization failed before final summary was written"
+    ],
+    "eval_errors": [],
+    "issues": [
+      "quantization failed before final summary was written",
+      "If quantization fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/z-lab_Qwen3.6-27B-DFlash-W4A16/quant_summary.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings>],",
+      "Write as valid JSON. If quantization fails, still write quant_summary.json with status=failed.",
+      "Use this skill when the user wants to quantize Large Language Models (LLMs) using Intel's Auto-Round library. This skill provides comprehensive guidance including error handling, troubleshooting, and model-specific optimizations.",
+      "## Step 4: Execute and Handle Errors (CRITICAL!)"
+    ],
+    "summary": "Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": "1",
+    "eval_num_gpus": null,
+    "quant_details": {
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "z-lab/Qwen3.6-27B-DFlash",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/z-lab_Qwen3.6-27B-DFlash-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/z-lab_Qwen3.6-27B-DFlash-W4A16"
+    },
+    "eval_details": null,
+    "session_eval_url": null,
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/z-lab/Qwen3.6-27B-DFlash-autoround-W4A16/run_2026-05-21-20-01-44/session_quant_852.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T15:37:47Z",
+      "triggered_time": "2026-05-21T19:53:34Z",
+      "ci_run_id": 63674,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 5090",
+      "gpu_nums": 1,
+      "model_weight_gb": 54.0,
+      "quant_model_size_gb": 13.5,
+      "params": 27.0
+    }
+  },
+  {
+    "owner": "zai-org",
+    "artifact_name": "GLM-OCR-autoround-W4A16",
+    "model_id": "zai-org/GLM-OCR",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-17-42-38",
+    "run_timestamp": "2026-05-21T17:42:38Z",
+    "run_path": "zai-org/GLM-OCR-autoround-W4A16/run_2026-05-21-17-42-38",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [
+      "mmlu: lm_eval TaskManager returned None for validation_docs on all mmlu subtasks - dataset loading issue"
+    ],
+    "issues": [
+      "mmlu: lm_eval TaskManager returned None for validation_docs on all mmlu subtasks - dataset loading issue",
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/zai-org_GLM-OCR-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "2. **MMLU failed**: The lm_eval TaskManager returned `None` for validation_docs on all mmlu subtasks - a dataset loading issue. The model could not be evaluated on MMLU.",
+    "tasks": [
+      "piqa",
+      "hellaswag",
+      "mmlu"
+    ],
+    "metrics_preview": {
+      "piqa": 0.5032644178454843,
+      "mmlu": 0.0,
+      "hellaswag": 0.24507070304720174
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "original_size_mb": 2527.79,
+      "quantized_size_mb": 1527.39,
+      "compression_ratio": 0.6042,
+      "duration_seconds": 33.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/GLM-OCR-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "zai-org/GLM-OCR",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/zai-org_GLM-OCR-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/zai-org_GLM-OCR-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 668.3323438167572,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.5032644178454843,
+          "accuracy_stderr": null
+        },
+        "hellaswag": {
+          "accuracy": 0.24507070304720174,
+          "accuracy_stderr": null
+        },
+        "mmlu": {
+          "accuracy": 0.0,
+          "accuracy_stderr": null
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zai-org/GLM-OCR-autoround-W4A16/run_2026-05-21-17-42-38/session_eval_333.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zai-org/GLM-OCR-autoround-W4A16/run_2026-05-21-17-42-38/session_quant_333.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "failed",
+      "submitted_time": "2026-05-21T06:02:31Z",
+      "triggered_time": "2026-05-21T14:02:57Z",
+      "ci_run_id": 63657,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 2.65,
+      "quant_model_size_gb": 0.67,
+      "params": 1.33
+    }
+  },
+  {
+    "owner": "zed-industries",
+    "artifact_name": "zeta-2.1-autoround-W4A16",
+    "model_id": "zed-industries/zeta-2.1",
+    "scheme": "W4A16",
+    "method": "AutoRound",
+    "run_id": "run_2026-05-21-05-14-14",
+    "run_timestamp": "2026-05-21T05:14:14Z",
+    "run_path": "zed-industries/zeta-2.1-autoround-W4A16/run_2026-05-21-05-14-14",
+    "auto_quant_status": "success",
+    "auto_eval_status": "success",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [
+      "If evaluation fails, still write a minimal failed /root/.openclaw/workspace/quantized/runs/zed-industries_zeta-2.1-W4A16/accuracy.json before exiting non-zero, also atomically.",
+      "\"status\": \"success\" or \"failed\",",
+      "\"errors\": [<list of error strings if any>]",
+      "Write as valid JSON. If evaluation fails, the script may invoke python only for JSON post-processing, but it must still write accuracy.json with status=failed before exiting non-zero.",
+      "Handling OOM errors** with multi-GPU suggestions",
+      "### Common Errors and Solutions"
+    ],
+    "summary": "- **Summary:** `/root/.openclaw/workspace/quantized/runs/zed-industries_zeta-2.1-W4A16/accuracy.json`",
+    "tasks": [
+      "piqa",
+      "mmlu",
+      "hellaswag"
+    ],
+    "metrics_preview": {
+      "piqa": 0.676822633297062,
+      "mmlu": 0.3676114513602051,
+      "hellaswag": 0.4076877116112328
+    },
+    "quant_num_gpus": "1",
+    "eval_num_gpus": "1",
+    "quant_details": {
+      "quantized_size_mb": 5953.6,
+      "duration_seconds": 20.0,
+      "hf_repo": "https://huggingface.co/LeaderboardModel1/zeta-2.1-autoround-W4A16",
+      "export_format": "auto_round",
+      "device": "cuda",
+      "model_id": "zed-industries/zeta-2.1",
+      "output_dir": "/root/.openclaw/workspace/quantized/runs/zed-industries_zeta-2.1-W4A16",
+      "quantized_model_dir": "/root/.openclaw/workspace/quantized/zed-industries_zeta-2.1-W4A16"
+    },
+    "eval_details": {
+      "duration_seconds": 1994.0,
+      "eval_framework": "lm_eval+hf",
+      "task_results": {
+        "piqa": {
+          "accuracy": 0.676822633297062,
+          "accuracy_stderr": 0.010911974124281996
+        },
+        "mmlu": {
+          "accuracy": 0.3676114513602051,
+          "accuracy_stderr": 0.00402600185585881
+        },
+        "hellaswag": {
+          "accuracy": 0.4076877116112328,
+          "accuracy_stderr": 0.004904002676184629
+        }
+      }
+    },
+    "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zed-industries/zeta-2.1-autoround-W4A16/run_2026-05-21-05-14-14/session_eval_376.md",
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zed-industries/zeta-2.1-autoround-W4A16/run_2026-05-21-05-14-14/session_quant_376.md",
+    "aggregate_result_url": null,
+    "updated_at": "2026-05-22T02:52:51Z",
+    "pipeline": {
+      "status": "succeeded",
+      "submitted_time": "2026-05-21T03:45:42Z",
+      "triggered_time": "2026-05-21T04:21:42Z",
+      "ci_run_id": 63595,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 16.5,
+      "quant_model_size_gb": 4.12,
+      "params": 8.25
+    }
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3-235B-A22B-W4A16",
+    "model_id": "Qwen3-235B-A22B",
+    "scheme": "W4A16",
+    "method": "autoround",
+    "run_id": "",
+    "run_timestamp": "2026-05-21T03:59:08Z",
+    "run_path": "",
+    "auto_quant_status": "unknown",
+    "auto_eval_status": "failed",
     "quant_errors": [],
     "eval_errors": [],
     "issues": [],
@@ -1362,21 +3469,24 @@
     "tasks": [],
     "metrics_preview": {},
     "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
+    "eval_num_gpus": 2,
     "quant_details": null,
     "eval_details": null,
     "pipeline": {
-      "status": "pending",
-      "submitted_time": "2026-05-09T14:01:44Z",
-      "job_type": "evaluation",
-      "hardware": "NVIDIA A100-SXM4-80GB",
-      "gpu_nums": 1,
-      "params": 38.41
+      "status": "failed",
+      "submitted_time": "2026-05-21T03:59:08Z",
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA H200 141GB HBM3e",
+      "gpu_nums": 2,
+      "model_weight_gb": 470.19,
+      "quant_model_size_gb": 117.55,
+      "params": 235.09
     },
     "session_eval_url": null,
     "session_quant_url": null,
     "aggregate_result_url": null,
-    "updated_at": "2026-05-09T14:01:44Z"
+    "updated_at": "2026-05-21T03:59:08Z"
   },
   {
     "owner": "google-t5",
@@ -1451,5 +3561,42 @@
     "session_quant_url": null,
     "aggregate_result_url": null,
     "updated_at": "2026-04-28T10:19:30Z"
+  },
+  {
+    "owner": "Qwen",
+    "artifact_name": "Qwen3.5-9B-W4A16",
+    "model_id": "Qwen3.5-9B",
+    "scheme": "W4A16",
+    "method": "autoround",
+    "run_id": "",
+    "run_timestamp": "2026-04-28T10:19:10Z",
+    "run_path": "",
+    "auto_quant_status": "running",
+    "auto_eval_status": "unknown",
+    "quant_errors": [],
+    "eval_errors": [],
+    "issues": [],
+    "summary": "",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": 1,
+    "eval_num_gpus": 1,
+    "quant_details": null,
+    "eval_details": null,
+    "pipeline": {
+      "status": "pending",
+      "submitted_time": "2026-04-28T10:19:10Z",
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "INT4 (W4A16)",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 19.31,
+      "quant_model_size_gb": 4.83,
+      "params": 9.65
+    },
+    "session_eval_url": null,
+    "session_quant_url": null,
+    "aggregate_result_url": null,
+    "updated_at": "2026-04-28T10:19:10Z"
   }
 ]

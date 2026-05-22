@@ -505,9 +505,13 @@ def _normalize_pipeline_status(raw_status: str | None) -> str:
 
 
 def _model_key_from_status(data: dict[str, Any]) -> str:
-    """Build a matching key from a status/request file. E.g. 'Qwen/Qwen3-0.6B::MXFP4'"""
+    """Build a matching key from a status/request file. E.g. 'Qwen/Qwen3-0.6B::MXFP4'
+
+    Eval-only entries may not carry `quant_scheme`; fall back to `compute_dtype`
+    (e.g. "INT4 (W4A16)") so the resulting key still includes a scheme.
+    """
     model = data.get("model", "")
-    scheme = data.get("quant_scheme", "")
+    scheme = data.get("quant_scheme") or data.get("compute_dtype") or ""
     # Normalize scheme: "INT4 (W4A16)" -> "W4A16"
     m = re.search(r"\((\w+)\)", scheme)
     if m:
@@ -538,13 +542,35 @@ def _model_key_from_record(record: dict[str, Any]) -> str:
     return f"{base_model}::{scheme}"
 
 
-def load_lifecycle_index(repo_root: Path) -> dict[str, dict[str, Any]]:
+def _base_model_from_record(record: dict[str, Any]) -> str:
+    """Best-effort base HF model id from a run record, ignoring scheme/method suffixes.
+
+    Used as a fallback match key (model-only) for eval-only jobs where the
+    record's scheme is "unknown" but the lifecycle entry knows the scheme.
+    """
+    owner = record.get("owner", "") or ""
+    model_id = record.get("model_id", "") or record.get("artifact_name", "") or ""
+    if "/" in model_id:
+        base = model_id
+    else:
+        base = model_id
+        # Strip trailing "-<method>-<SCHEME>" pattern (e.g. -autoround-W4A16)
+        base = re.sub(r"[-_](?:autoround|gptq|awq|smoothquant|compressed[_-]?tensors)[-_][A-Za-z0-9]+$",
+                      "", base, flags=re.IGNORECASE)
+        base = f"{owner}/{base}" if owner else base
+    return base
+
+
+def load_lifecycle_index(repo_root: Path) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
     """Load status/, requests/, and pending_requests/ data.
 
-    Returns a dict keyed by model::scheme with merged lifecycle info.
+    Returns a tuple of (full_index, model_only_index):
+      - full_index keyed by 'model::scheme'
+      - model_only_index keyed by 'model' (fallback for records without scheme)
     Priority: status/ > pending_requests/ > requests/
     """
     index: dict[str, dict[str, Any]] = {}
+    model_only: dict[str, dict[str, Any]] = {}
 
     # Load in priority order (lowest first, higher overwrites)
     for dirname in ("requests", "pending_requests", "status"):
@@ -564,8 +590,11 @@ def load_lifecycle_index(repo_root: Path) -> dict[str, dict[str, Any]]:
             index[key].update(data)
             index[key]["_lifecycle_dir"] = dirname
             index[key]["_lifecycle_path"] = str(json_file.relative_to(repo_root))
+            model_name = data.get("model", "")
+            if model_name:
+                model_only[model_name] = index[key]
 
-    return index
+    return index, model_only
 
 
 def extract_pipeline_info(lifecycle_data: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -677,8 +706,17 @@ def scan_results(
     # Load lifecycle data (status/, requests/, pending_requests/)
     # The repo root is one level above source_root (results/)
     repo_root = source_root.parent
-    lifecycle_index = load_lifecycle_index(repo_root)
+    lifecycle_index, lifecycle_model_only = load_lifecycle_index(repo_root)
     print(f"Loaded {len(lifecycle_index)} lifecycle entries from status/requests/pending_requests")
+
+    def _lookup_lifecycle(rec: dict[str, Any]) -> dict[str, Any] | None:
+        # Try full 'model::scheme' key first
+        key = _model_key_from_record(rec)
+        data = lifecycle_index.get(key)
+        if data:
+            return data
+        # Fallback: match by base model name only (eval-only jobs / unknown scheme)
+        return lifecycle_model_only.get(_base_model_from_record(rec))
 
     records: list[dict[str, Any]] = []
     seen_run_paths: set[str] = set()
@@ -686,12 +724,10 @@ def scan_results(
 
     for run_dir in sorted([p for p in source_root.rglob("run_*") if p.is_dir()]):
         record = record_from_run_dir(run_dir, source_root, aggregate_index, source_repo, source_branch)
-        # Try to match lifecycle data
-        lc_key = _model_key_from_record(record)
-        lc_data = lifecycle_index.get(lc_key)
+        lc_data = _lookup_lifecycle(record)
         if lc_data:
             record["pipeline"] = extract_pipeline_info(lc_data)
-            matched_lifecycle_keys.add(lc_key)
+            matched_lifecycle_keys.add(_model_key_from_status(lc_data))
         else:
             record["pipeline"] = None
         records.append(record)
@@ -703,11 +739,10 @@ def scan_results(
             continue
         if str(candidate.get("run_path", "")) in seen_run_paths:
             continue
-        lc_key = _model_key_from_record(candidate)
-        lc_data = lifecycle_index.get(lc_key)
+        lc_data = _lookup_lifecycle(candidate)
         if lc_data:
             candidate["pipeline"] = extract_pipeline_info(lc_data)
-            matched_lifecycle_keys.add(lc_key)
+            matched_lifecycle_keys.add(_model_key_from_status(lc_data))
         else:
             candidate["pipeline"] = None
         records.append(candidate)

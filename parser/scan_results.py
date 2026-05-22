@@ -445,10 +445,12 @@ def build_latest(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def build_summary(all_runs: list[dict[str, Any]], latest_runs: list[dict[str, Any]]) -> dict[str, Any]:
-    quant_counter = Counter(record.get("auto_quant_status", "unknown") for record in all_runs)
-    eval_counter = Counter(record.get("auto_eval_status", "unknown") for record in all_runs)
+    # Status counters are computed over the latest run per model so they match
+    # leaderboard-style per-model accounting. `total_runs` still reflects raw count.
+    quant_counter = Counter(record.get("auto_quant_status", "unknown") for record in latest_runs)
+    eval_counter = Counter(record.get("auto_eval_status", "unknown") for record in latest_runs)
     pipeline_counter = Counter(
-        (record.get("pipeline") or {}).get("status", "unknown") for record in all_runs
+        (record.get("pipeline") or {}).get("status", "unknown") for record in latest_runs
     )
     return {
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -502,6 +504,20 @@ def _normalize_pipeline_status(raw_status: str | None) -> str:
     if "cancel" in text:
         return "cancelled"
     return text
+
+
+def _lifecycle_failed_phase(raw_status: str | None) -> str | None:
+    """Return 'quant' or 'eval' when raw lifecycle status names the failed phase."""
+    if not raw_status:
+        return None
+    text = raw_status.strip().lower()
+    if "fail" not in text:
+        return None
+    if "eval" in text:
+        return "eval"
+    if "quant" in text:
+        return "quant"
+    return None
 
 
 def _model_key_from_status(data: dict[str, Any]) -> str:
@@ -606,6 +622,7 @@ def extract_pipeline_info(lifecycle_data: dict[str, Any] | None) -> dict[str, An
     status = lifecycle_data.get("status")
     if status:
         info["status"] = _normalize_pipeline_status(status)
+        info["raw_status"] = str(status)
 
     for field in ("submitted_time", "triggered_time", "ci_run_id",
                   "job_type", "quant_scheme", "hardware", "gpu_nums",
@@ -647,6 +664,8 @@ def records_from_pending_requests(
         triggered = data.get("triggered_time")
 
         # Determine quant/eval status based on pipeline status
+        script = (data.get("script") or "").lower()
+        phase = _lifecycle_failed_phase(data.get("status"))
         if norm_status == "pending":
             quant_status = "running"  # queued = will run
             eval_status = "unknown"
@@ -654,8 +673,16 @@ def records_from_pending_requests(
             quant_status = "running"
             eval_status = "unknown"
         elif norm_status == "failed":
-            quant_status = "unknown"
-            eval_status = "failed"
+            # Prefer the explicit phase from the raw status text; otherwise infer
+            # from the script type (auto_quant vs auto_eval).
+            if phase == "eval":
+                quant_status, eval_status = "success", "failed"
+            elif phase == "quant":
+                quant_status, eval_status = "failed", "unknown"
+            elif script == "auto_eval":
+                quant_status, eval_status = "success", "failed"
+            else:  # auto_quant or unknown script
+                quant_status, eval_status = "failed", "unknown"
         elif norm_status == "cancelled":
             quant_status = "unknown"
             eval_status = "unknown"
@@ -718,6 +745,19 @@ def scan_results(
         # Fallback: match by base model name only (eval-only jobs / unknown scheme)
         return lifecycle_model_only.get(_base_model_from_record(rec))
 
+    def _apply_lifecycle(rec: dict[str, Any], lc_data: dict[str, Any] | None) -> None:
+        rec["pipeline"] = extract_pipeline_info(lc_data) if lc_data else None
+        if not lc_data:
+            return
+        # Align per-phase status with the leaderboard's view of lifecycle truth:
+        # when the lifecycle marks a specific phase failed, surface that as the
+        # record's phase status (overrides locally-cached success/unknown).
+        phase = _lifecycle_failed_phase(lc_data.get("status"))
+        if phase == "eval":
+            rec["auto_eval_status"] = "failed"
+        elif phase == "quant":
+            rec["auto_quant_status"] = "failed"
+
     records: list[dict[str, Any]] = []
     seen_run_paths: set[str] = set()
     matched_lifecycle_keys: set[str] = set()
@@ -725,11 +765,9 @@ def scan_results(
     for run_dir in sorted([p for p in source_root.rglob("run_*") if p.is_dir()]):
         record = record_from_run_dir(run_dir, source_root, aggregate_index, source_repo, source_branch)
         lc_data = _lookup_lifecycle(record)
+        _apply_lifecycle(record, lc_data)
         if lc_data:
-            record["pipeline"] = extract_pipeline_info(lc_data)
             matched_lifecycle_keys.add(_model_key_from_status(lc_data))
-        else:
-            record["pipeline"] = None
         records.append(record)
         seen_run_paths.add(str(record.get("run_path", "")))
 
@@ -740,11 +778,9 @@ def scan_results(
         if str(candidate.get("run_path", "")) in seen_run_paths:
             continue
         lc_data = _lookup_lifecycle(candidate)
+        _apply_lifecycle(candidate, lc_data)
         if lc_data:
-            candidate["pipeline"] = extract_pipeline_info(lc_data)
             matched_lifecycle_keys.add(_model_key_from_status(lc_data))
-        else:
-            candidate["pipeline"] = None
         records.append(candidate)
 
     # Add records for pending/running jobs that don't have results yet

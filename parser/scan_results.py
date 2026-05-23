@@ -749,6 +749,13 @@ def scan_results(
         rec["pipeline"] = extract_pipeline_info(lc_data) if lc_data else None
         if not lc_data:
             return
+        # Backfill scheme from lifecycle when the record couldn't determine it
+        # locally (e.g. eval-only runs with no quant_summary.json).
+        if rec.get("scheme") in (None, "", "unknown"):
+            lc_scheme_raw = lc_data.get("quant_scheme") or lc_data.get("compute_dtype")
+            if lc_scheme_raw:
+                m = re.search(r"\((\w+)\)", str(lc_scheme_raw))
+                rec["scheme"] = m.group(1) if m else str(lc_scheme_raw)
         # Align per-phase status with the leaderboard's view of lifecycle truth:
         # when the lifecycle marks a specific phase failed, surface that as the
         # record's phase status (overrides locally-cached success/unknown).

@@ -77,6 +77,22 @@ def first_nonempty(*values: Any) -> Any:
     return None
 
 
+def extract_org_list(*values: Any) -> list[str]:
+    orgs: list[str] = []
+
+    def add(value: Any) -> None:
+        if isinstance(value, list):
+            for item in value:
+                add(item)
+            return
+        if value not in (None, ""):
+            orgs.append(str(value).strip())
+
+    for value in values:
+        add(value)
+    return dedupe([org for org in orgs if org])
+
+
 def extract_errors(raw: Any) -> list[str]:
     errors: list[str] = []
     if isinstance(raw, list):
@@ -354,6 +370,8 @@ def record_from_run_dir(
         "owner": owner,
         "artifact_name": artifact_name,
         "model_id": first_nonempty(aggregate.get("model_id"), (quant_data or {}).get("model_id") if isinstance(quant_data, dict) else None, artifact_name),
+        "submitted_by": first_nonempty(aggregate.get("submitted_by")),
+        "orgs": extract_org_list(aggregate.get("orgs"), aggregate.get("org"), aggregate.get("organizations")),
         "scheme": first_nonempty((quant_data or {}).get("scheme") if isinstance(quant_data, dict) else None, aggregate.get("scheme"), "unknown"),
         "method": first_nonempty((quant_data or {}).get("method") if isinstance(quant_data, dict) else None, aggregate.get("method"), "unknown"),
         "run_id": run_id,
@@ -410,6 +428,8 @@ def record_from_aggregate_only(
         "owner": owner,
         "artifact_name": artifact_name,
         "model_id": first_nonempty(aggregate.get("model_id"), artifact_name),
+        "submitted_by": first_nonempty(aggregate.get("submitted_by")),
+        "orgs": extract_org_list(aggregate.get("orgs"), aggregate.get("org"), aggregate.get("organizations")),
         "scheme": first_nonempty(aggregate.get("scheme"), "unknown"),
         "method": first_nonempty(aggregate.get("method"), "unknown"),
         "run_id": run_id or (parts[-1] if parts else "aggregate_only"),
@@ -694,6 +714,8 @@ def records_from_pending_requests(
             "owner": owner,
             "artifact_name": f"{base_model}-{scheme}",
             "model_id": base_model,
+            "submitted_by": first_nonempty(data.get("submitted_by")),
+            "orgs": extract_org_list(data.get("orgs"), data.get("org"), data.get("organizations")),
             "scheme": scheme,
             "method": "autoround" if "auto_quant" in data.get("script", "") else data.get("script", "unknown"),
             "run_id": "",
@@ -749,6 +771,8 @@ def scan_results(
         rec["pipeline"] = extract_pipeline_info(lc_data) if lc_data else None
         if not lc_data:
             return
+        rec["submitted_by"] = first_nonempty(lc_data.get("submitted_by"), rec.get("submitted_by"))
+        rec["orgs"] = extract_org_list(lc_data.get("orgs"), lc_data.get("org"), lc_data.get("organizations"), rec.get("orgs"))
         # Backfill scheme from lifecycle when the record couldn't determine it
         # locally (e.g. eval-only runs with no quant_summary.json).
         if rec.get("scheme") in (None, "", "unknown"):

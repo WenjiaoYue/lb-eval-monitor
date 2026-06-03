@@ -175,6 +175,10 @@ return sortAsc ? ' \u2191' : ' \u2193';
 			<h1>lb_eval Monitor</h1>
 			<p class="hero-desc">Automated quantization and evaluation pipeline dashboard for LLM leaderboard models.</p>
 			<div class="hero-pills">
+				<a class="hero-link" href="{base}/stats">
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+					Statistics
+				</a>
 				<div class="hero-pill">
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 					Server time (Asia/Shanghai): {nowStr}
@@ -480,6 +484,23 @@ return sortAsc ? ' \u2191' : ' \u2193';
 	color: #fff;
 	backdrop-filter: blur(4px);
 	font-variant-numeric: tabular-nums;
+}
+.hero-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.4rem 1rem;
+	background: #fff;
+	border: 1px solid rgba(255,255,255,0.38);
+	border-radius: 999px;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	color: #1d4ed8;
+	text-decoration: none;
+	box-shadow: 0 10px 24px rgba(15,23,42,0.12);
+}
+.hero-link:hover {
+	background: #eff6ff;
 }
 
 /* ── Content ── */

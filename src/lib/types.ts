@@ -45,6 +45,8 @@ export interface RunRecord {
 	owner: string;
 	artifact_name: string;
 	model_id: string;
+	submitted_by?: string | null;
+	orgs?: string[];
 	scheme: string;
 	method: string;
 	run_id: string;

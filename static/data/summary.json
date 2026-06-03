@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-05-23T04:46:05Z",
-  "total_runs": 56,
-  "latest_models_count": 50,
+  "generated_at": "2026-06-03T13:46:40Z",
+  "total_runs": 121,
+  "latest_models_count": 99,
   "quant": {
-    "success": 37,
-    "failed": 2,
+    "success": 72,
+    "failed": 9,
     "running": 3,
-    "unknown": 8
+    "unknown": 15
   },
   "eval": {
-    "success": 34,
+    "success": 66,
     "failed": 11,
     "running": 0,
-    "unknown": 5
+    "unknown": 22
   },
   "pipeline": {
     "pending": 3,
     "running": 0,
-    "succeeded": 34,
-    "failed": 13,
+    "succeeded": 57,
+    "failed": 29,
     "cancelled": 0,
-    "unknown": 0
+    "unknown": 10
   }
 }

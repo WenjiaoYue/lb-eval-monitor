@@ -73,6 +73,19 @@ function firstNonempty(...values: any[]): any {
 	return null;
 }
 
+function extractOrgList(...values: any[]): string[] {
+	const orgs: string[] = [];
+	const add = (value: any) => {
+		if (Array.isArray(value)) {
+			for (const item of value) add(item);
+			return;
+		}
+		if (value != null && value !== '') orgs.push(String(value));
+	};
+	for (const value of values) add(value);
+	return [...new Set(orgs.map((org) => org.trim()).filter(Boolean))];
+}
+
 function parseRunTimestamp(runId: string | null): string {
 	const m = (runId || '').match(/run_(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})/);
 	if (m) return `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}Z`;
@@ -341,6 +354,8 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 			owner,
 			artifact_name: artifactName,
 			model_id: firstNonempty(aggregate.model_id, quantData?.model_id, artifactName) || artifactName,
+			submitted_by: firstNonempty(aggregate.submitted_by),
+			orgs: extractOrgList(aggregate.orgs, aggregate.org, aggregate.organizations),
 			scheme: firstNonempty(quantData?.scheme, aggregate.scheme, 'unknown') || 'unknown',
 			method: firstNonempty(quantData?.method, aggregate.method, 'unknown') || 'unknown',
 			run_id: runId,
@@ -376,6 +391,8 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 		const lcData = lifecycleIndex.get(lcKey);
 		if (lcData) {
 			record.pipeline = extractPipelineInfo(lcData);
+			record.submitted_by = firstNonempty(lcData.submitted_by, record.submitted_by);
+			record.orgs = extractOrgList(lcData.orgs, lcData.org, lcData.organizations, record.orgs);
 			matchedLifecycleKeys.add(lcKey);
 		}
 
@@ -408,6 +425,8 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 			owner,
 			artifact_name: `${baseModel}-${scheme}`,
 			model_id: baseModel,
+			submitted_by: firstNonempty(data.submitted_by),
+			orgs: extractOrgList(data.orgs, data.org, data.organizations),
 			scheme,
 			method: 'unknown',
 			run_id: '',

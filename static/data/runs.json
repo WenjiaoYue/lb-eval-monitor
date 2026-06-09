@@ -82,7 +82,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/run_2026-05-21-06-39-06/session_quant_402.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/results_2026-05-21-06-39-06.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ByteDance-Seed/Seed-Coder-8B-Base_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "ConicCat",
@@ -405,7 +405,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Gemma4-GarnetV2-31B-AutoRound-W4A16-RTN/run_2026-06-02-12-22-40/session_fix_quantize_380_1780399554.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Gemma4-GarnetV2-31B-AutoRound-W4A16-RTN/results_2026-06-02-12-22-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Gemma4-GarnetV2-31B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "ConicCat",
@@ -721,7 +721,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-MXFP4-RTN/run_2026-06-02-18-10-30/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-MXFP4-RTN/results_2026-06-02-18-10-30.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Qwen3.5-27B-Writer-V2_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "ConicCat",
@@ -1037,7 +1037,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-RTN/run_2026-06-02-13-10-49/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-RTN/results_2026-06-02-13-10-49.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Qwen3.5-27B-Writer-V2_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "ConicCat",
@@ -1353,7 +1353,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-Tuning/run_2026-06-05-17-23-14/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-Tuning/results_2026-06-05-17-23-14.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Qwen3.5-27B-Writer-V2_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -1669,7 +1669,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2-Research-AutoRound-W4A16-Tuning/run_2026-06-09-05-40-44/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2-Research-AutoRound-W4A16-Tuning/results_2026-06-09-05-40-44.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/LFM2-Research_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -1755,7 +1755,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Distilled-Claude-4.6-AutoRound-W4A16-RTN/run_2026-05-27-16-40-48/session_quant_408.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Distilled-Claude-4.6-AutoRound-W4A16-RTN/results_2026-05-27-16-40-48.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/LFM2.5-1.2B-Distilled-Claude-4.6_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -1841,7 +1841,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Thinking-CodeX-AutoRound-W4A16-RTN/run_2026-05-27-17-54-13/session_quant_366.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Thinking-CodeX-AutoRound-W4A16-RTN/results_2026-05-27-17-54-13.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/LFM2.5-1.2B-Thinking-CodeX_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -2157,7 +2157,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-it-AutoRound-W4A16-RTN/run_2026-06-09-04-42-02/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-it-AutoRound-W4A16-RTN/results_2026-06-09-04-42-02.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen2-0.2B-it_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -2473,7 +2473,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-pt-AutoRound-W4A16-RTN/run_2026-06-09-04-40-35/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-pt-AutoRound-W4A16-RTN/results_2026-06-09-04-40-35.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen2-0.2B-pt_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -2789,7 +2789,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-MXFP4-RTN/run_2026-06-02-11-00-52/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-MXFP4-RTN/results_2026-06-02-11-00-52.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen3-4B-Distilled-Claude-4.6_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FlameF0X",
@@ -3107,7 +3107,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-NVFP4-RTN/run_2026-06-01-12-45-34/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-NVFP4-RTN/results_2026-06-01-12-45-34.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen3-4B-Distilled-Claude-4.6_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FrontiersMind",
@@ -3193,7 +3193,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/run_2026-05-21-16-19-41/session_quant_425.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/results_2026-05-21-16-19-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FrontiersMind/Nandi-Mini-150M-Tool-Calling_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "FrontiersMind",
@@ -3277,7 +3277,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/run_2026-05-21-19-53-08/session_quant_352.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/results_2026-05-21-19-53-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Intel",
@@ -3349,7 +3349,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen2.5-Omni-7B-int4-AutoRound-autoround-W4A16/results_2026-05-21-16-15-29.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen2.5-Omni-7B-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Intel",
@@ -3428,7 +3428,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-autoround-W4A16/results_2026-05-25-11-53-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16_20260525T033926Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Jackrong",
@@ -3753,7 +3753,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-4B-Coder-AutoRound-W4A16-RTN/run_2026-06-01-16-47-10/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-4B-Coder-AutoRound-W4A16-RTN/results_2026-06-01-16-47-10.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Jackrong/Qwopus3.5-4B-Coder_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -4071,7 +4071,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-MXFP4-RTN/run_2026-06-01-04-57-51/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-MXFP4-RTN/results_2026-06-01-04-57-51.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -4387,7 +4387,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/run_2026-06-02-11-17-25/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/results_2026-06-02-11-17-25.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_W4A16_4bit_int4_20260602T075012Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "OBLITERATUS",
@@ -4473,7 +4473,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/run_2026-05-21-05-18-38/session_quant_369.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/results_2026-05-21-05-18-38.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/OBLITERATUS/gemma-4-E4B-it-OBLITERATED_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -4559,7 +4559,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-MXFP4/run_2026-05-20-03-49-47/session_quant_340.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-MXFP4/results_2026-05-20-03-49-47.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen2.5-0.5B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -4645,7 +4645,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-NVFP4/run_2026-05-20-05-33-18/session_quant_370.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-NVFP4/results_2026-05-20-05-33-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen2.5-0.5B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -4731,7 +4731,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-W4A16/run_2026-05-19-02-25-49/session_quant_371.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-W4A16/results_2026-05-19-02-25-49.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen2.5-0.5B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -4820,7 +4820,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30/session_quant_292.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/results_2026-05-09-13-07-30.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -5136,7 +5136,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-RTN/run_2026-06-02-04-02-22/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-RTN/results_2026-06-02-04-02-22.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_MXFP4_4bit_mxfp4_20260602T033954Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -5452,7 +5452,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-Tuning/run_2026-06-03-08-32-41/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-Tuning/results_2026-06-03-08-32-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -5538,7 +5538,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17/session_quant_354.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/results_2026-05-09-13-23-17.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -5629,7 +5629,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-07-13-13/session_quant_314.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/results_2026-05-09-07-13-13.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -5945,7 +5945,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-W4A16-Tuning/run_2026-06-03-07-52-02/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-W4A16-Tuning/results_2026-06-03-07-52-02.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6031,7 +6031,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-NVFP4/run_2026-05-20-12-13-19/session_quant_329.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-NVFP4/results_2026-05-20-12-13-19.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B-Base_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6117,7 +6117,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-W4A16/run_2026-05-18-08-21-28/session_quant_337.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-W4A16/results_2026-05-18-08-21-28.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B-Base_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6201,7 +6201,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/run_2026-05-09-20-35-10/session_quant_353.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/results_2026-05-09-20-35-10.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6287,7 +6287,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/run_2026-05-09-21-10-45/session_quant_379.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/results_2026-05-09-21-10-45.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6373,7 +6373,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/run_2026-05-09-20-01-49/session_quant_353.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/results_2026-05-09-20-01-49.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6459,7 +6459,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-14B-autoround-W4A16/run_2026-05-18-04-59-08/session_quant_329.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-14B-autoround-W4A16/results_2026-05-18-04-59-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-14B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6530,7 +6530,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-24-20-30-59/session_quant_347.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/results_2026-05-24-20-30-59.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-32B_quant_request_False_W4A16_4bit_int4_20260524T154050Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6616,7 +6616,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-25-12-11-31/session_quant_371.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/results_2026-05-25-12-11-31.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-32B_quant_request_False_W4A16_4bit_int4_20260525T023551Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6699,7 +6699,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/run_2026-05-18-03-46-54/session_quant_341.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/results_2026-05-18-03-46-54.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B-Instruct-2507_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6783,7 +6783,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/run_2026-05-18-04-52-19/session_quant_326.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/results_2026-05-18-04-52-19.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B-Thinking-2507_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6869,7 +6869,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-MXFP4/run_2026-05-25-05-25-07/session_quant_361.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-MXFP4/results_2026-05-25-05-25-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -6955,7 +6955,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-W4A16/run_2026-05-15-09-27-21/session_quant_350.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-W4A16/results_2026-05-15-09-27-21.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7039,7 +7039,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-8B-autoround-W4A16/run_2026-05-18-07-09-56/session_quant_329.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-8B-autoround-W4A16/results_2026-05-18-07-09-56.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7125,7 +7125,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-MXFP4/run_2026-05-23-11-43-41/session_quant_358.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-MXFP4/results_2026-05-23-11-43-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B-Base_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7211,7 +7211,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-NVFP4/run_2026-05-23-10-38-47/session_quant_331.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-NVFP4/results_2026-05-23-10-38-47.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B-Base_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7295,7 +7295,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-W4A16/run_2026-05-23-08-31-01/session_quant_341.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-W4A16/results_2026-05-23-08-31-01.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B-Base_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7381,7 +7381,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-MXFP4/run_2026-05-25-02-14-18/session_quant_358.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-MXFP4/results_2026-05-25-02-14-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7467,7 +7467,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-NVFP4/run_2026-05-25-04-57-38/session_quant_360.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-NVFP4/results_2026-05-25-04-57-38.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7553,7 +7553,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-W4A16/run_2026-05-20-06-57-37/session_quant_338.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-W4A16/results_2026-05-20-06-57-37.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7639,7 +7639,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-MXFP4/run_2026-05-25-06-00-07/session_quant_307.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-MXFP4/results_2026-05-25-06-00-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-2B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7725,7 +7725,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-NVFP4/run_2026-05-25-07-39-16/session_quant_333.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-NVFP4/results_2026-05-25-07-39-16.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-2B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -7811,7 +7811,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-20-09-55-10/session_quant_422.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/results_2026-05-20-09-55-10.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-2B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -8137,7 +8137,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-RTN/run_2026-06-02-07-22-40/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-RTN/results_2026-06-02-07-22-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_MXFP4_4bit_mxfp4_20260601T021544Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -8457,7 +8457,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-Tuning/run_2026-06-03-20-12-02/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-Tuning/results_2026-06-03-20-12-02.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -8509,7 +8509,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-W4A16/results_2026-05-28-14-46-04.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -8833,7 +8833,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-W4A16/run_2026-05-29-01-55-08/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-W4A16/results_2026-05-29-01-55-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_W4A16_4bit_int4_20260529T004043Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -9149,7 +9149,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-W4A16-Tuning/run_2026-06-03-12-38-09/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-W4A16-Tuning/results_2026-06-03-12-38-09.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -9216,7 +9216,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-35B-A3B-autoround-W4A16/run_2026-05-21-15-19-21/session_quant_348.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-35B-A3B-autoround-W4A16/results_2026-05-21-15-19-21.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-35B-A3B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -9259,7 +9259,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-35B-A3B-autoround-W4A16/results_2026-05-28-14-10-32.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-35B-A3B_quant_request_False_W4A16_4bit_int4_20260528T145037Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -9343,7 +9343,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-14B-autoround-W4A16/run_2026-05-19-07-54-33/session_quant_398.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-14B-autoround-W4A16/results_2026-05-19-07-54-33.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/WebWorld-14B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -9429,7 +9429,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-32B-autoround-W4A16/run_2026-05-15-13-55-38/session_quant_331.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-32B-autoround-W4A16/results_2026-05-15-13-55-38.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/WebWorld-32B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Qwen",
@@ -9514,7 +9514,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-8B-autoround-W4A16/run_2026-05-19-05-44-27/session_quant_352.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-8B-autoround-W4A16/results_2026-05-19-05-44-27.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/WebWorld-8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "RedHatAI",
@@ -9585,7 +9585,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/RedHatAI/Qwen3-8B-quantized.w4a16-autoround-W4A16/results_2026-05-09-08-52-48.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/RedHatAI/Qwen3-8B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "WarlordHermes",
@@ -9901,7 +9901,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/WarlordHermes/Magidonia-24B-v4.3-creative-ORPO-AutoRound-W4A16-RTN/run_2026-06-03-07-47-12/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/WarlordHermes/Magidonia-24B-v4.3-creative-ORPO-AutoRound-W4A16-RTN/results_2026-06-03-07-47-12.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/WarlordHermes/Magidonia-24B-v4.3-creative-ORPO_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "XiaomiMiMo",
@@ -9987,7 +9987,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/XiaomiMiMo/MiMo-V2.5-ASR-AutoRound-W4A16-RTN/run_2026-05-25-12-24-32/session_quant_368.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/XiaomiMiMo/MiMo-V2.5-ASR-AutoRound-W4A16-RTN/results_2026-05-25-12-24-32.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/XiaomiMiMo/MiMo-V2.5-ASR_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Zyphra",
@@ -10073,7 +10073,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZAYA1-8B-autoround-W4A16/run_2026-05-20-15-47-28/session_quant_340.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZAYA1-8B-autoround-W4A16/results_2026-05-20-15-47-28.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Zyphra/ZAYA1-8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Zyphra",
@@ -10159,7 +10159,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZR1-1.5B-autoround-W4A16/run_2026-05-20-14-00-08/session_quant_294.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZR1-1.5B-autoround-W4A16/results_2026-05-20-14-00-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Zyphra/ZR1-1.5B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "allenai",
@@ -10475,7 +10475,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/allenai/Olmo-3.1-32B-Instruct-SFT-AutoRound-W4A16-Tuning/run_2026-06-09-09-28-18/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/allenai/Olmo-3.1-32B-Instruct-SFT-AutoRound-W4A16-Tuning/results_2026-06-09-09-28-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/allenai/Olmo-3.1-32B-Instruct-SFT_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "google",
@@ -10558,7 +10558,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-E2B-it-autoround-W4A16/run_2026-05-20-06-46-41/session_quant_352.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-E2B-it-autoround-W4A16/results_2026-05-20-06-46-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/google/gemma-4-E2B-it_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "moonshotai",
@@ -10624,7 +10624,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/moonshotai/Kimi-Linear-48B-A3B-Instruct-AutoRound-W4A16-RTN/run_2026-05-27-13-43-12/session_quant_371.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/moonshotai/Kimi-Linear-48B-A3B-Instruct-AutoRound-W4A16-RTN/results_2026-05-27-13-43-12.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/moonshotai/Kimi-Linear-48B-A3B-Instruct_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openai",
@@ -10940,7 +10940,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-MXFP4-RTN/run_2026-06-04-10-23-45/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-MXFP4-RTN/results_2026-06-04-10-23-45.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_MXFP4_4bit_mxfp4_RTN.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openai",
@@ -11256,7 +11256,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-NVFP4-RTN/run_2026-06-05-11-19-07/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-NVFP4-RTN/results_2026-06-05-11-19-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_NVFP4_4bit_nvfp4_RTN.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openai",
@@ -11579,7 +11579,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-W4A16-RTN/run_2026-06-05-08-47-29/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-W4A16-RTN/results_2026-06-05-08-47-29.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_W4A16_4bit_int4_RTN_20260605T071938Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openai-community",
@@ -11668,7 +11668,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai-community/gpt2-AutoRound-W4A16-RTN/run_2026-05-27-19-39-41/session_quant_404.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai-community/gpt2-AutoRound-W4A16-RTN/results_2026-05-27-19-39-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai-community/gpt2_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openbmb",
@@ -11724,7 +11724,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-MXFP4/run_2026-05-31-09-30-31/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-MXFP4/results_2026-05-31-09-30-31.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openbmb",
@@ -12042,7 +12042,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-MXFP4-RTN/run_2026-05-31-15-44-51/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-MXFP4-RTN/results_2026-05-31-15-44-51.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_MXFP4_4bit_mxfp4_20260531T145817Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openbmb",
@@ -12360,7 +12360,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-NVFP4-RTN/run_2026-05-31-12-05-24/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-NVFP4-RTN/results_2026-05-31-12-05-24.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_NVFP4_4bit_nvfp4_20260531T112919Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openbmb",
@@ -12681,7 +12681,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-W4A16/run_2026-05-29-10-18-18/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-W4A16/results_2026-05-29-10-18-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "openbmb",
@@ -12999,7 +12999,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-W4A16-RTN/run_2026-05-31-08-06-59/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-W4A16-RTN/results_2026-05-31-08-06-59.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_W4A16_4bit_int4_20260531T074240Z.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "sapientinc",
@@ -13085,7 +13085,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-MXFP4/run_2026-05-21-07-09-35/session_quant_363.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-MXFP4/results_2026-05-21-07-09-35.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/sapientinc/HRM-Text-1B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "sapientinc",
@@ -13171,7 +13171,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-W4A16/run_2026-05-21-04-06-22/session_quant_365.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-W4A16/results_2026-05-21-04-06-22.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/sapientinc/HRM-Text-1B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "tencent",
@@ -13255,7 +13255,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/tencent/Hy-MT2-7B-AutoRound-W4A16-RTN/run_2026-05-27-04-39-07/session_quant_328.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/tencent/Hy-MT2-7B-AutoRound-W4A16-RTN/results_2026-05-27-04-39-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/tencent/Hy-MT2-7B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "zed-industries",
@@ -13339,7 +13339,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zed-industries/zeta-2.1-autoround-W4A16/run_2026-05-21-05-14-14/session_quant_376.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zed-industries/zeta-2.1-autoround-W4A16/results_2026-05-21-05-14-14.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/zed-industries/zeta-2.1_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:42Z"
+    "updated_at": "2026-06-09T13:17:47Z"
   },
   {
     "owner": "Intel",
@@ -13386,7 +13386,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen3.6-27B-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_filename": "Qwen3.6-27B-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13439,7 +13439,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen3.6-27B-int4-mlx-AutoRound_eval_request_False_unknown-4bit_4bit_int4_W4A16.json",
     "request_filename": "Qwen3.6-27B-int4-mlx-AutoRound_eval_request_False_unknown-4bit_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13481,7 +13481,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/gemma-4-26B-A4B-it-int4-mixed-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_filename": "gemma-4-26B-A4B-it-int4-mixed-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13529,7 +13529,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-235B-A22B_quant_request_False_NVFP4_4bit_nvfp4.json",
     "request_filename": "Qwen3-235B-A22B_quant_request_False_NVFP4_4bit_nvfp4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13578,7 +13578,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-235B-A22B_quant_request_False_W4A16_4bit_int4_20260523T081910Z.json",
     "request_filename": "Qwen3-235B-A22B_quant_request_False_W4A16_4bit_int4_20260523T081910Z.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13626,7 +13626,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/RedHatAI/Qwen3.5-9B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_filename": "Qwen3.5-9B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13683,7 +13683,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/RedHatAI/Qwen3.5-9B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16_20260522T082351Z.json",
     "request_filename": "Qwen3.5-9B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16_20260522T082351Z.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13736,7 +13736,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/nytopop/Qwen3-32B.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_filename": "Qwen3-32B.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13778,7 +13778,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/nytopop/Qwen3-32B.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_filename": "Qwen3-32B.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13831,7 +13831,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/poolside/Laguna-XS.2_quant_request_False_W4A16_4bit_int4.json",
     "request_filename": "Laguna-XS.2_quant_request_False_W4A16_4bit_int4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13879,7 +13879,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/z-lab/Qwen3.6-27B-DFlash_quant_request_False_W4A16_4bit_int4.json",
     "request_filename": "Qwen3.6-27B-DFlash_quant_request_False_W4A16_4bit_int4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -13957,7 +13957,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/zai-org/GLM-OCR_quant_request_False_W4A16_4bit_int4.json",
     "request_filename": "GLM-OCR_quant_request_False_W4A16_4bit_int4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:51:42Z",
+    "updated_at": "2026-06-09T13:17:47Z",
     "pipeline": null
   },
   {
@@ -14011,7 +14011,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/syntropy-ai/Soren-1-Small-autoround-W4A16/run_2026-06-01-16-20-05/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/syntropy-ai/Soren-1-Small-autoround-W4A16/results_2026-06-01-16-20-05.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/syntropy-ai/Soren-1-Small_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:51:10Z"
+    "updated_at": "2026-06-09T13:17:13Z"
   },
   {
     "owner": "samuelcardillo",
@@ -14064,7 +14064,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-autoround-W4A16/run_2026-06-05-05-48-12/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-autoround-W4A16/results_2026-06-05-05-48-12.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:51:06Z"
+    "updated_at": "2026-06-09T13:17:09Z"
   },
   {
     "owner": "samuelcardillo",
@@ -14117,7 +14117,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-AutoRound-MXFP4-Tuning/run_2026-06-05-06-15-15/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-AutoRound-MXFP4-Tuning/results_2026-06-05-06-15-15.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:51:05Z"
+    "updated_at": "2026-06-09T13:17:07Z"
   },
   {
     "owner": "openbmb",
@@ -14170,7 +14170,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-NVFP4/run_2026-05-31-09-38-52/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-NVFP4/results_2026-05-31-09-38-52.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:51:01Z"
+    "updated_at": "2026-06-09T13:17:04Z"
   },
   {
     "owner": "openai",
@@ -14223,7 +14223,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-autoround-W4A16/run_2026-06-04-06-00-31/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-autoround-W4A16/results_2026-06-04-06-00-31.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:50:54Z"
+    "updated_at": "2026-06-09T13:16:56Z"
   },
   {
     "owner": "kai-os",
@@ -14276,7 +14276,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/kai-os/Carnice-V2-27b-AutoRound-W4A16-Tuning/run_2026-06-05-06-25-35/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/kai-os/Carnice-V2-27b-AutoRound-W4A16-Tuning/results_2026-06-05-06-25-35.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/kai-os/Carnice-V2-27b_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:50:45Z"
+    "updated_at": "2026-06-09T13:16:46Z"
   },
   {
     "owner": "google",
@@ -14329,7 +14329,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-it-AutoRound-W4A16-Tuning/run_2026-06-04-09-15-40/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-it-AutoRound-W4A16-Tuning/results_2026-06-04-09-15-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/google/gemma-4-12B-it_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:50:43Z"
+    "updated_at": "2026-06-09T13:16:43Z"
   },
   {
     "owner": "google",
@@ -14382,7 +14382,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-AutoRound-W4A16-Tuning/run_2026-06-04-11-24-08/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-AutoRound-W4A16-Tuning/results_2026-06-04-11-24-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/google/gemma-4-12B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:50:42Z"
+    "updated_at": "2026-06-09T13:16:42Z"
   },
   {
     "owner": "Qwen",
@@ -14435,60 +14435,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-NVFP4/run_2026-06-01-02-43-59/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-NVFP4/results_2026-06-01-02-43-59.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:50:22Z"
-  },
-  {
-    "owner": "ManniX-ITA",
-    "artifact_name": "gemma-4-A4B-98e-v6-coder-it-autoround-W4A16",
-    "model_id": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it",
-    "submitted_by": "lvkaokao",
-    "orgs": [],
-    "scheme": "W4A16",
-    "method": "autoround",
-    "run_id": "run_2026-05-31-15-53-43",
-    "run_timestamp": "2026-05-31T15:53:43Z",
-    "run_path": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/run_2026-05-31-15-53-43",
-    "auto_quant_status": "failed",
-    "auto_eval_status": "running",
-    "quant_errors": [
-      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=W4A16\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:51:23 [INFO] Scheme: W4A16 → AutoRound scheme='W4A16'\n15:51:23 [INFO] Iters: 0 (RTN)\n15:51:23 [INFO] Export format: auto_round\n15:51:23 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Device map: auto\n15:51:23 [INFO] Loading tokenizer...\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:51:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:51:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:51:25 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:26 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] Loading model...\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:45 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:55 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:56 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:51:56 [WARNING] Some parameters are on the meta device because they were offloaded to the cpu.\n15:51:56 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:51:56 [INFO] Ignore layers: lm_head\n15:51:56 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:51:56 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n15:51:56 [ERROR] Quantization failed: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 174, in quantize\n    autoround = AutoRound(**ar_kwargs)\n                ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/autoround.py\", line 165, in __new__\n    return AutoRoundCompatible(**local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 594, in __new__\n    compressor = AutoRound(\n                 ^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 315, in __new__\n    return _get_compressor_class(model_type, ZeroShotCompressor)(alg_configs, **local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm_mixin.py\", line 87, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/zero_shot.py\", line 59, in __init__\n    super().__init__(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/base.py\", line 300, in __init__\n    self.model_context = ModelContext(\n                         ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 39, in __call__\n    instance.__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 27, in wrapped_init\n    original_init(self, *args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/model.py\", line 109, in __init__\n    raise RuntimeError(\nRuntimeError: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU."
-    ],
-    "eval_errors": [],
-    "issues": [
-      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=W4A16\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:51:23 [INFO] Scheme: W4A16 → AutoRound scheme='W4A16'\n15:51:23 [INFO] Iters: 0 (RTN)\n15:51:23 [INFO] Export format: auto_round\n15:51:23 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Device map: auto\n15:51:23 [INFO] Loading tokenizer...\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:51:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:51:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:51:25 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:26 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] Loading model...\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:45 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:55 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:56 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:51:56 [WARNING] Some parameters are on the meta device because they were offloaded to the cpu.\n15:51:56 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:51:56 [INFO] Ignore layers: lm_head\n15:51:56 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:51:56 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n15:51:56 [ERROR] Quantization failed: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 174, in quantize\n    autoround = AutoRound(**ar_kwargs)\n                ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/autoround.py\", line 165, in __new__\n    return AutoRoundCompatible(**local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 594, in __new__\n    compressor = AutoRound(\n                 ^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 315, in __new__\n    return _get_compressor_class(model_type, ZeroShotCompressor)(alg_configs, **local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm_mixin.py\", line 87, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/zero_shot.py\", line 59, in __init__\n    super().__init__(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/base.py\", line 300, in __init__\n    self.model_context = ModelContext(\n                         ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 39, in __call__\n    instance.__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 27, in wrapped_init\n    original_init(self, *args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/model.py\", line 109, in __init__\n    raise RuntimeError(\nRuntimeError: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.",
-      "You are fixing a failed \"quantize\" phase in the quantization pipeline.",
-      "## Error Output (last 100 lines):",
-      "15:51:56 [ERROR] Quantization failed: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.",
-      "Traceback (most recent call last):",
-      "raise RuntimeError(",
-      "RuntimeError: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU."
-    ],
-    "summary": "\"status\": \"success\",",
-    "tasks": [],
-    "metrics_preview": {},
-    "quant_num_gpus": 1,
-    "eval_num_gpus": 1,
-    "quant_details": null,
-    "eval_details": null,
-    "pipeline": {
-      "status": "failed",
-      "raw_status": "Failed",
-      "submitted_time": "2026-05-31T15:30:31Z",
-      "triggered_time": "2026-05-31T15:46:07Z",
-      "ci_run_id": 64373,
-      "job_type": "quantization & evaluation",
-      "quant_scheme": "INT4 (W4A16)",
-      "hardware": "NVIDIA GeForce RTX 4090",
-      "gpu_nums": 1,
-      "model_weight_gb": 40.9,
-      "quant_model_size_gb": 10.22,
-      "params": 20.45
-    },
-    "session_eval_url": null,
-    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/run_2026-05-31-15-53-43/logs/setup_env.log",
-    "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/results_2026-05-31-15-53-43.json",
-    "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_W4A16_4bit_int4_20260531T153031Z.json",
-    "updated_at": "2026-06-09T12:49:23Z"
+    "updated_at": "2026-06-09T13:16:21Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -14541,33 +14488,33 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/run_2026-05-31-15-04-42/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/results_2026-05-31-15-04-42.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:49:22Z"
+    "updated_at": "2026-06-09T13:15:17Z"
   },
   {
     "owner": "ManniX-ITA",
-    "artifact_name": "gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4",
+    "artifact_name": "gemma-4-A4B-98e-v6-coder-it-autoround-W4A16",
     "model_id": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it",
     "submitted_by": "lvkaokao",
     "orgs": [],
-    "scheme": "NVFP4",
+    "scheme": "W4A16",
     "method": "autoround",
-    "run_id": "run_2026-05-31-15-18-32",
-    "run_timestamp": "2026-05-31T15:18:32Z",
-    "run_path": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/run_2026-05-31-15-18-32",
+    "run_id": "run_2026-05-31-15-53-43",
+    "run_timestamp": "2026-05-31T15:53:43Z",
+    "run_path": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/run_2026-05-31-15-53-43",
     "auto_quant_status": "failed",
     "auto_eval_status": "running",
     "quant_errors": [
-      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=NVFP4\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:10:20 [INFO] Scheme: NVFP4 → AutoRound scheme='NVFP4'\n15:10:20 [INFO] Iters: 0 (RTN)\n15:10:20 [INFO] Export format: auto_round\n15:10:20 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Device map: auto\n15:10:20 [INFO] Loading tokenizer...\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:10:21 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] Loading model...\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:50 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:11:04 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:11:04 [INFO] Ignore layers: lm_head,self_attn\n15:11:04 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:11:04 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n\u001b[33;1m2026-05-31 15:11:05 WARNING logging.py L340: reset enable_torch_compile to `False` as nvfp4 is enabled\u001b[0m\n15:11:05 [INFO] Starting quantization...\n\u001b[38;20m2026-05-31 15:11:05 INFO replace_modules.py L120: Experts (before replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n)\u001b[0m\n[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.\n\u001b[38;20m2026-05-31 15:11:05 INFO device.py L1838: Before applying custom replacements 'peak_ram': 1.74GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:12 INFO moe_experts_interface.py L655: [MoE Prep] Unfused 30 MOE experts modules\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO device.py L1838: After applying custom replacements 'peak_ram': 34.35GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L93: Prepared 30 MOE modules for quantization\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L120: Experts (after replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n  (0-97): 98 x _ExpertContainer(\n    (down_proj): Linear(in_features=704, out_features=2816, bias=False)\n    (gate_proj): Linear(in_features=2816, out_features=704, bias=False)\n    (up_proj): Linear(in_features=2816, out_features=704, bias=False)\n  )\n)\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING special_model_handler.py L383: Applying a monkey patch to Gemma4 to reduce RAM usage. This patch has only been validated with limited Transformers versions. Proceed with caution.\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO utils.py L1069: Ignored layers: lm_head, lm_head, model.language_model.layers.[0-29].self_attn.k_proj, model.language_model.layers.[0-29].self_attn.o_proj, model.language_model.layers.[0-29].self_attn.q_proj, model.language_model.layers.[0-4,6-10,12-16,18-22,24-28].self_attn.v_proj, model.vision_tower.encoder.layers.[0-26].self_attn.k_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.o_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.q_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.v_proj.linear, self_attn\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING utils.py L539: reset `quant_lm_head` to false as quantizing lm_head with tied weights has not been supported currently\u001b[0m\n15:11:14 [ERROR] Quantization failed: processor should not be None\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 179, in quantize\n    autoround.quantize()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1149, in quantize\n    return self._quantize_impl()\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1177, in _quantize_impl\n    self._quantize_via_rtn_blockwise()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 935, in _quantize_via_rtn_blockwise\n    all_inputs = self.cache_inter_data(to_cache_block_names, self.nsamples)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 155, in cache_inter_data\n    return self.calibration.cache_inter_data(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/llm.py\", line 239, in cache_inter_data\n    c.calib(nsamples, calib_bs)\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 168, in calib\n    return self.calibration.calib(nsamples, bs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/mllm.py\", line 73, in calib\n    c.template_obj = get_template(\n                     ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/template.py\", line 192, in get_template\n    template.processor.post_init(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/processor.py\", line 99, in post_init\n    assert processor is not None, \"processor should not be None\"\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: processor should not be None"
+      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=W4A16\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:51:23 [INFO] Scheme: W4A16 → AutoRound scheme='W4A16'\n15:51:23 [INFO] Iters: 0 (RTN)\n15:51:23 [INFO] Export format: auto_round\n15:51:23 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Device map: auto\n15:51:23 [INFO] Loading tokenizer...\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:51:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:51:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:51:25 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:26 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] Loading model...\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:45 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:55 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:56 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:51:56 [WARNING] Some parameters are on the meta device because they were offloaded to the cpu.\n15:51:56 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:51:56 [INFO] Ignore layers: lm_head\n15:51:56 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:51:56 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n15:51:56 [ERROR] Quantization failed: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 174, in quantize\n    autoround = AutoRound(**ar_kwargs)\n                ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/autoround.py\", line 165, in __new__\n    return AutoRoundCompatible(**local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 594, in __new__\n    compressor = AutoRound(\n                 ^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 315, in __new__\n    return _get_compressor_class(model_type, ZeroShotCompressor)(alg_configs, **local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm_mixin.py\", line 87, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/zero_shot.py\", line 59, in __init__\n    super().__init__(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/base.py\", line 300, in __init__\n    self.model_context = ModelContext(\n                         ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 39, in __call__\n    instance.__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 27, in wrapped_init\n    original_init(self, *args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/model.py\", line 109, in __init__\n    raise RuntimeError(\nRuntimeError: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU."
     ],
     "eval_errors": [],
     "issues": [
-      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=NVFP4\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:10:20 [INFO] Scheme: NVFP4 → AutoRound scheme='NVFP4'\n15:10:20 [INFO] Iters: 0 (RTN)\n15:10:20 [INFO] Export format: auto_round\n15:10:20 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Device map: auto\n15:10:20 [INFO] Loading tokenizer...\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:10:21 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] Loading model...\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:50 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:11:04 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:11:04 [INFO] Ignore layers: lm_head,self_attn\n15:11:04 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:11:04 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n\u001b[33;1m2026-05-31 15:11:05 WARNING logging.py L340: reset enable_torch_compile to `False` as nvfp4 is enabled\u001b[0m\n15:11:05 [INFO] Starting quantization...\n\u001b[38;20m2026-05-31 15:11:05 INFO replace_modules.py L120: Experts (before replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n)\u001b[0m\n[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.\n\u001b[38;20m2026-05-31 15:11:05 INFO device.py L1838: Before applying custom replacements 'peak_ram': 1.74GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:12 INFO moe_experts_interface.py L655: [MoE Prep] Unfused 30 MOE experts modules\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO device.py L1838: After applying custom replacements 'peak_ram': 34.35GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L93: Prepared 30 MOE modules for quantization\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L120: Experts (after replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n  (0-97): 98 x _ExpertContainer(\n    (down_proj): Linear(in_features=704, out_features=2816, bias=False)\n    (gate_proj): Linear(in_features=2816, out_features=704, bias=False)\n    (up_proj): Linear(in_features=2816, out_features=704, bias=False)\n  )\n)\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING special_model_handler.py L383: Applying a monkey patch to Gemma4 to reduce RAM usage. This patch has only been validated with limited Transformers versions. Proceed with caution.\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO utils.py L1069: Ignored layers: lm_head, lm_head, model.language_model.layers.[0-29].self_attn.k_proj, model.language_model.layers.[0-29].self_attn.o_proj, model.language_model.layers.[0-29].self_attn.q_proj, model.language_model.layers.[0-4,6-10,12-16,18-22,24-28].self_attn.v_proj, model.vision_tower.encoder.layers.[0-26].self_attn.k_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.o_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.q_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.v_proj.linear, self_attn\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING utils.py L539: reset `quant_lm_head` to false as quantizing lm_head with tied weights has not been supported currently\u001b[0m\n15:11:14 [ERROR] Quantization failed: processor should not be None\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 179, in quantize\n    autoround.quantize()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1149, in quantize\n    return self._quantize_impl()\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1177, in _quantize_impl\n    self._quantize_via_rtn_blockwise()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 935, in _quantize_via_rtn_blockwise\n    all_inputs = self.cache_inter_data(to_cache_block_names, self.nsamples)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 155, in cache_inter_data\n    return self.calibration.cache_inter_data(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/llm.py\", line 239, in cache_inter_data\n    c.calib(nsamples, calib_bs)\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 168, in calib\n    return self.calibration.calib(nsamples, bs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/mllm.py\", line 73, in calib\n    c.template_obj = get_template(\n                     ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/template.py\", line 192, in get_template\n    template.processor.post_init(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/processor.py\", line 99, in post_init\n    assert processor is not None, \"processor should not be None\"\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: processor should not be None",
+      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=W4A16\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:51:23 [INFO] Scheme: W4A16 → AutoRound scheme='W4A16'\n15:51:23 [INFO] Iters: 0 (RTN)\n15:51:23 [INFO] Export format: auto_round\n15:51:23 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/quantized_model\n15:51:23 [INFO] Device map: auto\n15:51:23 [INFO] Loading tokenizer...\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:23 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:51:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:51:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:51:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:51:25 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:51:26 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:26 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] Loading model...\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:51:27 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:28 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:45 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:51:55 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:55 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:51:56 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:51:56 [WARNING] Some parameters are on the meta device because they were offloaded to the cpu.\n15:51:56 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:51:56 [INFO] Ignore layers: lm_head\n15:51:56 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:51:56 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n15:51:56 [ERROR] Quantization failed: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 174, in quantize\n    autoround = AutoRound(**ar_kwargs)\n                ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/autoround.py\", line 165, in __new__\n    return AutoRoundCompatible(**local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 594, in __new__\n    compressor = AutoRound(\n                 ^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/entry.py\", line 315, in __new__\n    return _get_compressor_class(model_type, ZeroShotCompressor)(alg_configs, **local_args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm_mixin.py\", line 87, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/zero_shot.py\", line 59, in __init__\n    super().__init__(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/base.py\", line 300, in __init__\n    self.model_context = ModelContext(\n                         ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 39, in __call__\n    instance.__init__(*args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/base.py\", line 27, in wrapped_init\n    original_init(self, *args, **kwargs)\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/context/model.py\", line 109, in __init__\n    raise RuntimeError(\nRuntimeError: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.",
       "You are fixing a failed \"quantize\" phase in the quantization pipeline.",
       "## Error Output (last 100 lines):",
-      "15:11:14 [ERROR] Quantization failed: processor should not be None",
+      "15:51:56 [ERROR] Quantization failed: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU.",
       "Traceback (most recent call last):",
-      "AssertionError: processor should not be None",
-      "Let me analyze the error. The key error is:"
+      "raise RuntimeError(",
+      "RuntimeError: AutoRound does not support parameters on meta device. Please use more GPUs by setting `--device 0,1,2,3` or just place the model on CPU."
     ],
     "summary": "\"status\": \"success\",",
     "tasks": [],
@@ -14579,11 +14526,11 @@
     "pipeline": {
       "status": "failed",
       "raw_status": "Failed",
-      "submitted_time": "2026-05-31T14:57:14Z",
-      "triggered_time": "2026-05-31T15:05:04Z",
-      "ci_run_id": 64371,
+      "submitted_time": "2026-05-31T15:30:31Z",
+      "triggered_time": "2026-05-31T15:46:07Z",
+      "ci_run_id": 64373,
       "job_type": "quantization & evaluation",
-      "quant_scheme": "NVFP4",
+      "quant_scheme": "INT4 (W4A16)",
       "hardware": "NVIDIA GeForce RTX 4090",
       "gpu_nums": 1,
       "model_weight_gb": 40.9,
@@ -14591,10 +14538,10 @@
       "params": 20.45
     },
     "session_eval_url": null,
-    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/run_2026-05-31-15-18-32/logs/setup_env.log",
-    "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/results_2026-05-31-15-18-32.json",
-    "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:49:20Z"
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/run_2026-05-31-15-53-43/logs/setup_env.log",
+    "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/results_2026-05-31-15-53-43.json",
+    "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_W4A16_4bit_int4_20260531T153031Z.json",
+    "updated_at": "2026-06-09T13:15:17Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -14647,7 +14594,60 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/run_2026-05-31-16-16-20/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/results_2026-05-31-16-16-20.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_NVFP4_4bit_nvfp4_20260531T153159Z.json",
-    "updated_at": "2026-06-09T12:49:20Z"
+    "updated_at": "2026-06-09T13:15:16Z"
+  },
+  {
+    "owner": "ManniX-ITA",
+    "artifact_name": "gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4",
+    "model_id": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it",
+    "submitted_by": "lvkaokao",
+    "orgs": [],
+    "scheme": "NVFP4",
+    "method": "autoround",
+    "run_id": "run_2026-05-31-15-18-32",
+    "run_timestamp": "2026-05-31T15:18:32Z",
+    "run_path": "ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/run_2026-05-31-15-18-32",
+    "auto_quant_status": "failed",
+    "auto_eval_status": "running",
+    "quant_errors": [
+      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=NVFP4\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:10:20 [INFO] Scheme: NVFP4 → AutoRound scheme='NVFP4'\n15:10:20 [INFO] Iters: 0 (RTN)\n15:10:20 [INFO] Export format: auto_round\n15:10:20 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Device map: auto\n15:10:20 [INFO] Loading tokenizer...\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:10:21 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] Loading model...\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:50 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:11:04 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:11:04 [INFO] Ignore layers: lm_head,self_attn\n15:11:04 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:11:04 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n\u001b[33;1m2026-05-31 15:11:05 WARNING logging.py L340: reset enable_torch_compile to `False` as nvfp4 is enabled\u001b[0m\n15:11:05 [INFO] Starting quantization...\n\u001b[38;20m2026-05-31 15:11:05 INFO replace_modules.py L120: Experts (before replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n)\u001b[0m\n[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.\n\u001b[38;20m2026-05-31 15:11:05 INFO device.py L1838: Before applying custom replacements 'peak_ram': 1.74GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:12 INFO moe_experts_interface.py L655: [MoE Prep] Unfused 30 MOE experts modules\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO device.py L1838: After applying custom replacements 'peak_ram': 34.35GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L93: Prepared 30 MOE modules for quantization\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L120: Experts (after replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n  (0-97): 98 x _ExpertContainer(\n    (down_proj): Linear(in_features=704, out_features=2816, bias=False)\n    (gate_proj): Linear(in_features=2816, out_features=704, bias=False)\n    (up_proj): Linear(in_features=2816, out_features=704, bias=False)\n  )\n)\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING special_model_handler.py L383: Applying a monkey patch to Gemma4 to reduce RAM usage. This patch has only been validated with limited Transformers versions. Proceed with caution.\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO utils.py L1069: Ignored layers: lm_head, lm_head, model.language_model.layers.[0-29].self_attn.k_proj, model.language_model.layers.[0-29].self_attn.o_proj, model.language_model.layers.[0-29].self_attn.q_proj, model.language_model.layers.[0-4,6-10,12-16,18-22,24-28].self_attn.v_proj, model.vision_tower.encoder.layers.[0-26].self_attn.k_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.o_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.q_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.v_proj.linear, self_attn\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING utils.py L539: reset `quant_lm_head` to false as quantizing lm_head with tied weights has not been supported currently\u001b[0m\n15:11:14 [ERROR] Quantization failed: processor should not be None\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 179, in quantize\n    autoround.quantize()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1149, in quantize\n    return self._quantize_impl()\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1177, in _quantize_impl\n    self._quantize_via_rtn_blockwise()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 935, in _quantize_via_rtn_blockwise\n    all_inputs = self.cache_inter_data(to_cache_block_names, self.nsamples)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 155, in cache_inter_data\n    return self.calibration.cache_inter_data(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/llm.py\", line 239, in cache_inter_data\n    c.calib(nsamples, calib_bs)\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 168, in calib\n    return self.calibration.calib(nsamples, bs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/mllm.py\", line 73, in calib\n    c.template_obj = get_template(\n                     ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/template.py\", line 192, in get_template\n    template.processor.post_init(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/processor.py\", line 99, in post_init\n    assert processor is not None, \"processor should not be None\"\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: processor should not be None"
+    ],
+    "eval_errors": [],
+    "issues": [
+      "=== Phase 2: Quantization ===\n  model=ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n  scheme=NVFP4\n  iters=0\n  export_format=auto_round\n  output_dir=/root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Model: ManniX-ITA/gemma-4-A4B-98e-v6-coder-it\n15:10:20 [INFO] Scheme: NVFP4 → AutoRound scheme='NVFP4'\n15:10:20 [INFO] Iters: 0 (RTN)\n15:10:20 [INFO] Export format: auto_round\n15:10:20 [INFO] Output: /root/_work/1/s/auto_quant/output/runs/gemma-4-A4B-98e-v6-coder-it-AutoRound-NVFP4-RTN/quantized_model\n15:10:20 [INFO] Device map: auto\n15:10:20 [INFO] Loading tokenizer...\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer_config.json \"HTTP/1.1 307 Temporary Redirect\"\nWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/tokenizer_config.json \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main/additional_chat_templates?recursive=false&expand=false \"HTTP/1.1 404 Not Found\"\n15:10:20 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/tree/main?recursive=true&expand=false \"HTTP/1.1 200 OK\"\n15:10:20 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/tokenizer.json \"HTTP/1.1 302 Found\"\n15:10:21 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/xet-read-token/0be043249d18b430c26cada1374cb081deade3d9 \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/added_tokens.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/special_tokens_map.json \"HTTP/1.1 404 Not Found\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/chat_template.jinja \"HTTP/1.1 307 Temporary Redirect\"\n15:10:22 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:22 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/chat_template.jinja \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it \"HTTP/1.1 200 OK\"\n15:10:23 [INFO] Loading model...\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/config.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors \"HTTP/1.1 404 Not Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/model.safetensors.index.json \"HTTP/1.1 307 Temporary Redirect\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/model.safetensors.index.json \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: GET https://huggingface.co/api/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/revision/main \"HTTP/1.1 200 OK\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00001-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00006-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00005-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00008-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00003-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00007-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00002-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:24 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00004-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:10:50 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/0be043249d18b430c26cada1374cb081deade3d9/model-00009-of-00009.safetensors \"HTTP/1.1 302 Found\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/generation_config.json \"HTTP/1.1 307 Temporary Redirect\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/0be043249d18b430c26cada1374cb081deade3d9/generation_config.json \"HTTP/1.1 200 OK\"\n15:11:04 [INFO] HTTP Request: HEAD https://huggingface.co/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it/resolve/main/custom_generate/generate.py \"HTTP/1.1 404 Not Found\"\n15:11:04 [INFO] Architecture: Gemma4ForConditionalGeneration (model_type=gemma4, moe=False)\n15:11:04 [INFO] Ignore layers: lm_head,self_attn\n15:11:04 [INFO] Configuring AutoRound...\n\u001b[38;20m2026-05-31 15:11:04 INFO entry.py L587: Using MLLM mode for multimodal model.\u001b[0m\n\u001b[33;1m2026-05-31 15:11:05 WARNING logging.py L340: reset enable_torch_compile to `False` as nvfp4 is enabled\u001b[0m\n15:11:05 [INFO] Starting quantization...\n\u001b[38;20m2026-05-31 15:11:05 INFO replace_modules.py L120: Experts (before replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n)\u001b[0m\n[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.\n\u001b[38;20m2026-05-31 15:11:05 INFO device.py L1838: Before applying custom replacements 'peak_ram': 1.74GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:12 INFO moe_experts_interface.py L655: [MoE Prep] Unfused 30 MOE experts modules\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO device.py L1838: After applying custom replacements 'peak_ram': 34.35GB, 'peak_vram': 38.11GB\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L93: Prepared 30 MOE modules for quantization\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO replace_modules.py L120: Experts (after replacement) [model.language_model.layers.0.experts] (Gemma4TextExperts):\nGemma4TextExperts(\n  (act_fn): GELUTanh()\n  (0-97): 98 x _ExpertContainer(\n    (down_proj): Linear(in_features=704, out_features=2816, bias=False)\n    (gate_proj): Linear(in_features=2816, out_features=704, bias=False)\n    (up_proj): Linear(in_features=2816, out_features=704, bias=False)\n  )\n)\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING special_model_handler.py L383: Applying a monkey patch to Gemma4 to reduce RAM usage. This patch has only been validated with limited Transformers versions. Proceed with caution.\u001b[0m\n\u001b[38;20m2026-05-31 15:11:13 INFO utils.py L1069: Ignored layers: lm_head, lm_head, model.language_model.layers.[0-29].self_attn.k_proj, model.language_model.layers.[0-29].self_attn.o_proj, model.language_model.layers.[0-29].self_attn.q_proj, model.language_model.layers.[0-4,6-10,12-16,18-22,24-28].self_attn.v_proj, model.vision_tower.encoder.layers.[0-26].self_attn.k_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.o_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.q_proj.linear, model.vision_tower.encoder.layers.[0-26].self_attn.v_proj.linear, self_attn\u001b[0m\n\u001b[33;1m2026-05-31 15:11:13 WARNING utils.py L539: reset `quant_lm_head` to false as quantizing lm_head with tied weights has not been supported currently\u001b[0m\n15:11:14 [ERROR] Quantization failed: processor should not be None\nTraceback (most recent call last):\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 278, in <module>\n    quantize(args)\n  File \"/root/_work/1/s/auto_quant/phases/quantize.py\", line 179, in quantize\n    autoround.quantize()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1149, in quantize\n    return self._quantize_impl()\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 1177, in _quantize_impl\n    self._quantize_via_rtn_blockwise()\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 935, in _quantize_via_rtn_blockwise\n    all_inputs = self.cache_inter_data(to_cache_block_names, self.nsamples)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 155, in cache_inter_data\n    return self.calibration.cache_inter_data(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/llm.py\", line 239, in cache_inter_data\n    c.calib(nsamples, calib_bs)\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/data_driven.py\", line 168, in calib\n    return self.calibration.calib(nsamples, bs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/calibration/mllm.py\", line 73, in calib\n    c.template_obj = get_template(\n                     ^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/template.py\", line 192, in get_template\n    template.processor.post_init(\n  File \"/root/.venv/lib/python3.12/site-packages/auto_round/compressors/mllm/processor.py\", line 99, in post_init\n    assert processor is not None, \"processor should not be None\"\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: processor should not be None",
+      "You are fixing a failed \"quantize\" phase in the quantization pipeline.",
+      "## Error Output (last 100 lines):",
+      "15:11:14 [ERROR] Quantization failed: processor should not be None",
+      "Traceback (most recent call last):",
+      "AssertionError: processor should not be None",
+      "Let me analyze the error. The key error is:"
+    ],
+    "summary": "\"status\": \"success\",",
+    "tasks": [],
+    "metrics_preview": {},
+    "quant_num_gpus": 1,
+    "eval_num_gpus": 1,
+    "quant_details": null,
+    "eval_details": null,
+    "pipeline": {
+      "status": "failed",
+      "raw_status": "Failed",
+      "submitted_time": "2026-05-31T14:57:14Z",
+      "triggered_time": "2026-05-31T15:05:04Z",
+      "ci_run_id": 64371,
+      "job_type": "quantization & evaluation",
+      "quant_scheme": "NVFP4",
+      "hardware": "NVIDIA GeForce RTX 4090",
+      "gpu_nums": 1,
+      "model_weight_gb": 40.9,
+      "quant_model_size_gb": 10.22,
+      "params": 20.45
+    },
+    "session_eval_url": null,
+    "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/run_2026-05-31-15-18-32/logs/setup_env.log",
+    "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/results_2026-05-31-15-18-32.json",
+    "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_NVFP4_4bit_nvfp4.json",
+    "updated_at": "2026-06-09T13:15:15Z"
   },
   {
     "owner": "Jackrong",
@@ -14700,7 +14700,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-v3.5-AutoRound-W4A16-Tuning/run_2026-06-04-02-59-30/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-v3.5-AutoRound-W4A16-Tuning/results_2026-06-04-02-59-30.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Jackrong/Qwopus3.5-9B-v3.5_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:49:15Z"
+    "updated_at": "2026-06-09T13:15:11Z"
   },
   {
     "owner": "Jackrong",
@@ -14753,7 +14753,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-Coder-autoround-W4A16/run_2026-06-06-09-33-26/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-Coder-autoround-W4A16/results_2026-06-06-09-33-26.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Jackrong/Qwopus3.5-9B-Coder_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:49:14Z"
+    "updated_at": "2026-06-09T13:15:09Z"
   },
   {
     "owner": "Hcompany",
@@ -14806,7 +14806,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Hcompany/Holo-3.1-35B-A3B-autoround-W4A16/run_2026-06-08-06-49-36/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Hcompany/Holo-3.1-35B-A3B-autoround-W4A16/results_2026-06-08-06-49-36.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Hcompany/Holo-3.1-35B-A3B_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:49:06Z"
+    "updated_at": "2026-06-09T13:15:02Z"
   },
   {
     "owner": "FlameF0X",
@@ -14859,7 +14859,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-autoround-W4A16/run_2026-06-04-19-07-53/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-autoround-W4A16/results_2026-06-04-19-07-53.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Liquid-Claude-4.6-Thinking_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:48:56Z"
+    "updated_at": "2026-06-09T13:14:50Z"
   },
   {
     "owner": "FlameF0X",
@@ -14912,7 +14912,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-AutoRound-NVFP4-Tuning/run_2026-06-04-19-11-39/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-AutoRound-NVFP4-Tuning/results_2026-06-04-19-11-39.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Liquid-Claude-4.6-Thinking_quant_request_False_NVFP4_4bit_nvfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:48:55Z"
+    "updated_at": "2026-06-09T13:14:49Z"
   },
   {
     "owner": "FINAL-Bench",
@@ -14965,7 +14965,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FINAL-Bench/Darwin-35B-A3B-Opus-AutoRound-MXFP4-Tuning/run_2026-06-08-13-12-54/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FINAL-Bench/Darwin-35B-A3B-Opus-AutoRound-MXFP4-Tuning/results_2026-06-08-13-12-54.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FINAL-Bench/Darwin-35B-A3B-Opus_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:48:49Z"
+    "updated_at": "2026-06-09T13:14:43Z"
   },
   {
     "owner": "ConicCat",
@@ -15018,7 +15018,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Llama3_3-Nemo-Super-Writer-49B-autoround-W4A16/run_2026-06-03-07-04-47/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Llama3_3-Nemo-Super-Writer-49B-autoround-W4A16/results_2026-06-03-07-04-47.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Llama3_3-Nemo-Super-Writer-49B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:48:45Z"
+    "updated_at": "2026-06-09T13:14:37Z"
   },
   {
     "owner": "ByteDance",
@@ -15071,7 +15071,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance/Ouro-1.4B-AutoRound-W4A16-Tuning/run_2026-06-04-01-55-52/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance/Ouro-1.4B-AutoRound-W4A16-Tuning/results_2026-06-04-01-55-52.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ByteDance/Ouro-1.4B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:48:43Z"
+    "updated_at": "2026-06-09T13:14:36Z"
   },
   {
     "owner": "allenai",

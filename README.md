@@ -58,6 +58,7 @@ Each row in `runs.json` follows this shape:
   "session_eval_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/...",
   "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/...",
   "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/...",
+  "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/...",
   "updated_at": "2026-05-09T08:20:00Z"
 }
 ```

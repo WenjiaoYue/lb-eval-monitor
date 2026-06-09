@@ -238,6 +238,46 @@ def build_file_url(repo: str, branch: str, path_from_repo_root: str | None) -> s
     return f"https://github.com/{repo}/blob/{branch}/{path_from_repo_root}"
 
 
+def lifecycle_status_url(data: dict[str, Any], repo: str, branch: str) -> str | None:
+    path = data.get("_lifecycle_path")
+    if isinstance(path, str) and path.startswith("status/"):
+        return build_file_url(repo, branch, path)
+    return None
+
+
+def request_status_url(owner: str | None, request_filename: Any, repo: str, branch: str) -> str | None:
+    filename = str(request_filename or "").strip()
+    if not owner or not filename.endswith(".json"):
+        return None
+    return build_file_url(repo, branch, f"status/{owner}/{filename}")
+
+
+def comparable_time(value: Any) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    if re.fullmatch(r"\d{8}T\d{6}Z", text):
+        return text
+    try:
+        return datetime.fromisoformat(text.replace("Z", "+00:00")).astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    except ValueError:
+        return ""
+
+
+def status_filename_meta(path: str | None) -> dict[str, str]:
+    if not path:
+        return {}
+    match = re.match(r"^(?:status|requests|pending_requests)/([^/]+)/(.+?)_(?:quant|eval)_request_False_(.+)\.json$", path)
+    if not match:
+        return {}
+    owner, model_name, tail = match.groups()
+    tokens = [token for token in tail.split("_") if token]
+    scheme = next((token for token in tokens if re.fullmatch(r"(?:W\d+A\d+|MXFP\d+|NVFP\d+)", token, re.IGNORECASE)), "")
+    method = next((token for token in tokens if token.upper() in ("RTN", "TUNING")), "")
+    time = next((token for token in tokens if re.fullmatch(r"\d{8}T\d{6}Z", token)), "")
+    return {"owner": owner, "model_name": model_name, "scheme": scheme, "method": method.upper(), "time": time}
+
+
 def parse_aggregate_candidates(path: Path) -> list[dict[str, Any]]:
     payload = read_json(path)
     candidates: list[dict[str, Any]] = []
@@ -343,11 +383,13 @@ def record_from_run_dir(
 
     quant_summary_path = run_dir / "quant_summary.json"
     accuracy_path = run_dir / "accuracy.json"
+    request_path = run_dir / "request.json"
     session_eval_path = sorted(run_dir.glob("session_eval_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
     session_quant_path = sorted([*run_dir.glob("session_quant_*.md"), *run_dir.glob("session_fix_quantize_*.md"), *run_dir.glob("session_fix_setup_env_*.md")], key=lambda p: p.stat().st_mtime, reverse=True)
 
     quant_data = read_json(quant_summary_path) if quant_summary_path.exists() else None
     accuracy_data = read_json(accuracy_path) if accuracy_path.exists() else None
+    request_data = read_json(request_path) if request_path.exists() else None
 
     aggregate = aggregate_index.get(str(rel_path)) or aggregate_index.get(run_id) or {}
     aggregate_path = aggregate.get("__aggregate_path")
@@ -451,6 +493,12 @@ def record_from_run_dir(
         "session_eval_url": build_file_url(source_repo, source_branch, f"results/{eval_rel}" if eval_rel else None),
         "session_quant_url": build_file_url(source_repo, source_branch, f"results/{quant_rel}" if quant_rel else None),
         "aggregate_result_url": build_file_url(source_repo, source_branch, aggregate_rel),
+        "status_url": request_status_url(owner, aggregate.get("request_filename"), source_repo, source_branch),
+        "request_filename": first_nonempty(aggregate.get("request_filename")),
+        "request_submitted_time": first_nonempty(
+            (request_data or {}).get("submitted_time") if isinstance(request_data, dict) else None,
+            aggregate.get("submitted_time"),
+        ),
         "updated_at": updated_at,
     }
 
@@ -505,6 +553,9 @@ def record_from_aggregate_only(
         "session_eval_url": build_file_url(source_repo, source_branch, aggregate.get("session_eval_path")),
         "session_quant_url": build_file_url(source_repo, source_branch, aggregate.get("session_quant_path")),
         "aggregate_result_url": build_file_url(source_repo, source_branch, aggregate_rel),
+        "status_url": request_status_url(owner, aggregate.get("request_filename"), source_repo, source_branch),
+        "request_filename": first_nonempty(aggregate.get("request_filename")),
+        "request_submitted_time": first_nonempty(aggregate.get("submitted_time")),
         "updated_at": pick_timestamp(first_nonempty(aggregate.get("updated_at"), aggregate.get("run_timestamp"))),
         "quant_details": None,
         "eval_details": None,
@@ -651,6 +702,48 @@ def _phase_statuses_from_lifecycle(lifecycle_data: dict[str, Any]) -> tuple[str,
     return "running", "running"
 
 
+def _lifecycle_rank(data: dict[str, Any], dirname: str) -> tuple[int, int, str]:
+    source_rank = {"requests": 0, "pending_requests": 1, "status": 2}.get(dirname, 0)
+    status_rank = {
+        "pending": 0,
+        "running": 1,
+        "cancelled": 1,
+        "failed": 2,
+        "succeeded": 3,
+    }.get(_normalize_pipeline_status(data.get("status")), 0)
+    timestamp = str(first_nonempty(data.get("triggered_time"), data.get("submitted_time"), ""))
+    return source_rank, status_rank, timestamp
+
+
+def _lifecycle_method(data: dict[str, Any]) -> str:
+    meta = status_filename_meta(data.get("_lifecycle_path"))
+    return str(first_nonempty(data.get("method"), meta.get("method"), "") or "").strip().upper()
+
+
+def _lifecycle_time(data: dict[str, Any]) -> str:
+    meta = status_filename_meta(data.get("_lifecycle_path"))
+    return comparable_time(first_nonempty(meta.get("time"), data.get("submitted_time"), data.get("triggered_time")))
+
+
+def _record_method(record: dict[str, Any]) -> str:
+    haystack = f"{record.get('method', '')} {record.get('artifact_name', '')}".upper()
+    if "TUNING" in haystack:
+        return "TUNING"
+    if "RTN" in haystack:
+        return "RTN"
+    return ""
+
+
+def _methods_compatible(status_method: str, record_method: str) -> bool:
+    status_method = status_method.upper()
+    record_method = record_method.upper()
+    if status_method == "TUNING":
+        return record_method == "TUNING"
+    if status_method in ("", "RTN"):
+        return record_method in ("", "RTN")
+    return status_method == record_method
+
+
 def _model_key_from_status(data: dict[str, Any]) -> str:
     """Build a matching key from a status/request file. E.g. 'Qwen/Qwen3-0.6B::MXFP4'
 
@@ -704,40 +797,33 @@ def _base_model_from_record(record: dict[str, Any]) -> str:
     return base
 
 
-def load_lifecycle_index(repo_root: Path) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
-    """Load status/, requests/, and pending_requests/ data.
-
-    Returns a tuple of (full_index, model_only_index):
-      - full_index keyed by 'model::scheme'
-      - model_only_index keyed by 'model' (fallback for records without scheme)
-    Priority: status/ > pending_requests/ > requests/
-    """
-    index: dict[str, dict[str, Any]] = {}
+def load_lifecycle_index(repo_root: Path) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
+    """Load status/, requests/, and pending_requests/ data without collapsing distinct requests."""
+    entries: list[dict[str, Any]] = []
     model_only: dict[str, dict[str, Any]] = {}
 
-    # Load in priority order (lowest first, higher overwrites)
     for dirname in ("requests", "pending_requests", "status"):
         lifecycle_dir = repo_root / dirname
         if not lifecycle_dir.exists():
             continue
-        for json_file in lifecycle_dir.rglob("*.json"):
+        for json_file in sorted(lifecycle_dir.rglob("*.json")):
             data = read_json(json_file)
             if not isinstance(data, dict):
                 continue
             key = _model_key_from_status(data)
             if not key or "::" not in key:
                 continue
-            # Merge: keep all fields, higher priority dirs overwrite
-            if key not in index:
-                index[key] = {}
-            index[key].update(data)
-            index[key]["_lifecycle_dir"] = dirname
-            index[key]["_lifecycle_path"] = str(json_file.relative_to(repo_root))
+            candidate = dict(data)
+            candidate["_lifecycle_dir"] = dirname
+            candidate["_lifecycle_path"] = str(json_file.relative_to(repo_root))
+            entries.append(candidate)
             model_name = data.get("model", "")
             if model_name:
-                model_only[model_name] = index[key]
+                existing = model_only.get(model_name)
+                if existing is None or _lifecycle_rank(candidate, dirname) >= _lifecycle_rank(existing, str(existing.get("_lifecycle_dir", ""))):
+                    model_only[model_name] = candidate
 
-    return index, model_only
+    return entries, model_only
 
 
 def extract_pipeline_info(lifecycle_data: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -809,6 +895,7 @@ def record_from_lifecycle(
         "session_eval_url": None,
         "session_quant_url": None,
         "aggregate_result_url": None,
+        "status_url": lifecycle_status_url(data, source_repo, source_branch),
         "updated_at": triggered or submitted or "",
     }
 
@@ -831,6 +918,9 @@ def scan_results(
         rec["pipeline"] = extract_pipeline_info(lc_data) if lc_data else None
         if not lc_data:
             return
+        status_url = lifecycle_status_url(lc_data, source_repo, source_branch)
+        if status_url:
+            rec["status_url"] = status_url
         quant_status, eval_status = _phase_statuses_from_lifecycle(lc_data)
         rec["auto_quant_status"] = quant_status
         rec["auto_eval_status"] = eval_status
@@ -858,6 +948,58 @@ def scan_results(
             str(first_nonempty(record.get("model_id"), record.get("artifact_name"), "")),
             str(record.get("run_id") or ""),
         )
+
+    def _record_scheme(record: dict[str, Any]) -> str:
+        scheme = str(record.get("scheme") or "")
+        if scheme:
+            return scheme
+        haystack = f"{record.get('artifact_name', '')} {record.get('model_id', '')}".upper()
+        for token in ("W4A16", "MXFP4", "NVFP4"):
+            if token in haystack:
+                return token
+        return ""
+
+    def _record_base_key(record: dict[str, Any]) -> str:
+        clone = dict(record)
+        if not clone.get("scheme"):
+            clone["scheme"] = _record_scheme(record)
+        return _model_key_from_record(clone)
+
+    def _time_distance(status_time: str, record: dict[str, Any]) -> int:
+        target = comparable_time(first_nonempty(record.get("request_submitted_time"), record.get("run_timestamp")))
+        if not status_time or not target:
+            return 10**12
+        try:
+            left = datetime.strptime(status_time, "%Y%m%dT%H%M%SZ")
+            right = datetime.strptime(target, "%Y%m%dT%H%M%SZ")
+        except ValueError:
+            return 10**12
+        return int(abs((left - right).total_seconds()))
+
+    def _detail_match_score(status_data: dict[str, Any], record: dict[str, Any]) -> tuple[int, int, str] | None:
+        if _model_key_from_status(status_data) != _record_base_key(record):
+            return None
+        if not _methods_compatible(_lifecycle_method(status_data), _record_method(record)):
+            return None
+        status_path = str(status_data.get("_lifecycle_path") or "")
+        request_filename = str(record.get("request_filename") or "")
+        exact_request = bool(request_filename and status_path.endswith(f"/{request_filename}"))
+        status_time = _lifecycle_time(status_data)
+        distance = _time_distance(status_time, record)
+        return (0 if exact_request else 1, distance, str(record.get("run_timestamp") or ""))
+
+    def _find_detail_for_status(status_data: dict[str, Any], details: list[dict[str, Any]]) -> dict[str, Any] | None:
+        best: tuple[tuple[int, int, str], dict[str, Any]] | None = None
+        for detail in details:
+            score = _detail_match_score(status_data, detail)
+            if score is None:
+                continue
+            if best is None or score < best[0]:
+                best = (score, detail)
+        return best[1] if best else None
+
+    def _has_lifecycle_for_record(record: dict[str, Any]) -> bool:
+        return any(_detail_match_score(data, record) is not None for data in lifecycle_index)
 
     # ── 1. Collect result-detail records from the results/ tree ──
     # These are not the primary list; they only supply details that get merged
@@ -906,17 +1048,15 @@ def scan_results(
         "metrics_preview", "quant_num_gpus", "eval_num_gpus",
         "quant_details", "eval_details",
         "session_eval_url", "session_quant_url", "aggregate_result_url", "updated_at",
+        "status_url",
     )
     records: list[dict[str, Any]] = []
     matched_detail_ids: set[int] = set()
-    for data in lifecycle_index.values():
+    for data in lifecycle_index:
         record = record_from_lifecycle(data, source_repo, source_branch)
         norm_status = _normalize_pipeline_status(data.get("status"))
         if norm_status in ("succeeded", "failed"):
-            detail = (
-                detail_by_key.get(_model_key_from_status(data))
-                or detail_by_model.get(str(data.get("model", "")))
-            )
+            detail = _find_detail_for_status(data, detail_records)
             if detail is not None:
                 for field in detail_merge_fields:
                     value = detail.get(field)
@@ -934,10 +1074,9 @@ def scan_results(
         if id(rec) in matched_detail_ids:
             continue
         lc_data = (
-            lifecycle_index.get(_model_key_from_record(rec))
-            or lifecycle_model_only.get(_base_model_from_record(rec))
+            lifecycle_model_only.get(_base_model_from_record(rec))
         )
-        if lc_data is not None:
+        if lc_data is not None or _has_lifecycle_for_record(rec):
             continue  # already represented by the status-driven loop
         _apply_lifecycle(rec, None)
         records.append(rec)

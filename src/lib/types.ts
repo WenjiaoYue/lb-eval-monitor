@@ -68,6 +68,7 @@ export interface RunRecord {
 	session_eval_url?: string | null;
 	session_quant_url?: string | null;
 	aggregate_result_url?: string | null;
+	status_url?: string | null;
 	updated_at: string;
 }
 

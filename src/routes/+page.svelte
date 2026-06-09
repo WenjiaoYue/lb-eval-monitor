@@ -151,10 +151,15 @@ const totalPages = $derived(Math.max(1, Math.ceil(tableRows.length / PAGE_SIZE))
 const pagedRows = $derived(tableRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE));
 const pageStart = $derived(tableRows.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1);
 const pageEnd = $derived(Math.min(page * PAGE_SIZE, tableRows.length));
+let previousFilterSignature = $state('');
 $effect(() => {
 	// reset to the first page whenever the active filters change
-	void [search, owner, scheme, status, selectedSubmitter].join('|');
+	const filterSignature = [search, owner, scheme, status, selectedSubmitter].join('|');
 	page = 1;
+	if (filterSignature !== previousFilterSignature) {
+		selected = null;
+		previousFilterSignature = filterSignature;
+	}
 });
 $effect(() => {
 	if (page > totalPages) page = totalPages;

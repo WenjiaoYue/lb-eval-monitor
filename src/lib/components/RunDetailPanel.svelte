@@ -112,6 +112,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 							{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
 							{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Quant / Setup Log</a>{/if}
 							{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
+							{#if run.status_url}<a href={run.status_url} target="_blank" rel="noreferrer" class="link-pill">Status File</a>{/if}
 						</div>
 						<div class="run-meta">
 							<span>Run: <code>{run.run_id}</code></span>

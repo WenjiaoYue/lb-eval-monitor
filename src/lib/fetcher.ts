@@ -3,6 +3,8 @@
  * Replaces pre-generated static JSON approach.
  */
 import type { RunRecord, SummaryData, RunStatus, PipelineStatus, PipelineInfo, QuantDetails, EvalDetails } from './types';
+import allPaths from '$lib/assets/allPaths.json';
+import bundledFileData from '$lib/assets/fileData.json';
 
 const REPO = 'XuehaoSun/lb_eval';
 const BRANCH = 'main';
@@ -10,7 +12,7 @@ const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 const API_BASE = `https://api.github.com/repos/${REPO}`;
 
 // Patterns for files we need from the results/ tree
-const NEEDED_FILE_RE = /(?:^|\/)(?:quant_summary\.json|accuracy\.json|session_.*\.md)$/;
+const NEEDED_FILE_RE = /(?:^|\/)(?:request\.json|quant_summary\.json|accuracy\.json|session_.*\.md)$/;
 // Aggregate results at model level (NOT inside lm_eval_results/)
 const AGGREGATE_RE = /^results\/[^/]+\/[^/]+\/results_[^/]+\.json$/;
 
@@ -28,6 +30,7 @@ interface FileGroup {
 }
 
 interface StatusIdentity {
+	path: string;
 	owner: string;
 	modelName: string;
 	scheme: string;
@@ -73,7 +76,11 @@ async function fetchStaticSnapshot(): Promise<FetchResult> {
 		fetchStaticJson<RunRecord[]>('/data/latest.json'),
 		fetchStaticJson<SummaryData>('/data/summary.json'),
 	]);
-	return { runs, latest, summary };
+	return {
+		runs: hydrateStatusUrls(runs),
+		latest: hydrateStatusUrls(latest),
+		summary,
+	};
 }
 
 function normalizeKey(value: string | null | undefined): string {
@@ -223,6 +230,135 @@ function buildFileUrl(relPath: string | null): string | null {
 	return `https://github.com/${REPO}/blob/${BRANCH}/${relPath}`;
 }
 
+interface StatusPathMeta {
+	path: string;
+	owner: string;
+	modelName: string;
+	scheme: string;
+	method: string;
+	time: string;
+}
+
+function statusPathMeta(path: string): StatusPathMeta | null {
+	const match = path.match(/^status\/([^/]+)\/(.+?)_(?:quant|eval)_request_False_(.+)\.json$/);
+	if (!match) return null;
+	const [, owner, modelName, rest] = match;
+	const tokens = rest.split('_').filter(Boolean);
+	const scheme = tokens.find((token) => /^(?:W\d+A\d+|MXFP\d+|NVFP\d+)$/i.test(token)) || '';
+	const method = tokens.find((token) => /^(?:RTN|TUNING)$/i.test(token)) || '';
+	const time = tokens.find((token) => /^\d{8}T\d{6}Z$/.test(token)) || '';
+	return { path, owner, modelName, scheme, method, time };
+}
+
+function statusEntryMeta(path: string, data: any): StatusPathMeta | null {
+	const pathMeta = statusPathMeta(path);
+	const model = String(data?.model || '');
+	const modelParts = model.split('/');
+	const owner = modelParts.length > 1 ? modelParts[0] : pathMeta?.owner || '';
+	const modelName = modelParts.length > 1 ? modelParts.slice(1).join('/') : pathMeta?.modelName || '';
+	const scheme = normalizeScheme(data?.quant_scheme) || normalizeScheme(data?.compute_dtype) || pathMeta?.scheme || '';
+	const method = String(firstNonempty(data?.method, pathMeta?.method, '') || '').trim();
+	const time = isoToComparable(firstNonempty(data?.triggered_time, data?.submitted_time) as string) || pathMeta?.time || '';
+	if (!pathMeta || !owner || !modelName || !scheme) return null;
+	return { path, owner, modelName, scheme, method, time };
+}
+
+const statusPathIndex = (() => {
+	const bySpecific = new Map<string, StatusPathMeta>();
+	const byBase = new Map<string, StatusPathMeta[]>();
+	const byAggregate = new Map<string, StatusPathMeta>();
+	const byPathData = new Map<string, any>();
+	const entries = bundledFileData as unknown as [string, any][];
+	for (const [path, data] of entries) {
+		if (typeof path !== 'string' || !path.startsWith('status/')) continue;
+		byPathData.set(path, data);
+		const meta = statusEntryMeta(path, data);
+		if (!meta || !meta.scheme) continue;
+		const baseKey = `${normalizeKey(meta.owner)}::${normalizeKey(meta.modelName)}::${normalizeKey(meta.scheme)}`;
+		const specificKey = `${baseKey}::${normalizeKey(meta.method)}`;
+		const existing = bySpecific.get(specificKey);
+		if (!existing || meta.time > existing.time) bySpecific.set(specificKey, meta);
+		const list = byBase.get(baseKey) || [];
+		list.push(meta);
+		byBase.set(baseKey, list);
+	}
+	for (const [path, data] of entries) {
+		if (typeof path !== 'string' || !AGGREGATE_RE.test(path)) continue;
+		const requestFilename = String(data?.request_filename || '').trim();
+		if (!requestFilename.endsWith('.json')) continue;
+		const pathParts = path.split('/');
+		const owner = String(data?.model_id || '').includes('/') ? String(data.model_id).split('/')[0] : pathParts[1] || '';
+		const modelName = String(data?.model_id || '').includes('/') ? String(data.model_id).split('/').slice(1).join('/') : '';
+		const statusPath = `status/${owner}/${requestFilename}`;
+		const pathMeta = statusPathMeta(statusPath);
+		const scheme = normalizeScheme(data?.quant_scheme) || normalizeScheme(data?.scheme) || pathMeta?.scheme || '';
+		if (!owner || !modelName || !scheme || !pathMeta) continue;
+		const meta: StatusPathMeta = {
+			path: statusPath,
+			owner,
+			modelName,
+			scheme,
+			method: pathMeta.method,
+			time: isoToComparable(data?.updated_at) || pathMeta.time,
+		};
+		const baseKey = `${normalizeKey(owner)}::${normalizeKey(modelName)}::${normalizeKey(scheme)}`;
+		const existing = byAggregate.get(baseKey);
+		if (!existing || meta.time > existing.time) byAggregate.set(baseKey, meta);
+	}
+	for (const path of allPaths) {
+		if (typeof path !== 'string' || !path.startsWith('status/')) continue;
+		const meta = statusPathMeta(path);
+		if (!meta || !meta.scheme) continue;
+		const baseKey = `${normalizeKey(meta.owner)}::${normalizeKey(meta.modelName)}::${normalizeKey(meta.scheme)}`;
+		if (!byBase.has(baseKey)) byBase.set(baseKey, [meta]);
+	}
+	return { bySpecific, byBase, byAggregate, byPathData };
+})();
+
+function recordStatusScheme(record: RunRecord): string {
+	const raw = normalizeScheme(record.pipeline?.quant_scheme) || normalizeScheme(record.scheme);
+	if (raw) return raw;
+	const haystack = `${record.artifact_name || ''} ${record.model_id || ''}`.toUpperCase();
+	return ['W4A16', 'MXFP4', 'NVFP4'].find((token) => haystack.includes(token)) || '';
+}
+
+function recordStatusMethod(record: RunRecord): string {
+	const artifact = record.artifact_name || '';
+	if (/-RTN$/i.test(artifact) || normalizeKey(record.method) === 'rtn') return 'RTN';
+	if (/-Tuning$/i.test(artifact) || normalizeKey(record.method) === 'tuning') return 'TUNING';
+	return '';
+}
+
+function inferStatusMatch(record: RunRecord): StatusPathMeta | null {
+	if (record.status_url) {
+		const path = record.status_url.split(`/blob/${BRANCH}/`)[1];
+		return path ? statusPathMeta(path) : null;
+	}
+	const modelName = record.model_id.includes('/') ? record.model_id.split('/').slice(1).join('/') : record.model_id;
+	const baseKey = `${normalizeKey(record.owner)}::${normalizeKey(modelName)}::${normalizeKey(recordStatusScheme(record))}`;
+	const method = normalizeKey(recordStatusMethod(record));
+	const exact = statusPathIndex.bySpecific.get(`${baseKey}::${method}`);
+	const defaultMethod = statusPathIndex.bySpecific.get(`${baseKey}::`);
+	const aggregate = statusPathIndex.byAggregate.get(baseKey);
+	const latest = (statusPathIndex.byBase.get(baseKey) || []).sort((a, b) => b.time.localeCompare(a.time))[0];
+	return exact || defaultMethod || aggregate || latest || null;
+}
+
+function hydrateStatusUrls(records: RunRecord[]): RunRecord[] {
+	return records.map((record) => {
+		const match = inferStatusMatch(record);
+		const statusData = match ? statusPathIndex.byPathData.get(match.path) : null;
+		const statuses = statusData ? phaseStatusesFromLifecycle(statusData) : null;
+		return {
+			...record,
+			status_url: match ? buildFileUrl(match.path) : record.status_url,
+			pipeline: statusData ? extractPipelineInfo(statusData) : record.pipeline,
+			auto_quant_status: statuses?.quant ?? record.auto_quant_status,
+			auto_eval_status: statuses?.eval ?? record.auto_eval_status,
+		};
+	});
+}
+
 function parseStatusIdentity(path: string, data: any): StatusIdentity | null {
 	const parts = path.split('/');
 	if (parts.length < 3 || parts[0] !== 'status') return null;
@@ -246,6 +382,7 @@ function parseStatusIdentity(path: string, data: any): StatusIdentity | null {
 	}
 
 	return {
+		path,
 		owner,
 		modelName,
 		scheme,
@@ -315,7 +452,37 @@ function artifactMatchesStatus(run: ResultRunDir, identity: StatusIdentity): boo
 	return remainder === method;
 }
 
-function findResultRun(identity: StatusIdentity, data: any, resultRunDirs: ResultRunDir[]): ResultRunDir | null {
+function timeDistance(left: string, right: string): number {
+	if (!left || !right) return Number.MAX_SAFE_INTEGER;
+	const toMs = (value: string) => {
+		const match = value.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/);
+		if (!match) return Number.NaN;
+		return Date.UTC(
+			Number(match[1]),
+			Number(match[2]) - 1,
+			Number(match[3]),
+			Number(match[4]),
+			Number(match[5]),
+			Number(match[6])
+		);
+	};
+	const l = toMs(left);
+	const r = toMs(right);
+	if (Number.isNaN(l) || Number.isNaN(r)) return Number.MAX_SAFE_INTEGER;
+	return Math.abs(l - r);
+}
+
+function requestFilenameFromStatusPath(path: string): string {
+	return path.split('/').pop() || '';
+}
+
+function findResultRun(
+	identity: StatusIdentity,
+	data: any,
+	resultRunDirs: ResultRunDir[],
+	fileData: Map<string, any>,
+	aggregateIndex: Map<string, any>
+): ResultRunDir | null {
 	const candidates = resultRunDirs.filter((run) => artifactMatchesStatus(run, identity));
 	if (candidates.length === 0) return null;
 	const exactRunId = timeTokenToRunId(identity.statusTime);
@@ -324,11 +491,24 @@ function findResultRun(identity: StatusIdentity, data: any, resultRunDirs: Resul
 		if (exact) return exact;
 	}
 	const targetTime = identity.statusTime || isoToComparable(data?.submitted_time) || isoToComparable(data?.triggered_time);
-	if (targetTime) {
-		const afterTarget = candidates.filter((run) => run.runTime >= targetTime).sort((a, b) => a.runTime.localeCompare(b.runTime));
-		if (afterTarget[0]) return afterTarget[0];
-	}
-	return [...candidates].sort((a, b) => b.runId.localeCompare(a.runId))[0];
+	const requestFilename = requestFilenameFromStatusPath(identity.path);
+	return [...candidates].sort((a, b) => {
+		const aRel = a.runDir.replace('results/', '');
+		const bRel = b.runDir.replace('results/', '');
+		const aAgg = aggregateIndex.get(aRel) || aggregateIndex.get(a.runId) || {};
+		const bAgg = aggregateIndex.get(bRel) || aggregateIndex.get(b.runId) || {};
+		const aExact = aAgg.request_filename === requestFilename ? 0 : 1;
+		const bExact = bAgg.request_filename === requestFilename ? 0 : 1;
+		if (aExact !== bExact) return aExact - bExact;
+		const aReq = fileData.get(`${a.runDir}/request.json`);
+		const bReq = fileData.get(`${b.runDir}/request.json`);
+		const aTime = isoToComparable(firstNonempty(aReq?.submitted_time, a.runTime));
+		const bTime = isoToComparable(firstNonempty(bReq?.submitted_time, b.runTime));
+		const aDistance = timeDistance(targetTime, aTime);
+		const bDistance = timeDistance(targetTime, bTime);
+		if (aDistance !== bDistance) return aDistance - bDistance;
+		return b.runId.localeCompare(a.runId);
+	})[0];
 }
 
 function modelKeyFromStatus(data: any): string {
@@ -383,6 +563,48 @@ function phaseStatusesFromLifecycle(data: any): { quant: RunStatus; eval: RunSta
 	return { quant: 'running', eval: 'running' };
 }
 
+function lifecycleRank(data: any): number {
+	const status = normalizePipelineStatus(data?.status);
+	if (status === 'succeeded') return 3;
+	if (status === 'failed') return 2;
+	if (status === 'running' || status === 'cancelled') return 1;
+	return 0;
+}
+
+function lifecycleTime(data: any): string {
+	return isoToComparable(firstNonempty(data?.triggered_time, data?.submitted_time));
+}
+
+function lifecycleItemKey(item: { identity: StatusIdentity }): string {
+	return [
+		normalizeKey(item.identity.owner),
+		normalizeKey(item.identity.modelName),
+		normalizeKey(item.identity.scheme),
+		normalizeKey(item.identity.method),
+	].join('::');
+}
+
+function chooseLifecycleItems<T extends { data: any; identity: StatusIdentity }>(items: T[]): T[] {
+	const byKey = new Map<string, T>();
+	for (const item of items) {
+		const key = lifecycleItemKey(item);
+		const existing = byKey.get(key);
+		if (!existing) {
+			byKey.set(key, item);
+			continue;
+		}
+		const currentRank = lifecycleRank(item.data);
+		const existingRank = lifecycleRank(existing.data);
+		if (
+			currentRank > existingRank ||
+			(currentRank === existingRank && lifecycleTime(item.data) >= lifecycleTime(existing.data))
+		) {
+			byKey.set(key, item);
+		}
+	}
+	return [...byKey.values()];
+}
+
 function buildStatusOnlyRecord(identity: StatusIdentity, data: any, pipelineStatus: PipelineStatus): RunRecord {
 	const statuses = phaseStatusesFromLifecycle(data);
 	const submitted = data?.submitted_time || '';
@@ -414,6 +636,7 @@ function buildStatusOnlyRecord(identity: StatusIdentity, data: any, pipelineStat
 		session_eval_url: null,
 		session_quant_url: null,
 		aggregate_result_url: null,
+		status_url: buildFileUrl(identity.path),
 		updated_at: triggered || submitted || '',
 	};
 }
@@ -517,6 +740,7 @@ function buildResultRecord(
 		session_eval_url: null,
 		session_quant_url: null,
 		aggregate_result_url: null,
+		status_url: buildFileUrl(identity.path),
 		updated_at: parseRunTimestamp(resultRun.runId),
 	};
 
@@ -654,7 +878,7 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 	for (const { path, data, identity } of statuses) {
 		const normStatus = normalizePipelineStatus(data.status);
 		if (normStatus !== 'succeeded' && normStatus !== 'failed') continue;
-		const resultRun = findResultRun(identity, data, resultRunDirs);
+		const resultRun = findResultRun(identity, data, resultRunDirs, fileData, aggregateIndex);
 		if (!resultRun) continue;
 		matchedRunByStatus.set(path, resultRun);
 		if (normStatus === 'failed') {

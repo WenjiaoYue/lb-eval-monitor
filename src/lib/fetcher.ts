@@ -14,8 +14,7 @@ const NEEDED_FILE_RE = /(?:^|\/)(?:quant_summary\.json|accuracy\.json|session_.*
 // Aggregate results at model level (NOT inside lm_eval_results/)
 const AGGREGATE_RE = /^results\/[^/]+\/[^/]+\/results_[^/]+\.json$/;
 
-const QUANTIZE_LOG_RE = /(?:^|\/)logs\/quantize\.log$/;
-const SETUP_ENV_LOG_RE = /(?:^|\/)logs\/setup_env\.log$/;
+const LOG_FILE_RE = /(?:^|\/)logs\/[^/]+\.log$/;
 const STATUS_JOB_TYPE = 'quantization & evaluation';
 
 interface TreeEntry {
@@ -83,7 +82,7 @@ function normalizeKey(value: string | null | undefined): string {
 
 function normalizeScheme(value: string | null | undefined): string {
 	const text = String(value || '').trim();
-	if (!text) return '';
+	if (!text || text.toLowerCase() === 'unknown') return '';
 	const paren = text.match(/\(([^)]+)\)/);
 	return paren ? paren[1] : text;
 }
@@ -92,6 +91,7 @@ function normalizeStatus(value: any): RunStatus {
 	if (value == null) return 'running';
 	const text = String(value).trim().toLowerCase();
 	if (!text) return 'running';
+	if (text === 'unknown') return 'running';
 	if (['fail', 'error', 'exception', 'traceback'].some(t => text.includes(t))) return 'failed';
 	if (['success', 'succeed', 'pass', 'done', 'complete'].some(t => text.includes(t))) return 'success';
 	if (['running', 'pending', 'progress', 'started', 'queue'].some(t => text.includes(t))) return 'running';
@@ -106,7 +106,7 @@ function normalizePipelineStatus(raw: string | null | undefined): PipelineStatus
 	if (text === 'pending' || text === 'queued') return 'pending';
 	if (text === 'running' || text === 'started') return 'running';
 	if (text.includes('cancel')) return 'cancelled';
-	return 'pending';
+	return 'running';
 }
 
 function firstNonempty(...values: any[]): any {
@@ -237,7 +237,7 @@ function parseStatusIdentity(path: string, data: any): StatusIdentity | null {
 	const owner = modelParts.length > 1 ? modelParts[0] : pathOwner;
 	const modelName = modelParts.length > 1 ? modelParts.slice(1).join('/') : filename.slice(0, markerAt);
 	const tokens = filename.slice(markerAt + marker.length).split('_').filter(Boolean);
-	const scheme = normalizeScheme(firstNonempty(data?.quant_scheme, tokens[0], ''));
+	const scheme = normalizeScheme(data?.quant_scheme) || normalizeScheme(data?.compute_dtype) || normalizeScheme(tokens[0]);
 	let method = '';
 	let statusTime: string | null = null;
 	for (const token of tokens.slice(3)) {
@@ -285,6 +285,12 @@ function findSessionFile(resultRun: ResultRunDir, runFiles: string[], aggregate:
 	return runFileCandidates(resultRun, runFiles, aggregate).find((path) => kindRe.test(path));
 }
 
+function findLogFile(resultRun: ResultRunDir, availableFiles: string[], aggregate: any, phase: 'eval' | 'quant'): string | undefined {
+	const candidates = runFileCandidates(resultRun, availableFiles, aggregate).filter((path) => /\/logs\/[^/]+\.log$/.test(path));
+	const tokens = phase === 'eval' ? ['eval', 'accuracy', 'lm'] : ['quant', 'setup'];
+	return candidates.find((path) => tokens.some((token) => path.toLowerCase().includes(token))) || candidates[0];
+}
+
 function resultRunFromDir(runDir: string): ResultRunDir | null {
 	const relPath = runDir.replace('results/', '');
 	const parts = relPath.split('/');
@@ -327,7 +333,7 @@ function findResultRun(identity: StatusIdentity, data: any, resultRunDirs: Resul
 
 function modelKeyFromStatus(data: any): string {
 	const model = data.model || '';
-	const scheme = normalizeScheme(data.quant_scheme || '');
+	const scheme = normalizeScheme(data.quant_scheme) || normalizeScheme(data.compute_dtype);
 	return `${model}::${scheme}`;
 }
 
@@ -365,8 +371,20 @@ function pipelineStatusToQuantStatus(status: PipelineStatus): RunStatus {
 	return 'running';
 }
 
+function phaseStatusesFromLifecycle(data: any): { quant: RunStatus; eval: RunStatus } {
+	const status = normalizePipelineStatus(data?.status);
+	const rawStatus = String(data?.status || '').toLowerCase();
+	const script = String(data?.script || '').toLowerCase();
+	if (status === 'succeeded') return { quant: 'success', eval: 'success' };
+	if (status === 'failed') {
+		if (rawStatus.includes('eval') || script === 'auto_eval') return { quant: 'success', eval: 'failed' };
+		return { quant: 'failed', eval: 'running' };
+	}
+	return { quant: 'running', eval: 'running' };
+}
+
 function buildStatusOnlyRecord(identity: StatusIdentity, data: any, pipelineStatus: PipelineStatus): RunRecord {
-	const quantStatus = pipelineStatusToQuantStatus(pipelineStatus);
+	const statuses = phaseStatusesFromLifecycle(data);
 	const submitted = data?.submitted_time || '';
 	const triggered = data?.triggered_time || '';
 	return {
@@ -380,7 +398,8 @@ function buildStatusOnlyRecord(identity: StatusIdentity, data: any, pipelineStat
 		run_id: '',
 		run_timestamp: submitted || new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
 		run_path: '',
-		auto_quant_status: quantStatus,
+		auto_quant_status: statuses.quant,
+		auto_eval_status: statuses.eval,
 		quant_errors: [],
 		eval_errors: [],
 		issues: [],
@@ -444,18 +463,23 @@ function buildResultRecord(
 	const quantData = fileData.get(`${resultRun.runDir}/quant_summary.json`);
 	const accuracyData = fileData.get(`${resultRun.runDir}/accuracy.json`);
 	const aggregate = aggregateIndex.get(relPath) || aggregateIndex.get(resultRun.runId) || {};
-	const fallbackQuantStatus = pipelineStatusToQuantStatus(pipelineStatus);
-	const quantStatus = pipelineStatus === 'failed'
-		? 'failed'
-		: normalizeStatus(firstNonempty(quantData?.status, aggregate.auto_quant_status, fallbackQuantStatus));
+	const statuses = phaseStatusesFromLifecycle(data);
+	const quantStatus = statuses.quant;
+	const evalStatus = statuses.eval;
 	const failureSessionQuantFile = findSessionFile(resultRun, availableFiles, aggregate, 'quant');
+	const failureSessionEvalFile = findSessionFile(resultRun, availableFiles, aggregate, 'eval');
+	const failureQuantLogFile = findLogFile(resultRun, availableFiles, aggregate, 'quant');
+	const failureEvalLogFile = findLogFile(resultRun, availableFiles, aggregate, 'eval');
 	const failureLog = firstNonempty(
-		textData.get(`${resultRun.runDir}/logs/quantize.log`),
-		textData.get(`${resultRun.runDir}/logs/setup_env.log`),
+		failureQuantLogFile ? textData.get(failureQuantLogFile) : null,
 		failureSessionQuantFile ? textData.get(failureSessionQuantFile) : null,
 	);
-	const quantErrors = pipelineStatus === 'failed' && failureLog ? [String(failureLog)] : extractErrors(quantData?.errors);
-	const evalErrors = extractErrors(accuracyData?.errors);
+	const evalFailureLog = firstNonempty(
+		failureEvalLogFile ? textData.get(failureEvalLogFile) : null,
+		failureSessionEvalFile ? textData.get(failureSessionEvalFile) : null,
+	);
+	const quantErrors = quantStatus === 'failed' && failureLog ? [String(failureLog)] : extractErrors(quantData?.errors);
+	const evalErrors = evalStatus === 'failed' && evalFailureLog ? [String(evalFailureLog)] : extractErrors(accuracyData?.errors);
 	const issues = [...new Set([...quantErrors, ...evalErrors])];
 	const tasks: string[] = [];
 	if (accuracyData?.tasks && typeof accuracyData.tasks === 'object' && !Array.isArray(accuracyData.tasks)) {
@@ -472,12 +496,13 @@ function buildResultRecord(
 		model_id: firstNonempty(aggregate.model_id, quantData?.model_id, data?.model, `${identity.owner}/${identity.modelName}`) || identity.modelName,
 		submitted_by: firstNonempty(data?.submitted_by, aggregate.submitted_by),
 		orgs: extractOrgList(data?.orgs, data?.org, data?.organizations, aggregate.orgs, aggregate.org, aggregate.organizations),
-		scheme: firstNonempty(quantData?.scheme, aggregate.scheme, identity.scheme) || identity.scheme,
+		scheme: identity.scheme,
 		method: firstNonempty(quantData?.method, aggregate.method, identity.method) || identity.method,
 		run_id: resultRun.runId,
 		run_timestamp: parseRunTimestamp(resultRun.runId),
 		run_path: relPath,
 		auto_quant_status: quantStatus,
+		auto_eval_status: evalStatus,
 		quant_errors: quantErrors,
 		eval_errors: evalErrors,
 		issues,
@@ -537,8 +562,7 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 	const statusFiles: string[] = [];       // current source of truth
 	const runFiles: string[] = [];          // result JSON/session/aggregate files
 	const aggregateFiles: string[] = [];    // results_*.json at model level
-	const quantizeLogFiles: string[] = [];  // failed quantization logs
-	const setupEnvLogFiles: string[] = [];  // failed setup logs
+	const logFiles: string[] = [];          // failed run logs
 	const runDirs = new Set<string>();
 
 	for (const entry of entries) {
@@ -559,13 +583,8 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 			const runMatch = entry.path.match(/^(results\/[^/]+\/[^/]+\/run_[^/]+)\//);
 			if (runMatch) runDirs.add(runMatch[1]);
 		}
-		else if (QUANTIZE_LOG_RE.test(entry.path)) {
-			quantizeLogFiles.push(entry.path);
-			const runMatch = entry.path.match(/^(results\/[^/]+\/[^/]+\/run_[^/]+)\//);
-			if (runMatch) runDirs.add(runMatch[1]);
-		}
-		else if (SETUP_ENV_LOG_RE.test(entry.path)) {
-			setupEnvLogFiles.push(entry.path);
+		else if (LOG_FILE_RE.test(entry.path)) {
+			logFiles.push(entry.path);
 			const runMatch = entry.path.match(/^(results\/[^/]+\/[^/]+\/run_[^/]+)\//);
 			if (runMatch) runDirs.add(runMatch[1]);
 		}
@@ -585,7 +604,7 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 		}
 	}
 
-	progress(`Downloading ${statusFiles.length + runFiles.length + quantizeLogFiles.length + setupEnvLogFiles.length} files...`);
+	progress(`Downloading ${statusFiles.length + runFiles.length + logFiles.length} files...`);
 
 	// 3. Download all needed files in parallel
 	const allPaths = [...statusFiles, ...runFiles];
@@ -641,16 +660,14 @@ export async function fetchFromGitHub(onProgress?: (msg: string) => void): Promi
 		if (normStatus === 'failed') {
 			const relPath = resultRun.runDir.replace('results/', '');
 			const aggregate = aggregateIndex.get(relPath) || aggregateIndex.get(resultRun.runId) || {};
-			const quantizeLogPath = `${resultRun.runDir}/logs/quantize.log`;
-			const setupEnvLogPath = `${resultRun.runDir}/logs/setup_env.log`;
 			const sessionLogPath = findSessionFile(resultRun, runFiles, aggregate, 'quant');
-			if (quantizeLogFiles.includes(quantizeLogPath)) failedLogPaths.push(quantizeLogPath);
-			else if (setupEnvLogFiles.includes(setupEnvLogPath)) failedLogPaths.push(setupEnvLogPath);
-			else if (sessionLogPath) failedLogPaths.push(sessionLogPath);
+			const logPath = findLogFile(resultRun, [...runFiles, ...logFiles], aggregate, 'quant');
+			if (logPath) failedLogPaths.push(logPath);
+			if (sessionLogPath) failedLogPaths.push(sessionLogPath);
 		}
 	}
 	const textData = await batchFetchText([...new Set(failedLogPaths)], 8);
-	const availableFiles = [...runFiles, ...quantizeLogFiles, ...setupEnvLogFiles];
+	const availableFiles = [...runFiles, ...logFiles];
 
 	for (const { path, data, identity } of statuses) {
 		const normStatus = normalizePipelineStatus(data.status);

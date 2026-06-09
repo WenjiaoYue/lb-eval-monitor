@@ -90,16 +90,30 @@ return () => { clearInterval(clockInterval); };
 
 const currentRows = $derived(runs);
 const owners = $derived(['all', ...new Set(runs.map((r) => r.owner).filter(Boolean)).values()]);
-const displayScheme = (run: RunRecord) => {
+const SCHEME_TOKENS = ['W4A16', 'MXFP4', 'NVFP4'];
+const extractScheme = (run: RunRecord) => {
 	const raw = run.pipeline?.quant_scheme || run.scheme || '';
+	if (raw) return raw;
+	// Eval-only jobs carry the scheme only inside the artifact/model name.
+	const hay = `${run.artifact_name || ''} ${run.model_id || ''}`.toUpperCase();
+	return SCHEME_TOKENS.find((tok) => hay.includes(tok)) || '';
+};
+const displayScheme = (run: RunRecord) => {
+	const raw = extractScheme(run);
 	return raw === 'W4A16' ? 'INT4 (W4A16)' : raw;
+};
+const displayMethod = (run: RunRecord) => {
+	const hay = `${run.method || ''} ${run.artifact_name || ''}`.toLowerCase();
+	if (hay.includes('rtn')) return 'RTN';
+	if (hay.includes('tuning') || hay.includes('autoround') || hay.includes('auto_eval') || String(run.method || '').trim()) return 'TUNING';
+	return '-';
 };
 const schemes = $derived(['all', ...new Set(runs.map(displayScheme).filter(Boolean)).values()]);
 const submitters = $derived([...new Set(runs.map((r) => String(r.submitted_by || '')).filter(Boolean)).values()]);
 
 const statusBucket = (run: RunRecord): QuantStatusFilter => {
-if (run.auto_quant_status === 'failed') return 'failed';
-if (run.auto_quant_status === 'success') return 'success';
+if (run.auto_quant_status === 'failed' || run.auto_eval_status === 'failed') return 'failed';
+if (run.auto_quant_status === 'success' && (run.auto_eval_status == null || run.auto_eval_status === 'success')) return 'success';
 return 'running';
 };
 
@@ -165,7 +179,7 @@ sortKey = key;
 sortAsc = key !== 'updated_at';
 };
 
-const failedRuns = $derived(runs.filter((r) => r.auto_quant_status === 'failed'));
+const failedRuns = $derived(runs.filter((r) => statusBucket(r) === 'failed'));
 const errorCount = (run: RunRecord) => run.quant_errors.length + run.eval_errors.length;
 
 let detailRef: HTMLElement | undefined = $state();
@@ -286,6 +300,7 @@ const schemeRows = $derived.by<SchemeRow[]>(() => {
 		const b = statusBucket(run);
 		if (b === 'running') continue;
 		const s = displayScheme(run);
+		if (!s) continue;
 		const row = map.get(s) || { scheme: s, count: 0, success: 0, failed: 0 };
 		row.count += 1;
 		row[b] += 1;
@@ -601,14 +616,13 @@ return sortAsc ? ' \u2191' : ' \u2193';
 					<th><button type="button" onclick={() => setSort('owner')}>Owner{sortIcon('owner')}</button></th>
 					<th><button type="button" onclick={() => setSort('model_id')}>Model / Artifact{sortIcon('model_id')}</button></th>
 					<th>Scheme</th>
-					<th>Pipeline</th>
-					<th>Quant</th>
-					<th>Errors</th>
+					<th>Method</th>
+					<th>Status</th>
 				</tr>
 			</thead>
 			<tbody>
 				{#if tableRows.length === 0}
-				<tr><td colspan="7" class="empty-row">No runs match current filters.</td></tr>
+				<tr><td colspan="6" class="empty-row">No runs match current filters.</td></tr>
 				{:else}
 				{#each pagedRows as run}
 				<tr
@@ -624,19 +638,9 @@ return sortAsc ? ' \u2191' : ' \u2193';
 						<span class="model-artifact">{run.artifact_name}</span>
 						{/if}
 					</td>
-					<td class="cell-scheme"><span class="scheme-tag">{run.scheme}</span><span class="method-text">{run.method}</span></td>
-					<td><span class="pipeline-badge pipeline-badge--{run.pipeline?.status || 'pending'}">{run.pipeline?.status || '-'}</span></td>
-					<td><StatusBadge status={run.auto_quant_status} /></td>
-					<td class="cell-errors">
-						{#if errorCount(run) > 0}
-						<span class="err-badge">{errorCount(run)}</span>
-						<span class="err-msg">{(run.eval_errors[0] || run.quant_errors[0] || '').slice(0, 50)}</span>
-						{:else if run.issues.length > 0}
-						<span class="issue-msg">{run.issues[0].slice(0, 50)}</span>
-						{:else}
-						<span class="no-errors">--</span>
-						{/if}
-					</td>
+					<td class="cell-scheme"><span class="scheme-tag">{displayScheme(run) || '-'}</span></td>
+					<td class="cell-method"><span class="method-text">{displayMethod(run)}</span></td>
+					<td class="cell-status"><StatusBadge status={statusBucket(run)} /></td>
 				</tr>
 				{/each}
 				{/if}
@@ -1260,23 +1264,16 @@ tbody tr.row-failed.active {
 	font-weight: 600;
 	color: #1e293b;
 }
-.cell-model {
-	display: flex;
-	flex-direction: column;
-	gap: 0.125rem;
-}
 .model-name {
+	display: block;
 	font-weight: 700;
 	color: #0f172a;
 }
 .model-artifact {
+	display: block;
+	margin-top: 0.125rem;
 	font-size: 0.6875rem;
 	color: #94a3b8;
-}
-.cell-scheme {
-	display: flex;
-	flex-direction: column;
-	gap: 0.125rem;
 }
 .scheme-tag {
 	font-weight: 600;
@@ -1287,52 +1284,6 @@ tbody tr.row-failed.active {
 	font-size: 0.6875rem;
 	color: #94a3b8;
 }
-.cell-errors {
-	max-width: 300px;
-}
-.err-badge {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-width: 22px;
-	height: 22px;
-	background: #ef4444;
-	color: #fff;
-	font-weight: 700;
-	font-size: 0.6875rem;
-	padding: 0 0.375rem;
-	border-radius: 999px;
-	margin-right: 0.5rem;
-}
-.err-msg {
-	font-size: 0.75rem;
-	color: #64748b;
-}
-.issue-msg {
-	font-size: 0.75rem;
-	color: #94a3b8;
-}
-.no-errors {
-	color: #cbd5e1;
-}
-
-/* Pipeline badge */
-.pipeline-badge {
-	display: inline-flex;
-	align-items: center;
-	padding: 0.1875rem 0.5rem;
-	border-radius: 6px;
-	font-size: 0.6875rem;
-	font-weight: 600;
-	text-transform: capitalize;
-	white-space: nowrap;
-}
-.pipeline-badge--pending { background: rgba(99, 102, 241, 0.1); color: #4f46e5; }
-.pipeline-badge--running { background: rgba(245, 158, 11, 0.1); color: #d97706; }
-.pipeline-badge--succeeded { background: rgba(16, 185, 129, 0.1); color: #059669; }
-.pipeline-badge--failed { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
-.pipeline-badge--cancelled { background: rgba(107, 114, 128, 0.1); color: #6b7280; }
-
 /* ── Responsive ── */
 @media (max-width: 1280px) {
 	.hero-wrap { padding: 1.25rem 2rem 0; }

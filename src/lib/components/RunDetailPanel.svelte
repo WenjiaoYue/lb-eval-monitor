@@ -52,23 +52,74 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 
 	<div class="panel-body" class:single-col={!hasLogs(run)}>
 		<div class="col info-col">
-			{#if run.quant_details}
-			<div class="card">
-				<h3>Quantization Details</h3>
-				<div class="info-grid">
-					<div class="info-item"><span class="info-label">Source Model</span><span class="info-value">{run.quant_details.model_id || run.model_id}</span></div>
-					<div class="info-item"><span class="info-label">Original Size</span><span class="info-value">{formatSize(run.quant_details.original_size_mb)}</span></div>
-					<div class="info-item"><span class="info-label">Quantized Size</span><span class="info-value">{formatSize(run.quant_details.quantized_size_mb)}</span></div>
-					<div class="info-item"><span class="info-label">Compression</span><span class="info-value">{run.quant_details.compression_ratio != null ? `${(run.quant_details.compression_ratio * 100).toFixed(1)}%` : '-'}</span></div>
-					<div class="info-item"><span class="info-label">Duration</span><span class="info-value">{formatDuration(run.quant_details.duration_seconds)}</span></div>
-					<div class="info-item"><span class="info-label">Format</span><span class="info-value">{run.quant_details.export_format || '-'}</span></div>
-					<div class="info-item"><span class="info-label">Device</span><span class="info-value">{run.quant_details.device || '-'} ({run.quant_num_gpus || '?'} GPU)</span></div>
-					{#if run.quant_details.hf_repo}
-					<div class="info-item full"><span class="info-label">HuggingFace</span><a href={run.quant_details.hf_repo} target="_blank" rel="noreferrer" class="info-link">{run.quant_details.hf_repo}</a></div>
+			<div class="top-grid">
+				<div class="top-col">
+					{#if run.pipeline}
+					<div class="card">
+						<h3>Pipeline Status</h3>
+						<div class="pipeline-timeline">
+							<div class="pipeline-step" class:step-done={run.pipeline.submitted_time} class:step-active={run.pipeline.status === 'pending' && !run.pipeline.triggered_time}>
+								<span class="step-dot"></span>
+								<span class="step-label">Submitted</span>
+								<span class="step-time">{run.pipeline.submitted_time ? formatTime(run.pipeline.submitted_time) : '-'}</span>
+							</div>
+							<div class="pipeline-step" class:step-done={run.pipeline.triggered_time && run.pipeline.status !== 'pending'} class:step-active={run.pipeline.status === 'running' || (run.pipeline.triggered_time && run.pipeline.status === 'pending')}>
+								<span class="step-dot"></span>
+								<span class="step-label">Running</span>
+								<span class="step-time">{run.pipeline.triggered_time ? formatTime(run.pipeline.triggered_time) : '-'}</span>
+							</div>
+							<div class="pipeline-step" class:step-done={run.pipeline.status === 'succeeded'} class:step-failed={run.pipeline.status === 'failed'}>
+								<span class="step-dot"></span>
+								<span class="step-label">{run.pipeline.status === 'failed' ? 'Failed' : 'Succeeded'}</span>
+								<span class="step-time">{run.pipeline.status === 'succeeded' || run.pipeline.status === 'failed' ? formatTime(run.run_timestamp) : '-'}</span>
+							</div>
+						</div>
+						<div class="info-grid pipeline-grid">
+							{#if run.pipeline.job_type}<div class="info-item"><span class="info-label">Job Type</span><span class="info-value">{run.pipeline.job_type}</span></div>{/if}
+							{#if run.pipeline.quant_scheme}<div class="info-item"><span class="info-label">Scheme</span><span class="info-value">{run.pipeline.quant_scheme}</span></div>{/if}
+							{#if run.pipeline.hardware}<div class="info-item"><span class="info-label">Hardware</span><span class="info-value">{run.pipeline.hardware} × {run.pipeline.gpu_nums || '?'}</span></div>{/if}
+							{#if run.pipeline.params}<div class="info-item"><span class="info-label">Params</span><span class="info-value">{run.pipeline.params}B</span></div>{/if}
+							{#if run.pipeline.model_weight_gb}<div class="info-item"><span class="info-label">Model Size</span><span class="info-value">{run.pipeline.model_weight_gb} GB</span></div>{/if}
+							{#if run.pipeline.quant_model_size_gb}<div class="info-item"><span class="info-label">Quant Size</span><span class="info-value">{run.pipeline.quant_model_size_gb} GB</span></div>{/if}
+							{#if run.pipeline.ci_run_id}<div class="info-item"><span class="info-label">CI Run</span><span class="info-value">#{run.pipeline.ci_run_id}</span></div>{/if}
+						</div>
+					</div>
 					{/if}
 				</div>
+
+				<div class="top-col">
+					{#if run.quant_details}
+					<div class="card">
+						<h3>Quantization Details</h3>
+						<div class="info-grid">
+							<div class="info-item"><span class="info-label">Source Model</span><span class="info-value">{run.quant_details.model_id || run.model_id}</span></div>
+							<div class="info-item"><span class="info-label">Original Size</span><span class="info-value">{formatSize(run.quant_details.original_size_mb)}</span></div>
+							<div class="info-item"><span class="info-label">Quantized Size</span><span class="info-value">{formatSize(run.quant_details.quantized_size_mb)}</span></div>
+							<div class="info-item"><span class="info-label">Compression</span><span class="info-value">{run.quant_details.compression_ratio != null ? `${(run.quant_details.compression_ratio * 100).toFixed(1)}%` : '-'}</span></div>
+							<div class="info-item"><span class="info-label">Duration</span><span class="info-value">{formatDuration(run.quant_details.duration_seconds)}</span></div>
+							<div class="info-item"><span class="info-label">Format</span><span class="info-value">{run.quant_details.export_format || '-'}</span></div>
+							<div class="info-item"><span class="info-label">Device</span><span class="info-value">{run.quant_details.device || '-'} ({run.quant_num_gpus || '?'} GPU)</span></div>
+							{#if run.quant_details.hf_repo}
+							<div class="info-item full"><span class="info-label">HuggingFace</span><a href={run.quant_details.hf_repo} target="_blank" rel="noreferrer" class="info-link">{run.quant_details.hf_repo}</a></div>
+							{/if}
+						</div>
+					</div>
+					{/if}
+
+					<div class="card">
+						<h3>Source & Links</h3>
+						<div class="links-row">
+							{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
+							{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Quant / Setup Log</a>{/if}
+							{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
+						</div>
+						<div class="run-meta">
+							<span>Run: <code>{run.run_id}</code></span>
+							<span>Path: <code>{run.run_path}</code></span>
+						</div>
+					</div>
+				</div>
 			</div>
-			{/if}
 
 			{#if run.eval_details || run.tasks.length > 0}
 			<div class="card">
@@ -130,51 +181,6 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 				</ul>
 			</div>
 			{/if}
-
-			{#if run.pipeline}
-			<div class="card">
-				<h3>Pipeline Status</h3>
-				<div class="pipeline-timeline">
-					<div class="pipeline-step" class:step-done={run.pipeline.submitted_time} class:step-active={run.pipeline.status === 'pending' && !run.pipeline.triggered_time}>
-						<span class="step-dot"></span>
-						<span class="step-label">Submitted</span>
-						<span class="step-time">{run.pipeline.submitted_time ? formatTime(run.pipeline.submitted_time) : '-'}</span>
-					</div>
-					<div class="pipeline-step" class:step-done={run.pipeline.triggered_time && run.pipeline.status !== 'pending'} class:step-active={run.pipeline.status === 'running' || (run.pipeline.triggered_time && run.pipeline.status === 'pending')}>
-						<span class="step-dot"></span>
-						<span class="step-label">Running</span>
-						<span class="step-time">{run.pipeline.triggered_time ? formatTime(run.pipeline.triggered_time) : '-'}</span>
-					</div>
-					<div class="pipeline-step" class:step-done={run.pipeline.status === 'succeeded'} class:step-failed={run.pipeline.status === 'failed'}>
-						<span class="step-dot"></span>
-						<span class="step-label">{run.pipeline.status === 'failed' ? 'Failed' : 'Succeeded'}</span>
-						<span class="step-time">{run.pipeline.status === 'succeeded' || run.pipeline.status === 'failed' ? formatTime(run.run_timestamp) : '-'}</span>
-					</div>
-				</div>
-				<div class="info-grid" style="margin-top: 0.75rem;">
-					{#if run.pipeline.job_type}<div class="info-item"><span class="info-label">Job Type</span><span class="info-value">{run.pipeline.job_type}</span></div>{/if}
-					{#if run.pipeline.quant_scheme}<div class="info-item"><span class="info-label">Scheme</span><span class="info-value">{run.pipeline.quant_scheme}</span></div>{/if}
-					{#if run.pipeline.hardware}<div class="info-item"><span class="info-label">Hardware</span><span class="info-value">{run.pipeline.hardware} × {run.pipeline.gpu_nums || '?'}</span></div>{/if}
-					{#if run.pipeline.params}<div class="info-item"><span class="info-label">Params</span><span class="info-value">{run.pipeline.params}B</span></div>{/if}
-					{#if run.pipeline.model_weight_gb}<div class="info-item"><span class="info-label">Model Size</span><span class="info-value">{run.pipeline.model_weight_gb} GB</span></div>{/if}
-					{#if run.pipeline.quant_model_size_gb}<div class="info-item"><span class="info-label">Quant Size</span><span class="info-value">{run.pipeline.quant_model_size_gb} GB</span></div>{/if}
-					{#if run.pipeline.ci_run_id}<div class="info-item"><span class="info-label">CI Run</span><span class="info-value">#{run.pipeline.ci_run_id}</span></div>{/if}
-				</div>
-			</div>
-			{/if}
-
-			<div class="card">
-				<h3>Source & Links</h3>
-				<div class="links-row">
-					{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
-					{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Quant / Setup Log</a>{/if}
-					{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
-				</div>
-				<div class="run-meta">
-					<span>Run: <code>{run.run_id}</code></span>
-					<span>Path: <code>{run.run_path}</code></span>
-				</div>
-			</div>
 		</div>
 
 		{#if hasLogs(run)}
@@ -271,7 +277,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 
 .panel-body {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr;
 	gap: 1rem;
 	padding: 1.125rem 1.75rem;
 	max-height: 560px;
@@ -281,6 +287,16 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	grid-template-columns: 1fr;
 }
 .col {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+.top-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 1rem;
+}
+.top-col {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
@@ -329,6 +345,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 .info-value { font-weight: 700; color: #0f172a; }
 .info-link { color: #2563eb; text-decoration: none; font-size: 0.75rem; word-break: break-all; font-weight: 600; }
 .info-link:hover { text-decoration: underline; }
+.pipeline-grid { margin-top: 0.75rem; }
 
 /* Eval meta */
 .eval-meta {
@@ -484,6 +501,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 
 @media (max-width: 900px) {
 	.panel-body { grid-template-columns: 1fr; }
+	.top-grid { grid-template-columns: 1fr; }
 	.panel-head { padding: 0.875rem 1.25rem; }
 	.panel-body { padding: 0.875rem 1.25rem; }
 }

@@ -53,6 +53,7 @@ export interface RunRecord {
 	run_timestamp: string;
 	run_path: string;
 	auto_quant_status: RunStatus;
+	auto_eval_status?: RunStatus;
 	quant_errors: string[];
 	eval_errors: string[];
 	issues: string[];

@@ -78,6 +78,18 @@ def first_nonempty(*values: Any) -> Any:
     return None
 
 
+def normalize_scheme(value: Any) -> str:
+    text = str(value or "").strip()
+    if not text or text.lower() == "unknown":
+        return ""
+    match = re.search(r"\((\w+)\)", text)
+    return match.group(1) if match else text
+
+
+def lifecycle_scheme(data: dict[str, Any]) -> str:
+    return normalize_scheme(data.get("quant_scheme")) or normalize_scheme(data.get("compute_dtype"))
+
+
 def extract_org_list(*values: Any) -> list[str]:
     orgs: list[str] = []
 
@@ -113,16 +125,24 @@ def extract_errors(raw: Any) -> list[str]:
     return dedupe([e for e in errors if e])
 
 
-def read_failure_log(run_dir: Path) -> str | None:
-    for log_name in ("quantize.log", "setup_env.log"):
-        log_path = run_dir / "logs" / log_name
+def read_failure_log(run_dir: Path, phase: str | None = None) -> str | None:
+    candidates: list[Path] = []
+    if phase == "eval":
+        candidates.extend(sorted(run_dir.glob("logs/*eval*.log")))
+        candidates.extend(sorted(run_dir.glob("session_eval_*.md"), key=lambda p: p.stat().st_mtime, reverse=True))
+    else:
+        candidates.extend(run_dir / "logs" / log_name for log_name in ("quantize.log", "setup_env.log"))
+        for pattern in ("session_fix_setup_env_*.md", "session_fix_quantize_*.md", "session_quant_*.md"):
+            candidates.extend(sorted(run_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True))
+    candidates.extend(sorted(run_dir.glob("logs/*.log")))
+
+    seen: set[Path] = set()
+    for log_path in candidates:
+        if log_path in seen:
+            continue
+        seen.add(log_path)
         if log_path.exists():
             content = log_path.read_text(encoding="utf-8", errors="ignore").strip()
-            if content:
-                return content
-    for pattern in ("session_fix_setup_env_*.md", "session_fix_quantize_*.md", "session_quant_*.md"):
-        for session_path in sorted(run_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True):
-            content = session_path.read_text(encoding="utf-8", errors="ignore").strip()
             if content:
                 return content
     return None
@@ -347,10 +367,14 @@ def record_from_run_dir(
 
     quant_errors = extract_errors((quant_data or {}).get("errors") if isinstance(quant_data, dict) else None)
     if quant_status == "failed":
-        failure_log = read_failure_log(run_dir)
+        failure_log = read_failure_log(run_dir, "quant")
         if failure_log:
             quant_errors = [failure_log]
     eval_errors = extract_errors((accuracy_data or {}).get("errors") if isinstance(accuracy_data, dict) else None)
+    if eval_status == "failed" and not eval_errors:
+        failure_log = read_failure_log(run_dir, "eval")
+        if failure_log:
+            eval_errors = [failure_log]
 
     session_issues: list[str] = []
     summary: str | None = None
@@ -610,6 +634,23 @@ def _lifecycle_failed_phase(raw_status: str | None) -> str | None:
     return None
 
 
+def _phase_statuses_from_lifecycle(lifecycle_data: dict[str, Any]) -> tuple[str, str]:
+    """Map the lifecycle status value to quant/eval dashboard statuses."""
+    norm_status = _normalize_pipeline_status(lifecycle_data.get("status"))
+    phase = _lifecycle_failed_phase(lifecycle_data.get("status"))
+    script = str(lifecycle_data.get("script") or "").lower()
+
+    if norm_status == "succeeded":
+        return "success", "success"
+    if norm_status in ("pending", "running", "cancelled"):
+        return "running", "running"
+    if norm_status == "failed":
+        if phase == "eval" or script == "auto_eval":
+            return "success", "failed"
+        return "failed", "running"
+    return "running", "running"
+
+
 def _model_key_from_status(data: dict[str, Any]) -> str:
     """Build a matching key from a status/request file. E.g. 'Qwen/Qwen3-0.6B::MXFP4'
 
@@ -617,11 +658,7 @@ def _model_key_from_status(data: dict[str, Any]) -> str:
     (e.g. "INT4 (W4A16)") so the resulting key still includes a scheme.
     """
     model = data.get("model", "")
-    scheme = data.get("quant_scheme") or data.get("compute_dtype") or ""
-    # Normalize scheme: "INT4 (W4A16)" -> "W4A16"
-    m = re.search(r"\((\w+)\)", scheme)
-    if m:
-        scheme = m.group(1)
+    scheme = lifecycle_scheme(data)
     return f"{model}::{scheme}"
 
 
@@ -724,94 +761,56 @@ def extract_pipeline_info(lifecycle_data: dict[str, Any] | None) -> dict[str, An
     return info if info else None
 
 
-def records_from_pending_requests(
-    lifecycle_index: dict[str, dict[str, Any]],
-    existing_keys: set[str],
+def record_from_lifecycle(
+    data: dict[str, Any],
     source_repo: str,
     source_branch: str,
-) -> list[dict[str, Any]]:
-    """Create run records for pending jobs that don't have results yet."""
-    pending_records: list[dict[str, Any]] = []
+) -> dict[str, Any]:
+    """Build a run record straight from a status/lifecycle entry.
 
-    for key, data in lifecycle_index.items():
-        if key in existing_keys:
-            continue  # Already matched to a result record
+    The status folder is the source of truth for model/scheme/status. Result
+    details (logs, metrics, sessions) are merged in later, and only once the
+    job has reached a terminal state (finished/failed).
+    """
+    model = data.get("model", "")
+    parts = model.split("/", 1)
+    owner = parts[0] if len(parts) > 1 else ""
+    base_model = parts[1] if len(parts) > 1 else model
 
-        norm_status = _normalize_pipeline_status(data.get("status"))
-        if norm_status == "succeeded":
-            continue  # Finished jobs should have results, skip if not matched
+    scheme = lifecycle_scheme(data)
+    submitted = data.get("submitted_time", "")
+    triggered = data.get("triggered_time")
+    quant_status, eval_status = _phase_statuses_from_lifecycle(data)
 
-        model = data.get("model", "")
-        parts = model.split("/", 1)
-        owner = parts[0] if len(parts) > 1 else ""
-        base_model = parts[1] if len(parts) > 1 else model
-
-        scheme_raw = data.get("quant_scheme", "")
-        m = re.search(r"\((\w+)\)", scheme_raw)
-        scheme = m.group(1) if m else scheme_raw
-
-        submitted = data.get("submitted_time", "")
-        triggered = data.get("triggered_time")
-
-        # Determine quant/eval status based on pipeline status
-        script = (data.get("script") or "").lower()
-        phase = _lifecycle_failed_phase(data.get("status"))
-        if norm_status == "pending":
-            quant_status = "running"  # queued = will run
-            eval_status = "running"
-        elif norm_status == "running":
-            quant_status = "running"
-            eval_status = "running"
-        elif norm_status == "failed":
-            # Prefer the explicit phase from the raw status text; otherwise infer
-            # from the script type (auto_quant vs auto_eval).
-            if phase == "eval":
-                quant_status, eval_status = "success", "failed"
-            elif phase == "quant":
-                quant_status, eval_status = "failed", "running"
-            elif script == "auto_eval":
-                quant_status, eval_status = "success", "failed"
-            else:
-                quant_status, eval_status = "failed", "running"
-        elif norm_status == "cancelled":
-            quant_status = "running"
-            eval_status = "running"
-        else:
-            quant_status = "running"
-            eval_status = "running"
-
-        record: dict[str, Any] = {
-            "owner": owner,
-            "artifact_name": f"{base_model}-{scheme}",
-            "model_id": base_model,
-            "submitted_by": first_nonempty(data.get("submitted_by")),
-            "orgs": extract_org_list(data.get("orgs"), data.get("org"), data.get("organizations")),
-            "scheme": scheme,
-            "method": "autoround" if "auto_quant" in data.get("script", "") else data.get("script", ""),
-            "run_id": "",
-            "run_timestamp": submitted or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-            "run_path": "",
-            "auto_quant_status": quant_status,
-            "auto_eval_status": eval_status,
-            "quant_errors": [],
-            "eval_errors": [],
-            "issues": [],
-            "summary": "",
-            "tasks": [],
-            "metrics_preview": {},
-            "quant_num_gpus": data.get("quant_gpu_nums") or data.get("gpu_nums"),
-            "eval_num_gpus": data.get("eval_gpu_nums") or data.get("gpu_nums"),
-            "quant_details": None,
-            "eval_details": None,
-            "pipeline": extract_pipeline_info(data),
-            "session_eval_url": None,
-            "session_quant_url": None,
-            "aggregate_result_url": None,
-            "updated_at": triggered or submitted or "",
-        }
-        pending_records.append(record)
-
-    return pending_records
+    return {
+        "owner": owner,
+        "artifact_name": f"{base_model}-{scheme}" if scheme else base_model,
+        "model_id": model or base_model,
+        "submitted_by": first_nonempty(data.get("submitted_by")),
+        "orgs": extract_org_list(data.get("orgs"), data.get("org"), data.get("organizations")),
+        "scheme": scheme,
+        "method": "autoround" if "auto_quant" in str(data.get("script", "")) else str(data.get("script", "")),
+        "run_id": "",
+        "run_timestamp": submitted or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "run_path": "",
+        "auto_quant_status": quant_status,
+        "auto_eval_status": eval_status,
+        "quant_errors": [],
+        "eval_errors": [],
+        "issues": [],
+        "summary": "",
+        "tasks": [],
+        "metrics_preview": {},
+        "quant_num_gpus": data.get("quant_gpu_nums") or data.get("gpu_nums"),
+        "eval_num_gpus": data.get("eval_gpu_nums") or data.get("gpu_nums"),
+        "quant_details": None,
+        "eval_details": None,
+        "pipeline": extract_pipeline_info(data),
+        "session_eval_url": None,
+        "session_quant_url": None,
+        "aggregate_result_url": None,
+        "updated_at": triggered or submitted or "",
+    }
 
 
 def scan_results(
@@ -828,55 +827,30 @@ def scan_results(
     lifecycle_index, lifecycle_model_only = load_lifecycle_index(repo_root)
     print(f"Loaded {len(lifecycle_index)} lifecycle entries from status/requests/pending_requests")
 
-    def _lookup_lifecycle(rec: dict[str, Any]) -> dict[str, Any] | None:
-        # Try full 'model::scheme' key first
-        key = _model_key_from_record(rec)
-        data = lifecycle_index.get(key)
-        if data:
-            return data
-        # Fallback: match by base model name only (eval-only jobs with no scheme)
-        return lifecycle_model_only.get(_base_model_from_record(rec))
-
     def _apply_lifecycle(rec: dict[str, Any], lc_data: dict[str, Any] | None) -> None:
         rec["pipeline"] = extract_pipeline_info(lc_data) if lc_data else None
         if not lc_data:
             return
+        quant_status, eval_status = _phase_statuses_from_lifecycle(lc_data)
+        rec["auto_quant_status"] = quant_status
+        rec["auto_eval_status"] = eval_status
         rec["submitted_by"] = first_nonempty(lc_data.get("submitted_by"), rec.get("submitted_by"))
         rec["orgs"] = extract_org_list(lc_data.get("orgs"), lc_data.get("org"), lc_data.get("organizations"), rec.get("orgs"))
-        # Backfill scheme from lifecycle when the record couldn't determine it
-        # locally (e.g. eval-only runs with no quant_summary.json).
-        if rec.get("scheme") in (None, ""):
-            lc_scheme_raw = lc_data.get("quant_scheme") or lc_data.get("compute_dtype")
-            if lc_scheme_raw:
-                m = re.search(r"\((\w+)\)", str(lc_scheme_raw))
-                rec["scheme"] = m.group(1) if m else str(lc_scheme_raw)
-        # Align per-phase status with the leaderboard's view of lifecycle truth:
-        # when the lifecycle marks a specific phase failed, surface that as the
-        # record's phase status (overrides stale locally-cached success/running).
+        # Status is authoritative, so it replaces missing or stale local values
+        # from results such as "unknown".
+        lc_scheme = lifecycle_scheme(lc_data)
+        if lc_scheme:
+            rec["scheme"] = lc_scheme
         phase = _lifecycle_failed_phase(lc_data.get("status"))
-        norm_status = _normalize_pipeline_status(lc_data.get("status"))
-        script = str(lc_data.get("script") or "").lower()
-        if phase == "eval":
-            rec["auto_eval_status"] = "failed"
-        elif phase == "quant":
-            rec["auto_quant_status"] = "failed"
-            failure_log = read_failure_log(source_root / str(rec.get("run_path", "")))
+        if rec["auto_quant_status"] == "failed":
+            failure_log = read_failure_log(source_root / str(rec.get("run_path", "")), phase or "quant")
             if failure_log:
                 rec["quant_errors"] = [failure_log]
-        elif norm_status == "failed":
-            if script == "auto_eval":
-                rec["auto_quant_status"] = "success"
-                rec["auto_eval_status"] = "failed"
-            else:
-                rec["auto_quant_status"] = "failed"
-                failure_log = read_failure_log(source_root / str(rec.get("run_path", "")))
-                if failure_log:
-                    rec["quant_errors"] = [failure_log]
-
-    records: list[dict[str, Any]] = []
-    seen_run_paths: set[str] = set()
-    seen_run_model_keys: set[tuple[str, str, str]] = set()
-    matched_lifecycle_keys: set[str] = set()
+        elif rec["auto_eval_status"] == "failed":
+            failure_log = read_failure_log(source_root / str(rec.get("run_path", "")), phase or "eval")
+            if failure_log:
+                rec["eval_errors"] = [failure_log]
+        rec["issues"] = dedupe(rec.get("quant_errors", []) + rec.get("eval_errors", []) + extract_errors(rec.get("issues")))
 
     def _run_model_key(record: dict[str, Any]) -> tuple[str, str, str]:
         return (
@@ -885,16 +859,17 @@ def scan_results(
             str(record.get("run_id") or ""),
         )
 
+    # ── 1. Collect result-detail records from the results/ tree ──
+    # These are not the primary list; they only supply details that get merged
+    # into a status entry once that model reaches a terminal state.
+    detail_records: list[dict[str, Any]] = []
+    seen_run_paths: set[str] = set()
+    seen_run_model_keys: set[tuple[str, str, str]] = set()
     for run_dir in sorted([p for p in source_root.rglob("run_*") if p.is_dir()]):
-        record = record_from_run_dir(run_dir, source_root, aggregate_index, source_repo, source_branch)
-        lc_data = _lookup_lifecycle(record)
-        _apply_lifecycle(record, lc_data)
-        if lc_data:
-            matched_lifecycle_keys.add(_model_key_from_status(lc_data))
-        records.append(record)
-        seen_run_paths.add(str(record.get("run_path", "")))
-        seen_run_model_keys.add(_run_model_key(record))
-
+        rec = record_from_run_dir(run_dir, source_root, aggregate_index, source_repo, source_branch)
+        detail_records.append(rec)
+        seen_run_paths.add(str(rec.get("run_path", "")))
+        seen_run_model_keys.add(_run_model_key(rec))
     for aggregate in aggregate_index.values():
         candidate = record_from_aggregate_only(aggregate, source_root, source_repo, source_branch)
         if not candidate:
@@ -903,18 +878,72 @@ def scan_results(
             continue
         if _run_model_key(candidate) in seen_run_model_keys:
             continue
-        lc_data = _lookup_lifecycle(candidate)
-        _apply_lifecycle(candidate, lc_data)
-        if lc_data:
-            matched_lifecycle_keys.add(_model_key_from_status(lc_data))
-        records.append(candidate)
+        detail_records.append(candidate)
         seen_run_model_keys.add(_run_model_key(candidate))
 
-    # Add records for pending/running jobs that don't have results yet
-    pending = records_from_pending_requests(lifecycle_index, matched_lifecycle_keys, source_repo, source_branch)
-    records.extend(pending)
-    if pending:
-        print(f"Added {len(pending)} pending/queued jobs from requests")
+    # ── 2. Index details by match key, keeping the most recent per key ──
+    detail_by_key: dict[str, dict[str, Any]] = {}
+    detail_by_model: dict[str, dict[str, Any]] = {}
+
+    def _stash(index: dict[str, dict[str, Any]], key: str, rec: dict[str, Any]) -> None:
+        if not key:
+            return
+        current = index.get(key)
+        if current is None or str(rec.get("run_timestamp", "")) > str(current.get("run_timestamp", "")):
+            index[key] = rec
+
+    for rec in detail_records:
+        _stash(detail_by_key, _model_key_from_record(rec), rec)
+        _stash(detail_by_model, _base_model_from_record(rec), rec)
+
+    # ── 3. Build the primary list from status/ (the source of truth) ──
+    # scheme/status/model come from the lifecycle entry. We only reach into
+    # results/ for run details once the status is finished or failed.
+    detail_merge_fields = (
+        "owner", "artifact_name", "model_id", "method",
+        "run_id", "run_timestamp", "run_path",
+        "quant_errors", "eval_errors", "issues", "summary", "tasks",
+        "metrics_preview", "quant_num_gpus", "eval_num_gpus",
+        "quant_details", "eval_details",
+        "session_eval_url", "session_quant_url", "aggregate_result_url", "updated_at",
+    )
+    records: list[dict[str, Any]] = []
+    matched_detail_ids: set[int] = set()
+    for data in lifecycle_index.values():
+        record = record_from_lifecycle(data, source_repo, source_branch)
+        norm_status = _normalize_pipeline_status(data.get("status"))
+        if norm_status in ("succeeded", "failed"):
+            detail = (
+                detail_by_key.get(_model_key_from_status(data))
+                or detail_by_model.get(str(data.get("model", "")))
+            )
+            if detail is not None:
+                for field in detail_merge_fields:
+                    value = detail.get(field)
+                    if value not in (None, "", [], {}):
+                        record[field] = value
+                matched_detail_ids.add(id(detail))
+        # Status stays authoritative for scheme/status and (re)reads failure logs.
+        _apply_lifecycle(record, data)
+        records.append(record)
+    print(f"Built {len(records)} records from status/ (source of truth)")
+
+    # ── 4. Keep result runs that have no status entry (legacy / orphans) ──
+    orphan_count = 0
+    for rec in detail_records:
+        if id(rec) in matched_detail_ids:
+            continue
+        lc_data = (
+            lifecycle_index.get(_model_key_from_record(rec))
+            or lifecycle_model_only.get(_base_model_from_record(rec))
+        )
+        if lc_data is not None:
+            continue  # already represented by the status-driven loop
+        _apply_lifecycle(rec, None)
+        records.append(rec)
+        orphan_count += 1
+    if orphan_count:
+        print(f"Added {orphan_count} result runs with no status entry")
 
     records = dedupe_same_model_runs(records)
     records.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)

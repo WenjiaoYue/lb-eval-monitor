@@ -82,7 +82,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/run_2026-05-21-06-39-06/session_quant_402.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance-Seed/Seed-Coder-8B-Base-autoround-W4A16/results_2026-05-21-06-39-06.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ByteDance-Seed/Seed-Coder-8B-Base_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "ConicCat",
@@ -405,7 +405,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Gemma4-GarnetV2-31B-AutoRound-W4A16-RTN/run_2026-06-02-12-22-40/session_fix_quantize_380_1780399554.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Gemma4-GarnetV2-31B-AutoRound-W4A16-RTN/results_2026-06-02-12-22-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Gemma4-GarnetV2-31B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "ConicCat",
@@ -721,7 +721,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-MXFP4-RTN/run_2026-06-02-18-10-30/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-MXFP4-RTN/results_2026-06-02-18-10-30.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Qwen3.5-27B-Writer-V2_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "ConicCat",
@@ -1037,7 +1037,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-RTN/run_2026-06-02-13-10-49/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-RTN/results_2026-06-02-13-10-49.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Qwen3.5-27B-Writer-V2_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "ConicCat",
@@ -1353,7 +1353,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-Tuning/run_2026-06-05-17-23-14/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Qwen3.5-27B-Writer-V2-AutoRound-W4A16-Tuning/results_2026-06-05-17-23-14.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Qwen3.5-27B-Writer-V2_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -1669,7 +1669,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2-Research-AutoRound-W4A16-Tuning/run_2026-06-09-05-40-44/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2-Research-AutoRound-W4A16-Tuning/results_2026-06-09-05-40-44.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/LFM2-Research_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -1755,7 +1755,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Distilled-Claude-4.6-AutoRound-W4A16-RTN/run_2026-05-27-16-40-48/session_quant_408.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Distilled-Claude-4.6-AutoRound-W4A16-RTN/results_2026-05-27-16-40-48.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/LFM2.5-1.2B-Distilled-Claude-4.6_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -1841,7 +1841,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Thinking-CodeX-AutoRound-W4A16-RTN/run_2026-05-27-17-54-13/session_quant_366.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/LFM2.5-1.2B-Thinking-CodeX-AutoRound-W4A16-RTN/results_2026-05-27-17-54-13.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/LFM2.5-1.2B-Thinking-CodeX_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -2157,7 +2157,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-it-AutoRound-W4A16-RTN/run_2026-06-09-04-42-02/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-it-AutoRound-W4A16-RTN/results_2026-06-09-04-42-02.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen2-0.2B-it_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -2473,7 +2473,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-pt-AutoRound-W4A16-RTN/run_2026-06-09-04-40-35/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen2-0.2B-pt-AutoRound-W4A16-RTN/results_2026-06-09-04-40-35.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen2-0.2B-pt_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -2789,7 +2789,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-MXFP4-RTN/run_2026-06-02-11-00-52/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-MXFP4-RTN/results_2026-06-02-11-00-52.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen3-4B-Distilled-Claude-4.6_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FlameF0X",
@@ -3107,7 +3107,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-NVFP4-RTN/run_2026-06-01-12-45-34/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Qwen3-4B-Distilled-Claude-4.6-AutoRound-NVFP4-RTN/results_2026-06-01-12-45-34.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Qwen3-4B-Distilled-Claude-4.6_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FrontiersMind",
@@ -3193,7 +3193,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/run_2026-05-21-16-19-41/session_quant_425.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-150M-Tool-Calling-autoround-W4A16/results_2026-05-21-16-19-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FrontiersMind/Nandi-Mini-150M-Tool-Calling_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "FrontiersMind",
@@ -3277,7 +3277,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/run_2026-05-21-19-53-08/session_quant_352.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint-autoround-W4A16/results_2026-05-21-19-53-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FrontiersMind/Nandi-Mini-600M-Early-Checkpoint_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Intel",
@@ -3349,7 +3349,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen2.5-Omni-7B-int4-AutoRound-autoround-W4A16/results_2026-05-21-16-15-29.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen2.5-Omni-7B-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Intel",
@@ -3428,7 +3428,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound-autoround-W4A16/results_2026-05-25-11-53-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16_20260525T033926Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Jackrong",
@@ -3753,7 +3753,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-4B-Coder-AutoRound-W4A16-RTN/run_2026-06-01-16-47-10/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-4B-Coder-AutoRound-W4A16-RTN/results_2026-06-01-16-47-10.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Jackrong/Qwopus3.5-4B-Coder_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -4071,7 +4071,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-MXFP4-RTN/run_2026-06-01-04-57-51/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-MXFP4-RTN/results_2026-06-01-04-57-51.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -4387,7 +4387,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/run_2026-06-02-11-17-25/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-AutoRound-W4A16-RTN/results_2026-06-02-11-17-25.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_W4A16_4bit_int4_20260602T075012Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "OBLITERATUS",
@@ -4473,7 +4473,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/run_2026-05-21-05-18-38/session_quant_369.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/OBLITERATUS/gemma-4-E4B-it-OBLITERATED-autoround-W4A16/results_2026-05-21-05-18-38.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/OBLITERATUS/gemma-4-E4B-it-OBLITERATED_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -4559,7 +4559,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-MXFP4/run_2026-05-20-03-49-47/session_quant_340.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-MXFP4/results_2026-05-20-03-49-47.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen2.5-0.5B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -4645,7 +4645,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-NVFP4/run_2026-05-20-05-33-18/session_quant_370.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-NVFP4/results_2026-05-20-05-33-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen2.5-0.5B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -4731,7 +4731,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-W4A16/run_2026-05-19-02-25-49/session_quant_371.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen2.5-0.5B-autoround-W4A16/results_2026-05-19-02-25-49.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen2.5-0.5B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -4820,7 +4820,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/run_2026-05-09-13-07-30/session_quant_292.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-MXFP4/results_2026-05-09-13-07-30.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -5136,7 +5136,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-RTN/run_2026-06-02-04-02-22/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-RTN/results_2026-06-02-04-02-22.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_MXFP4_4bit_mxfp4_20260602T033954Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -5452,7 +5452,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-Tuning/run_2026-06-03-08-32-41/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-MXFP4-Tuning/results_2026-06-03-08-32-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -5538,7 +5538,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/run_2026-05-09-13-23-17/session_quant_354.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-NVFP4/results_2026-05-09-13-23-17.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -5629,7 +5629,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/run_2026-05-09-07-13-13/session_quant_314.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-autoround-W4A16/results_2026-05-09-07-13-13.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -5945,7 +5945,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-W4A16-Tuning/run_2026-06-03-07-52-02/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-0.6B-AutoRound-W4A16-Tuning/results_2026-06-03-07-52-02.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-0.6B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6031,7 +6031,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-NVFP4/run_2026-05-20-12-13-19/session_quant_329.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-NVFP4/results_2026-05-20-12-13-19.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B-Base_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6117,7 +6117,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-W4A16/run_2026-05-18-08-21-28/session_quant_337.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-Base-autoround-W4A16/results_2026-05-18-08-21-28.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B-Base_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6201,7 +6201,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/run_2026-05-09-20-35-10/session_quant_353.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-MXFP4/results_2026-05-09-20-35-10.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6287,7 +6287,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/run_2026-05-09-21-10-45/session_quant_379.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-NVFP4/results_2026-05-09-21-10-45.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6373,7 +6373,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/run_2026-05-09-20-01-49/session_quant_353.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-1.7B-autoround-W4A16/results_2026-05-09-20-01-49.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-1.7B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6459,7 +6459,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-14B-autoround-W4A16/run_2026-05-18-04-59-08/session_quant_329.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-14B-autoround-W4A16/results_2026-05-18-04-59-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-14B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6545,7 +6545,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/run_2026-05-25-12-11-31/session_quant_371.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-32B-autoround-W4A16/results_2026-05-25-12-11-31.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-32B_quant_request_False_W4A16_4bit_int4_20260525T023551Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6628,7 +6628,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/run_2026-05-18-03-46-54/session_quant_341.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Instruct-2507-autoround-W4A16/results_2026-05-18-03-46-54.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B-Instruct-2507_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6712,7 +6712,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/run_2026-05-18-04-52-19/session_quant_326.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-Thinking-2507-autoround-W4A16/results_2026-05-18-04-52-19.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B-Thinking-2507_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6798,7 +6798,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-MXFP4/run_2026-05-25-05-25-07/session_quant_361.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-MXFP4/results_2026-05-25-05-25-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6884,7 +6884,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-W4A16/run_2026-05-15-09-27-21/session_quant_350.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-4B-autoround-W4A16/results_2026-05-15-09-27-21.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-4B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -6968,7 +6968,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-8B-autoround-W4A16/run_2026-05-18-07-09-56/session_quant_329.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3-8B-autoround-W4A16/results_2026-05-18-07-09-56.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7054,7 +7054,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-MXFP4/run_2026-05-23-11-43-41/session_quant_358.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-MXFP4/results_2026-05-23-11-43-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B-Base_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7140,7 +7140,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-NVFP4/run_2026-05-23-10-38-47/session_quant_331.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-NVFP4/results_2026-05-23-10-38-47.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B-Base_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7224,7 +7224,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-W4A16/run_2026-05-23-08-31-01/session_quant_341.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-Base-autoround-W4A16/results_2026-05-23-08-31-01.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B-Base_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7310,7 +7310,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-MXFP4/run_2026-05-25-02-14-18/session_quant_358.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-MXFP4/results_2026-05-25-02-14-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7396,7 +7396,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-NVFP4/run_2026-05-25-04-57-38/session_quant_360.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-NVFP4/results_2026-05-25-04-57-38.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7482,7 +7482,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-W4A16/run_2026-05-20-06-57-37/session_quant_338.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-0.8B-autoround-W4A16/results_2026-05-20-06-57-37.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-0.8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7568,7 +7568,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-MXFP4/run_2026-05-25-06-00-07/session_quant_307.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-MXFP4/results_2026-05-25-06-00-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-2B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7654,7 +7654,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-NVFP4/run_2026-05-25-07-39-16/session_quant_333.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-NVFP4/results_2026-05-25-07-39-16.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-2B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -7740,7 +7740,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/run_2026-05-20-09-55-10/session_quant_422.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.5-2B-autoround-W4A16/results_2026-05-20-09-55-10.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.5-2B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -8066,7 +8066,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-RTN/run_2026-06-02-07-22-40/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-RTN/results_2026-06-02-07-22-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_MXFP4_4bit_mxfp4_20260601T021544Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -8386,7 +8386,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-Tuning/run_2026-06-03-20-12-02/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-MXFP4-Tuning/results_2026-06-03-20-12-02.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -8710,7 +8710,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-W4A16/run_2026-05-29-01-55-08/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-W4A16/results_2026-05-29-01-55-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_W4A16_4bit_int4_20260529T004043Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -9026,7 +9026,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-W4A16-Tuning/run_2026-06-03-12-38-09/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-AutoRound-W4A16-Tuning/results_2026-06-03-12-38-09.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -9069,7 +9069,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-35B-A3B-autoround-W4A16/results_2026-05-28-14-10-32.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-35B-A3B_quant_request_False_W4A16_4bit_int4_20260528T145037Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -9153,7 +9153,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-14B-autoround-W4A16/run_2026-05-19-07-54-33/session_quant_398.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-14B-autoround-W4A16/results_2026-05-19-07-54-33.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/WebWorld-14B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -9239,7 +9239,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-32B-autoround-W4A16/run_2026-05-15-13-55-38/session_quant_331.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-32B-autoround-W4A16/results_2026-05-15-13-55-38.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/WebWorld-32B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Qwen",
@@ -9324,7 +9324,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-8B-autoround-W4A16/run_2026-05-19-05-44-27/session_quant_352.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/WebWorld-8B-autoround-W4A16/results_2026-05-19-05-44-27.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/WebWorld-8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "RedHatAI",
@@ -9395,7 +9395,7 @@
     "session_quant_url": null,
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/RedHatAI/Qwen3-8B-quantized.w4a16-autoround-W4A16/results_2026-05-09-08-52-48.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/RedHatAI/Qwen3-8B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "WarlordHermes",
@@ -9711,7 +9711,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/WarlordHermes/Magidonia-24B-v4.3-creative-ORPO-AutoRound-W4A16-RTN/run_2026-06-03-07-47-12/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/WarlordHermes/Magidonia-24B-v4.3-creative-ORPO-AutoRound-W4A16-RTN/results_2026-06-03-07-47-12.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/WarlordHermes/Magidonia-24B-v4.3-creative-ORPO_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "XiaomiMiMo",
@@ -9797,7 +9797,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/XiaomiMiMo/MiMo-V2.5-ASR-AutoRound-W4A16-RTN/run_2026-05-25-12-24-32/session_quant_368.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/XiaomiMiMo/MiMo-V2.5-ASR-AutoRound-W4A16-RTN/results_2026-05-25-12-24-32.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/XiaomiMiMo/MiMo-V2.5-ASR_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Zyphra",
@@ -9883,7 +9883,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZAYA1-8B-autoround-W4A16/run_2026-05-20-15-47-28/session_quant_340.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZAYA1-8B-autoround-W4A16/results_2026-05-20-15-47-28.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Zyphra/ZAYA1-8B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Zyphra",
@@ -9969,7 +9969,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZR1-1.5B-autoround-W4A16/run_2026-05-20-14-00-08/session_quant_294.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Zyphra/ZR1-1.5B-autoround-W4A16/results_2026-05-20-14-00-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Zyphra/ZR1-1.5B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "allenai",
@@ -10285,7 +10285,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/allenai/Olmo-3.1-32B-Instruct-SFT-AutoRound-W4A16-Tuning/run_2026-06-09-09-28-18/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/allenai/Olmo-3.1-32B-Instruct-SFT-AutoRound-W4A16-Tuning/results_2026-06-09-09-28-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/allenai/Olmo-3.1-32B-Instruct-SFT_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "google",
@@ -10368,7 +10368,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-E2B-it-autoround-W4A16/run_2026-05-20-06-46-41/session_quant_352.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-E2B-it-autoround-W4A16/results_2026-05-20-06-46-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/google/gemma-4-E2B-it_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "moonshotai",
@@ -10434,7 +10434,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/moonshotai/Kimi-Linear-48B-A3B-Instruct-AutoRound-W4A16-RTN/run_2026-05-27-13-43-12/session_quant_371.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/moonshotai/Kimi-Linear-48B-A3B-Instruct-AutoRound-W4A16-RTN/results_2026-05-27-13-43-12.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/moonshotai/Kimi-Linear-48B-A3B-Instruct_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openai",
@@ -10750,7 +10750,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-MXFP4-RTN/run_2026-06-04-10-23-45/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-MXFP4-RTN/results_2026-06-04-10-23-45.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_MXFP4_4bit_mxfp4_RTN.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openai",
@@ -11066,7 +11066,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-NVFP4-RTN/run_2026-06-05-11-19-07/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-NVFP4-RTN/results_2026-06-05-11-19-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_NVFP4_4bit_nvfp4_RTN.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openai",
@@ -11389,7 +11389,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-W4A16-RTN/run_2026-06-05-08-47-29/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-AutoRound-W4A16-RTN/results_2026-06-05-08-47-29.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_W4A16_4bit_int4_RTN_20260605T071938Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openai-community",
@@ -11478,7 +11478,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai-community/gpt2-AutoRound-W4A16-RTN/run_2026-05-27-19-39-41/session_quant_404.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai-community/gpt2-AutoRound-W4A16-RTN/results_2026-05-27-19-39-41.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai-community/gpt2_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openbmb",
@@ -11534,7 +11534,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-MXFP4/run_2026-05-31-09-30-31/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-MXFP4/results_2026-05-31-09-30-31.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openbmb",
@@ -11852,7 +11852,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-MXFP4-RTN/run_2026-05-31-15-44-51/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-MXFP4-RTN/results_2026-05-31-15-44-51.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_MXFP4_4bit_mxfp4_20260531T145817Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openbmb",
@@ -12170,7 +12170,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-NVFP4-RTN/run_2026-05-31-12-05-24/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-NVFP4-RTN/results_2026-05-31-12-05-24.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_NVFP4_4bit_nvfp4_20260531T112919Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openbmb",
@@ -12491,7 +12491,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-W4A16/run_2026-05-29-10-18-18/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-W4A16/results_2026-05-29-10-18-18.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "openbmb",
@@ -12809,7 +12809,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-W4A16-RTN/run_2026-05-31-08-06-59/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-AutoRound-W4A16-RTN/results_2026-05-31-08-06-59.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_W4A16_4bit_int4_20260531T074240Z.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "sapientinc",
@@ -12895,7 +12895,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-MXFP4/run_2026-05-21-07-09-35/session_quant_363.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-MXFP4/results_2026-05-21-07-09-35.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/sapientinc/HRM-Text-1B_quant_request_False_MXFP4_4bit_mxfp4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "sapientinc",
@@ -12981,7 +12981,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-W4A16/run_2026-05-21-04-06-22/session_quant_365.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/sapientinc/HRM-Text-1B-autoround-W4A16/results_2026-05-21-04-06-22.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/sapientinc/HRM-Text-1B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "tencent",
@@ -13065,7 +13065,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/tencent/Hy-MT2-7B-AutoRound-W4A16-RTN/run_2026-05-27-04-39-07/session_quant_328.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/tencent/Hy-MT2-7B-AutoRound-W4A16-RTN/results_2026-05-27-04-39-07.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/tencent/Hy-MT2-7B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "zed-industries",
@@ -13149,7 +13149,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zed-industries/zeta-2.1-autoround-W4A16/run_2026-05-21-05-14-14/session_quant_376.md",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/zed-industries/zeta-2.1-autoround-W4A16/results_2026-05-21-05-14-14.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/zed-industries/zeta-2.1_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:43:11Z"
+    "updated_at": "2026-06-09T12:51:42Z"
   },
   {
     "owner": "Intel",
@@ -13196,7 +13196,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen3.6-27B-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_filename": "Qwen3.6-27B-int4-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13249,7 +13249,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/Qwen3.6-27B-int4-mlx-AutoRound_eval_request_False_unknown-4bit_4bit_int4_W4A16.json",
     "request_filename": "Qwen3.6-27B-int4-mlx-AutoRound_eval_request_False_unknown-4bit_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13291,7 +13291,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Intel/gemma-4-26B-A4B-it-int4-mixed-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_filename": "gemma-4-26B-A4B-it-int4-mixed-AutoRound_eval_request_False_AutoRound_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13339,7 +13339,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-235B-A22B_quant_request_False_NVFP4_4bit_nvfp4.json",
     "request_filename": "Qwen3-235B-A22B_quant_request_False_NVFP4_4bit_nvfp4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13388,7 +13388,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3-235B-A22B_quant_request_False_W4A16_4bit_int4_20260523T081910Z.json",
     "request_filename": "Qwen3-235B-A22B_quant_request_False_W4A16_4bit_int4_20260523T081910Z.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13445,7 +13445,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/RedHatAI/Qwen3.5-9B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16_20260522T082351Z.json",
     "request_filename": "Qwen3.5-9B-quantized.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16_20260522T082351Z.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13487,7 +13487,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/nytopop/Qwen3-32B.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_filename": "Qwen3-32B.w4a16_eval_request_False_CompressedTensors_4bit_int4_W4A16.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13540,7 +13540,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/poolside/Laguna-XS.2_quant_request_False_W4A16_4bit_int4.json",
     "request_filename": "Laguna-XS.2_quant_request_False_W4A16_4bit_int4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13588,7 +13588,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/z-lab/Qwen3.6-27B-DFlash_quant_request_False_W4A16_4bit_int4.json",
     "request_filename": "Qwen3.6-27B-DFlash_quant_request_False_W4A16_4bit_int4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13666,7 +13666,7 @@
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/zai-org/GLM-OCR_quant_request_False_W4A16_4bit_int4.json",
     "request_filename": "GLM-OCR_quant_request_False_W4A16_4bit_int4.json",
     "request_submitted_time": null,
-    "updated_at": "2026-06-09T12:43:11Z",
+    "updated_at": "2026-06-09T12:51:42Z",
     "pipeline": null
   },
   {
@@ -13720,7 +13720,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/syntropy-ai/Soren-1-Small-autoround-W4A16/run_2026-06-01-16-20-05/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/syntropy-ai/Soren-1-Small-autoround-W4A16/results_2026-06-01-16-20-05.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/syntropy-ai/Soren-1-Small_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:42:47Z"
+    "updated_at": "2026-06-09T12:51:10Z"
   },
   {
     "owner": "samuelcardillo",
@@ -13773,7 +13773,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-autoround-W4A16/run_2026-06-05-05-48-12/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-autoround-W4A16/results_2026-06-05-05-48-12.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:42:45Z"
+    "updated_at": "2026-06-09T12:51:06Z"
   },
   {
     "owner": "samuelcardillo",
@@ -13826,7 +13826,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-AutoRound-MXFP4-Tuning/run_2026-06-05-06-15-15/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B-AutoRound-MXFP4-Tuning/results_2026-06-05-06-15-15.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/samuelcardillo/Carnice-Qwen3.6-MoE-35B-A3B_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:42:44Z"
+    "updated_at": "2026-06-09T12:51:05Z"
   },
   {
     "owner": "openbmb",
@@ -13879,7 +13879,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-NVFP4/run_2026-05-31-09-38-52/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openbmb/MiniCPM5-1B-autoround-NVFP4/results_2026-05-31-09-38-52.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openbmb/MiniCPM5-1B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:42:41Z"
+    "updated_at": "2026-06-09T12:51:01Z"
   },
   {
     "owner": "openai",
@@ -13932,7 +13932,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-autoround-W4A16/run_2026-06-04-06-00-31/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/openai/gpt-oss-20b-autoround-W4A16/results_2026-06-04-06-00-31.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/openai/gpt-oss-20b_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:42:36Z"
+    "updated_at": "2026-06-09T12:50:54Z"
   },
   {
     "owner": "kai-os",
@@ -13985,7 +13985,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/kai-os/Carnice-V2-27b-AutoRound-W4A16-Tuning/run_2026-06-05-06-25-35/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/kai-os/Carnice-V2-27b-AutoRound-W4A16-Tuning/results_2026-06-05-06-25-35.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/kai-os/Carnice-V2-27b_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:42:29Z"
+    "updated_at": "2026-06-09T12:50:45Z"
   },
   {
     "owner": "google",
@@ -14038,7 +14038,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-it-AutoRound-W4A16-Tuning/run_2026-06-04-09-15-40/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-it-AutoRound-W4A16-Tuning/results_2026-06-04-09-15-40.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/google/gemma-4-12B-it_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:42:27Z"
+    "updated_at": "2026-06-09T12:50:43Z"
   },
   {
     "owner": "google",
@@ -14091,7 +14091,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-AutoRound-W4A16-Tuning/run_2026-06-04-11-24-08/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/google/gemma-4-12B-AutoRound-W4A16-Tuning/results_2026-06-04-11-24-08.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/google/gemma-4-12B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:42:26Z"
+    "updated_at": "2026-06-09T12:50:42Z"
   },
   {
     "owner": "Qwen",
@@ -14144,7 +14144,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-NVFP4/run_2026-06-01-02-43-59/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Qwen/Qwen3.6-27B-autoround-NVFP4/results_2026-06-01-02-43-59.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Qwen/Qwen3.6-27B_quant_request_False_NVFP4_4bit_nvfp4.json",
-    "updated_at": "2026-06-09T12:42:12Z"
+    "updated_at": "2026-06-09T12:50:22Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -14197,7 +14197,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/run_2026-05-31-15-53-43/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-W4A16/results_2026-05-31-15-53-43.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_W4A16_4bit_int4_20260531T153031Z.json",
-    "updated_at": "2026-06-09T12:41:28Z"
+    "updated_at": "2026-06-09T12:49:23Z"
   },
   {
     "owner": "ManniX-ITA",
@@ -14250,7 +14250,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/run_2026-05-31-16-16-20/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it-autoround-NVFP4/results_2026-05-31-16-16-20.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ManniX-ITA/gemma-4-A4B-98e-v6-coder-it_quant_request_False_NVFP4_4bit_nvfp4_20260531T153159Z.json",
-    "updated_at": "2026-06-09T12:41:27Z"
+    "updated_at": "2026-06-09T12:49:20Z"
   },
   {
     "owner": "Jackrong",
@@ -14303,7 +14303,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-v3.5-AutoRound-W4A16-Tuning/run_2026-06-04-02-59-30/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-v3.5-AutoRound-W4A16-Tuning/results_2026-06-04-02-59-30.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Jackrong/Qwopus3.5-9B-v3.5_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:41:24Z"
+    "updated_at": "2026-06-09T12:49:15Z"
   },
   {
     "owner": "Jackrong",
@@ -14356,7 +14356,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-Coder-autoround-W4A16/run_2026-06-06-09-33-26/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Jackrong/Qwopus3.5-9B-Coder-autoround-W4A16/results_2026-06-06-09-33-26.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Jackrong/Qwopus3.5-9B-Coder_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:41:23Z"
+    "updated_at": "2026-06-09T12:49:14Z"
   },
   {
     "owner": "Hcompany",
@@ -14409,7 +14409,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Hcompany/Holo-3.1-35B-A3B-autoround-W4A16/run_2026-06-08-06-49-36/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/Hcompany/Holo-3.1-35B-A3B-autoround-W4A16/results_2026-06-08-06-49-36.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/Hcompany/Holo-3.1-35B-A3B_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:41:17Z"
+    "updated_at": "2026-06-09T12:49:06Z"
   },
   {
     "owner": "FlameF0X",
@@ -14462,7 +14462,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-autoround-W4A16/run_2026-06-04-19-07-53/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-autoround-W4A16/results_2026-06-04-19-07-53.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Liquid-Claude-4.6-Thinking_quant_request_False_W4A16_4bit_int4_RTN.json",
-    "updated_at": "2026-06-09T12:41:09Z"
+    "updated_at": "2026-06-09T12:48:56Z"
   },
   {
     "owner": "FlameF0X",
@@ -14515,7 +14515,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-AutoRound-NVFP4-Tuning/run_2026-06-04-19-11-39/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FlameF0X/Liquid-Claude-4.6-Thinking-AutoRound-NVFP4-Tuning/results_2026-06-04-19-11-39.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FlameF0X/Liquid-Claude-4.6-Thinking_quant_request_False_NVFP4_4bit_nvfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:41:08Z"
+    "updated_at": "2026-06-09T12:48:55Z"
   },
   {
     "owner": "FINAL-Bench",
@@ -14568,7 +14568,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FINAL-Bench/Darwin-35B-A3B-Opus-AutoRound-MXFP4-Tuning/run_2026-06-08-13-12-54/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/FINAL-Bench/Darwin-35B-A3B-Opus-AutoRound-MXFP4-Tuning/results_2026-06-08-13-12-54.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/FINAL-Bench/Darwin-35B-A3B-Opus_quant_request_False_MXFP4_4bit_mxfp4_TUNING.json",
-    "updated_at": "2026-06-09T12:41:04Z"
+    "updated_at": "2026-06-09T12:48:49Z"
   },
   {
     "owner": "ConicCat",
@@ -14621,7 +14621,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Llama3_3-Nemo-Super-Writer-49B-autoround-W4A16/run_2026-06-03-07-04-47/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ConicCat/Llama3_3-Nemo-Super-Writer-49B-autoround-W4A16/results_2026-06-03-07-04-47.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ConicCat/Llama3_3-Nemo-Super-Writer-49B_quant_request_False_W4A16_4bit_int4.json",
-    "updated_at": "2026-06-09T12:41:00Z"
+    "updated_at": "2026-06-09T12:48:45Z"
   },
   {
     "owner": "ByteDance",
@@ -14674,7 +14674,7 @@
     "session_quant_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance/Ouro-1.4B-AutoRound-W4A16-Tuning/run_2026-06-04-01-55-52/logs/setup_env.log",
     "aggregate_result_url": "https://github.com/XuehaoSun/lb_eval/blob/main/results/ByteDance/Ouro-1.4B-AutoRound-W4A16-Tuning/results_2026-06-04-01-55-52.json",
     "status_url": "https://github.com/XuehaoSun/lb_eval/blob/main/status/ByteDance/Ouro-1.4B_quant_request_False_W4A16_4bit_int4_TUNING.json",
-    "updated_at": "2026-06-09T12:40:58Z"
+    "updated_at": "2026-06-09T12:48:43Z"
   },
   {
     "owner": "allenai",

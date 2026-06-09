@@ -28,6 +28,8 @@ const formatDuration = (sec: number | string | undefined) => {
 	if (s < 3600) return `${Math.floor(s / 60)}m ${Math.round(s % 60)}s`;
 	return `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`;
 };
+
+const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.eval_errors.length > 0;
 </script>
 
 {#if run}
@@ -37,7 +39,6 @@ const formatDuration = (sec: number | string | undefined) => {
 			<h2>{#if run.run_path}<a href="https://github.com/XuehaoSun/lb_eval/tree/main/results/{run.run_path}" target="_blank" rel="noreferrer" class="title-link">{run.model_id.includes('/') ? run.model_id : run.owner + ' / ' + run.model_id}</a>{:else}{run.model_id.includes('/') ? run.model_id : run.owner + ' / ' + run.model_id}{/if}</h2>
 			<div class="panel-meta">
 				<StatusBadge status={run.auto_quant_status} /> <span class="meta-label">quant</span>
-				<StatusBadge status={run.auto_eval_status} /> <span class="meta-label">eval</span>
 				<span class="meta-divider"></span>
 				<span class="meta-text">{run.scheme} / {run.method}</span>
 				<span class="meta-divider"></span>
@@ -49,9 +50,8 @@ const formatDuration = (sec: number | string | undefined) => {
 		</button>
 	</div>
 
-	<div class="panel-body" class:single-col={!run.quant_details && !run.eval_details && !run.pipeline && run.tasks.length === 0}>
-		{#if run.quant_details || run.eval_details || run.tasks.length > 0 || Object.keys(run.metrics_preview).length > 0}
-		<div class="col">
+	<div class="panel-body" class:single-col={!hasLogs(run)}>
+		<div class="col info-col">
 			{#if run.quant_details}
 			<div class="card">
 				<h3>Quantization Details</h3>
@@ -112,28 +112,6 @@ const formatDuration = (sec: number | string | undefined) => {
 				{/if}
 			</div>
 			{/if}
-		</div>
-		{/if}
-
-		<!-- Right column: Errors + Issues + Links -->
-		<div class="col">
-			{#if run.quant_errors.length > 0 || run.eval_errors.length > 0}
-			<div class="card card--error">
-				<h3>Error Logs</h3>
-				{#if run.quant_errors.length > 0}
-				<h4>Quantization Errors</h4>
-				{#each run.quant_errors as err}
-				<pre class="err-block">{err}</pre>
-				{/each}
-				{/if}
-				{#if run.eval_errors.length > 0}
-				<h4>Evaluation Errors</h4>
-				{#each run.eval_errors as err}
-				<pre class="err-block">{err}</pre>
-				{/each}
-				{/if}
-			</div>
-			{/if}
 
 			{#if run.summary}
 			<div class="card">
@@ -189,7 +167,7 @@ const formatDuration = (sec: number | string | undefined) => {
 				<h3>Source & Links</h3>
 				<div class="links-row">
 					{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
-					{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Session Quant Log</a>{/if}
+					{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Quant / Setup Log</a>{/if}
 					{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
 				</div>
 				<div class="run-meta">
@@ -198,6 +176,26 @@ const formatDuration = (sec: number | string | undefined) => {
 				</div>
 			</div>
 		</div>
+
+		{#if hasLogs(run)}
+		<div class="col log-col">
+			<div class="card card--error log-card">
+				<h3>Error Logs</h3>
+				{#if run.quant_errors.length > 0}
+				<h4>Quantization Errors</h4>
+				{#each run.quant_errors as err}
+				<pre class="err-block">{err}</pre>
+				{/each}
+				{/if}
+				{#if run.eval_errors.length > 0}
+				<h4>Evaluation Errors</h4>
+				{#each run.eval_errors as err}
+				<pre class="err-block">{err}</pre>
+				{/each}
+				{/if}
+			</div>
+		</div>
+		{/if}
 	</div>
 </section>
 {/if}
@@ -286,6 +284,9 @@ const formatDuration = (sec: number | string | undefined) => {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+}
+.log-card .err-block {
+	max-height: 420px;
 }
 .card {
 	padding: 0.875rem 1.125rem;

@@ -14,7 +14,8 @@ from pathlib import Path
 from typing import Any
 
 COMMON_TASKS = ("piqa", "mmlu", "hellaswag")
-STATUS_PRIORITY = {"failed": 0, "running": 1, "success": 2, "unknown": 3}
+STATUS_PRIORITY = {"failed": 0, "running": 1, "success": 2}
+STATUS_JOB_TYPE = "quantization & evaluation"
 
 
 def read_json(path: Path) -> dict[str, Any] | list[Any] | None:
@@ -32,17 +33,17 @@ def to_iso_utc(ts: float | None) -> str | None:
 
 def normalize_status(value: Any) -> str:
     if value is None:
-        return "unknown"
+        return "running"
     text = str(value).strip().lower()
     if not text:
-        return "unknown"
+        return "running"
     if any(token in text for token in ("fail", "error", "exception", "traceback")):
         return "failed"
     if any(token in text for token in ("success", "succeed", "pass", "done", "complete")):
         return "success"
     if any(token in text for token in ("running", "pending", "progress", "started", "queue")):
         return "running"
-    return "unknown"
+    return "running"
 
 
 def dedupe(items: list[str]) -> list[str]:
@@ -110,6 +111,33 @@ def extract_errors(raw: Any) -> list[str]:
     elif isinstance(raw, str):
         errors.append(raw.strip())
     return dedupe([e for e in errors if e])
+
+
+def read_failure_log(run_dir: Path) -> str | None:
+    for log_name in ("quantize.log", "setup_env.log"):
+        log_path = run_dir / "logs" / log_name
+        if log_path.exists():
+            content = log_path.read_text(encoding="utf-8", errors="ignore").strip()
+            if content:
+                return content
+    for pattern in ("session_fix_setup_env_*.md", "session_fix_quantize_*.md", "session_quant_*.md"):
+        for session_path in sorted(run_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True):
+            content = session_path.read_text(encoding="utf-8", errors="ignore").strip()
+            if content:
+                return content
+    return None
+
+
+def find_quant_log_path(run_dir: Path) -> Path | None:
+    for rel_path in ("logs/setup_env.log", "logs/quantize.log"):
+        log_path = run_dir / rel_path
+        if log_path.exists():
+            return log_path
+    for pattern in ("session_fix_setup_env_*.md", "session_fix_quantize_*.md", "session_quant_*.md"):
+        matches = sorted(run_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
+        if matches:
+            return matches[0]
+    return None
 
 
 def extract_issues_from_markdown(content: str) -> list[str]:
@@ -181,7 +209,7 @@ def classify_status(quant_status: str, eval_status: str) -> str:
         return "success"
     if "running" in (quant_status, eval_status):
         return "running"
-    return "unknown"
+    return "running"
 
 
 def build_file_url(repo: str, branch: str, path_from_repo_root: str | None) -> str | None:
@@ -196,7 +224,7 @@ def parse_aggregate_candidates(path: Path) -> list[dict[str, Any]]:
 
     def walk(node: Any) -> None:
         if isinstance(node, dict):
-            if any(k in node for k in ("run_id", "run_path", "model_id", "artifact_name", "auto_quant_status", "auto_eval_status")):
+            if any(k in node for k in ("run_id", "run_path", "run_dir", "model_id", "artifact_name", "auto_quant_status", "auto_eval_status")):
                 item = dict(node)
                 item["__aggregate_path"] = str(path)
                 candidates.append(item)
@@ -214,9 +242,9 @@ def index_aggregates(results_root: Path) -> dict[str, dict[str, Any]]:
     lookup: dict[str, dict[str, Any]] = {}
     for file in sorted(results_root.rglob("results_*.json")):
         for candidate in parse_aggregate_candidates(file):
-            run_path = candidate.get("run_path")
+            run_path = candidate.get("run_path") or candidate.get("run_dir")
             run_id = candidate.get("run_id")
-            key = str(run_path or run_id or "").strip()
+            key = str(run_path or run_id or "").replace("results/", "", 1).strip("/")
             if not key:
                 continue
             existing = lookup.get(key)
@@ -289,14 +317,14 @@ def record_from_run_dir(
     source_branch: str,
 ) -> dict[str, Any]:
     rel_path = run_dir.relative_to(results_root)
-    owner = rel_path.parts[0] if len(rel_path.parts) > 0 else "unknown"
-    artifact_name = rel_path.parts[1] if len(rel_path.parts) > 1 else "unknown"
+    owner = rel_path.parts[0] if len(rel_path.parts) > 0 else ""
+    artifact_name = rel_path.parts[1] if len(rel_path.parts) > 1 else ""
     run_id = run_dir.name
 
     quant_summary_path = run_dir / "quant_summary.json"
     accuracy_path = run_dir / "accuracy.json"
     session_eval_path = sorted(run_dir.glob("session_eval_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
-    session_quant_path = sorted(run_dir.glob("session_quant_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+    session_quant_path = sorted([*run_dir.glob("session_quant_*.md"), *run_dir.glob("session_fix_quantize_*.md"), *run_dir.glob("session_fix_setup_env_*.md")], key=lambda p: p.stat().st_mtime, reverse=True)
 
     quant_data = read_json(quant_summary_path) if quant_summary_path.exists() else None
     accuracy_data = read_json(accuracy_path) if accuracy_path.exists() else None
@@ -318,6 +346,10 @@ def record_from_run_dir(
     )
 
     quant_errors = extract_errors((quant_data or {}).get("errors") if isinstance(quant_data, dict) else None)
+    if quant_status == "failed":
+        failure_log = read_failure_log(run_dir)
+        if failure_log:
+            quant_errors = [failure_log]
     eval_errors = extract_errors((accuracy_data or {}).get("errors") if isinstance(accuracy_data, dict) else None)
 
     session_issues: list[str] = []
@@ -363,7 +395,8 @@ def record_from_run_dir(
     )
 
     eval_rel = (rel_path / session_eval_path[0].name).as_posix() if session_eval_path else None
-    quant_rel = (rel_path / session_quant_path[0].name).as_posix() if session_quant_path else None
+    quant_log_path = find_quant_log_path(run_dir)
+    quant_rel = (rel_path / quant_log_path.relative_to(run_dir)).as_posix() if quant_log_path else None
     aggregate_rel = Path(aggregate_path).relative_to(results_root.parent).as_posix() if aggregate_path else None
 
     return {
@@ -372,8 +405,8 @@ def record_from_run_dir(
         "model_id": first_nonempty(aggregate.get("model_id"), (quant_data or {}).get("model_id") if isinstance(quant_data, dict) else None, artifact_name),
         "submitted_by": first_nonempty(aggregate.get("submitted_by")),
         "orgs": extract_org_list(aggregate.get("orgs"), aggregate.get("org"), aggregate.get("organizations")),
-        "scheme": first_nonempty((quant_data or {}).get("scheme") if isinstance(quant_data, dict) else None, aggregate.get("scheme"), "unknown"),
-        "method": first_nonempty((quant_data or {}).get("method") if isinstance(quant_data, dict) else None, aggregate.get("method"), "unknown"),
+        "scheme": first_nonempty((quant_data or {}).get("scheme") if isinstance(quant_data, dict) else None, aggregate.get("scheme"), ""),
+        "method": first_nonempty((quant_data or {}).get("method") if isinstance(quant_data, dict) else None, aggregate.get("method"), ""),
         "run_id": run_id,
         "run_timestamp": parse_run_timestamp(run_id, to_iso_utc(run_dir.stat().st_mtime)),
         "run_path": rel_path.as_posix(),
@@ -404,15 +437,15 @@ def record_from_aggregate_only(
     source_repo: str,
     source_branch: str,
 ) -> dict[str, Any] | None:
-    run_path = str(first_nonempty(aggregate.get("run_path"), "")).strip()
+    run_path = str(first_nonempty(aggregate.get("run_path"), aggregate.get("run_dir"), "")).strip()
     run_id = str(first_nonempty(aggregate.get("run_id"), "")).strip()
     if not run_path and not run_id:
         return None
 
     norm_path = run_path.replace("results/", "", 1).strip("/") if run_path else ""
     parts = Path(norm_path).parts if norm_path else ()
-    owner = first_nonempty(aggregate.get("owner"), parts[0] if len(parts) > 0 else "unknown")
-    artifact_name = first_nonempty(aggregate.get("artifact_name"), parts[1] if len(parts) > 1 else aggregate.get("model_id") or "unknown")
+    owner = first_nonempty(aggregate.get("owner"), parts[0] if len(parts) > 0 else "")
+    artifact_name = first_nonempty(aggregate.get("artifact_name"), parts[1] if len(parts) > 1 else aggregate.get("model_id") or "")
 
     quant_status = normalize_status(aggregate.get("auto_quant_status"))
     eval_status = normalize_status(aggregate.get("auto_eval_status"))
@@ -430,8 +463,8 @@ def record_from_aggregate_only(
         "model_id": first_nonempty(aggregate.get("model_id"), artifact_name),
         "submitted_by": first_nonempty(aggregate.get("submitted_by")),
         "orgs": extract_org_list(aggregate.get("orgs"), aggregate.get("org"), aggregate.get("organizations")),
-        "scheme": first_nonempty(aggregate.get("scheme"), "unknown"),
-        "method": first_nonempty(aggregate.get("method"), "unknown"),
+        "scheme": first_nonempty(aggregate.get("scheme"), ""),
+        "method": first_nonempty(aggregate.get("method"), ""),
         "run_id": run_id or (parts[-1] if parts else "aggregate_only"),
         "run_timestamp": parse_run_timestamp(run_id, first_nonempty(aggregate.get("run_timestamp"), aggregate.get("updated_at"))),
         "run_path": norm_path or run_id,
@@ -467,10 +500,10 @@ def build_latest(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def build_summary(all_runs: list[dict[str, Any]], latest_runs: list[dict[str, Any]]) -> dict[str, Any]:
     # Status counters are computed over the latest run per model so they match
     # leaderboard-style per-model accounting. `total_runs` still reflects raw count.
-    quant_counter = Counter(record.get("auto_quant_status", "unknown") for record in latest_runs)
-    eval_counter = Counter(record.get("auto_eval_status", "unknown") for record in latest_runs)
+    quant_counter = Counter(record.get("auto_quant_status", "running") for record in latest_runs)
+    eval_counter = Counter(record.get("auto_eval_status", "running") for record in latest_runs)
     pipeline_counter = Counter(
-        (record.get("pipeline") or {}).get("status", "unknown") for record in latest_runs
+        (record.get("pipeline") or {}).get("status", "pending") for record in latest_runs
     )
     return {
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -480,13 +513,11 @@ def build_summary(all_runs: list[dict[str, Any]], latest_runs: list[dict[str, An
             "success": quant_counter.get("success", 0),
             "failed": quant_counter.get("failed", 0),
             "running": quant_counter.get("running", 0),
-            "unknown": quant_counter.get("unknown", 0),
         },
         "eval": {
             "success": eval_counter.get("success", 0),
             "failed": eval_counter.get("failed", 0),
             "running": eval_counter.get("running", 0),
-            "unknown": eval_counter.get("unknown", 0),
         },
         "pipeline": {
             "pending": pipeline_counter.get("pending", 0),
@@ -494,9 +525,48 @@ def build_summary(all_runs: list[dict[str, Any]], latest_runs: list[dict[str, An
             "succeeded": pipeline_counter.get("succeeded", 0),
             "failed": pipeline_counter.get("failed", 0),
             "cancelled": pipeline_counter.get("cancelled", 0),
-            "unknown": pipeline_counter.get("unknown", 0),
         },
     }
+
+
+def dedupe_same_model_runs(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    by_key: dict[tuple[str, str, str], dict[str, Any]] = {}
+    output: list[dict[str, Any]] = []
+
+    def key_for(record: dict[str, Any]) -> tuple[str, str, str] | None:
+        run_id = str(record.get("run_id") or "")
+        if not run_id:
+            return None
+        return (
+            str(record.get("owner") or ""),
+            str(first_nonempty(record.get("model_id"), record.get("artifact_name"), "")),
+            run_id,
+        )
+
+    def score(record: dict[str, Any]) -> int:
+        return (
+            (100 if record.get("quant_errors") or record.get("eval_errors") else 0)
+            + (30 if record.get("session_quant_url") else 0)
+            + (20 if record.get("session_eval_url") else 0)
+            + (10 if record.get("pipeline") else 0)
+            + (5 if record.get("aggregate_result_url") else 0)
+        )
+
+    for record in records:
+        key = key_for(record)
+        if key is None:
+            output.append(record)
+            continue
+        existing = by_key.get(key)
+        if existing is None:
+            by_key[key] = record
+            output.append(record)
+            continue
+        if score(record) > score(existing):
+            by_key[key] = record
+            output[output.index(existing)] = record
+
+    return output
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -582,7 +652,7 @@ def _base_model_from_record(record: dict[str, Any]) -> str:
     """Best-effort base HF model id from a run record, ignoring scheme/method suffixes.
 
     Used as a fallback match key (model-only) for eval-only jobs where the
-    record's scheme is "unknown" but the lifecycle entry knows the scheme.
+    record has no scheme but the lifecycle entry knows it.
     """
     owner = record.get("owner", "") or ""
     model_id = record.get("model_id", "") or record.get("artifact_name", "") or ""
@@ -673,10 +743,10 @@ def records_from_pending_requests(
 
         model = data.get("model", "")
         parts = model.split("/", 1)
-        owner = parts[0] if len(parts) > 1 else "unknown"
+        owner = parts[0] if len(parts) > 1 else ""
         base_model = parts[1] if len(parts) > 1 else model
 
-        scheme_raw = data.get("quant_scheme", "unknown")
+        scheme_raw = data.get("quant_scheme", "")
         m = re.search(r"\((\w+)\)", scheme_raw)
         scheme = m.group(1) if m else scheme_raw
 
@@ -688,27 +758,27 @@ def records_from_pending_requests(
         phase = _lifecycle_failed_phase(data.get("status"))
         if norm_status == "pending":
             quant_status = "running"  # queued = will run
-            eval_status = "unknown"
+            eval_status = "running"
         elif norm_status == "running":
             quant_status = "running"
-            eval_status = "unknown"
+            eval_status = "running"
         elif norm_status == "failed":
             # Prefer the explicit phase from the raw status text; otherwise infer
             # from the script type (auto_quant vs auto_eval).
             if phase == "eval":
                 quant_status, eval_status = "success", "failed"
             elif phase == "quant":
-                quant_status, eval_status = "failed", "unknown"
+                quant_status, eval_status = "failed", "running"
             elif script == "auto_eval":
                 quant_status, eval_status = "success", "failed"
-            else:  # auto_quant or unknown script
-                quant_status, eval_status = "failed", "unknown"
+            else:
+                quant_status, eval_status = "failed", "running"
         elif norm_status == "cancelled":
-            quant_status = "unknown"
-            eval_status = "unknown"
+            quant_status = "running"
+            eval_status = "running"
         else:
-            quant_status = "unknown"
-            eval_status = "unknown"
+            quant_status = "running"
+            eval_status = "running"
 
         record: dict[str, Any] = {
             "owner": owner,
@@ -717,7 +787,7 @@ def records_from_pending_requests(
             "submitted_by": first_nonempty(data.get("submitted_by")),
             "orgs": extract_org_list(data.get("orgs"), data.get("org"), data.get("organizations")),
             "scheme": scheme,
-            "method": "autoround" if "auto_quant" in data.get("script", "") else data.get("script", "unknown"),
+            "method": "autoround" if "auto_quant" in data.get("script", "") else data.get("script", ""),
             "run_id": "",
             "run_timestamp": submitted or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
             "run_path": "",
@@ -764,7 +834,7 @@ def scan_results(
         data = lifecycle_index.get(key)
         if data:
             return data
-        # Fallback: match by base model name only (eval-only jobs / unknown scheme)
+        # Fallback: match by base model name only (eval-only jobs with no scheme)
         return lifecycle_model_only.get(_base_model_from_record(rec))
 
     def _apply_lifecycle(rec: dict[str, Any], lc_data: dict[str, Any] | None) -> None:
@@ -775,23 +845,45 @@ def scan_results(
         rec["orgs"] = extract_org_list(lc_data.get("orgs"), lc_data.get("org"), lc_data.get("organizations"), rec.get("orgs"))
         # Backfill scheme from lifecycle when the record couldn't determine it
         # locally (e.g. eval-only runs with no quant_summary.json).
-        if rec.get("scheme") in (None, "", "unknown"):
+        if rec.get("scheme") in (None, ""):
             lc_scheme_raw = lc_data.get("quant_scheme") or lc_data.get("compute_dtype")
             if lc_scheme_raw:
                 m = re.search(r"\((\w+)\)", str(lc_scheme_raw))
                 rec["scheme"] = m.group(1) if m else str(lc_scheme_raw)
         # Align per-phase status with the leaderboard's view of lifecycle truth:
         # when the lifecycle marks a specific phase failed, surface that as the
-        # record's phase status (overrides locally-cached success/unknown).
+        # record's phase status (overrides stale locally-cached success/running).
         phase = _lifecycle_failed_phase(lc_data.get("status"))
+        norm_status = _normalize_pipeline_status(lc_data.get("status"))
+        script = str(lc_data.get("script") or "").lower()
         if phase == "eval":
             rec["auto_eval_status"] = "failed"
         elif phase == "quant":
             rec["auto_quant_status"] = "failed"
+            failure_log = read_failure_log(source_root / str(rec.get("run_path", "")))
+            if failure_log:
+                rec["quant_errors"] = [failure_log]
+        elif norm_status == "failed":
+            if script == "auto_eval":
+                rec["auto_quant_status"] = "success"
+                rec["auto_eval_status"] = "failed"
+            else:
+                rec["auto_quant_status"] = "failed"
+                failure_log = read_failure_log(source_root / str(rec.get("run_path", "")))
+                if failure_log:
+                    rec["quant_errors"] = [failure_log]
 
     records: list[dict[str, Any]] = []
     seen_run_paths: set[str] = set()
+    seen_run_model_keys: set[tuple[str, str, str]] = set()
     matched_lifecycle_keys: set[str] = set()
+
+    def _run_model_key(record: dict[str, Any]) -> tuple[str, str, str]:
+        return (
+            str(record.get("owner") or ""),
+            str(first_nonempty(record.get("model_id"), record.get("artifact_name"), "")),
+            str(record.get("run_id") or ""),
+        )
 
     for run_dir in sorted([p for p in source_root.rglob("run_*") if p.is_dir()]):
         record = record_from_run_dir(run_dir, source_root, aggregate_index, source_repo, source_branch)
@@ -801,6 +893,7 @@ def scan_results(
             matched_lifecycle_keys.add(_model_key_from_status(lc_data))
         records.append(record)
         seen_run_paths.add(str(record.get("run_path", "")))
+        seen_run_model_keys.add(_run_model_key(record))
 
     for aggregate in aggregate_index.values():
         candidate = record_from_aggregate_only(aggregate, source_root, source_repo, source_branch)
@@ -808,11 +901,14 @@ def scan_results(
             continue
         if str(candidate.get("run_path", "")) in seen_run_paths:
             continue
+        if _run_model_key(candidate) in seen_run_model_keys:
+            continue
         lc_data = _lookup_lifecycle(candidate)
         _apply_lifecycle(candidate, lc_data)
         if lc_data:
             matched_lifecycle_keys.add(_model_key_from_status(lc_data))
         records.append(candidate)
+        seen_run_model_keys.add(_run_model_key(candidate))
 
     # Add records for pending/running jobs that don't have results yet
     pending = records_from_pending_requests(lifecycle_index, matched_lifecycle_keys, source_repo, source_branch)
@@ -820,6 +916,7 @@ def scan_results(
     if pending:
         print(f"Added {len(pending)} pending/queued jobs from requests")
 
+    records = dedupe_same_model_runs(records)
     records.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
     latest = build_latest(records)
     summary = build_summary(records, latest)
@@ -849,8 +946,8 @@ _NEEDED_PATTERNS = re.compile(
     r"(results_.*\.json$)"
     r"|(run_[^/]+/quant_summary\.json$)"
     r"|(run_[^/]+/accuracy\.json$)"
-    r"|(run_[^/]+/session_eval_.*\.md$)"
-    r"|(run_[^/]+/session_quant_.*\.md$)"
+    r"|(run_[^/]+/logs/(?:setup_env|quantize)\.log$)"
+    r"|(run_[^/]+/session_.*\.md$)"
 )
 
 # Prefixes for lifecycle directories (status tracking)
@@ -875,8 +972,19 @@ def _download_raw(repo: str, branch: str, filepath: str, dest: Path, token: str 
         headers["Authorization"] = f"Bearer {token}"
     req = urllib.request.Request(url, headers=headers)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        dest.write_bytes(resp.read())
+    for attempt in range(1, 4):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                dest.write_bytes(resp.read())
+            return
+        except TimeoutError:
+            if attempt == 3:
+                raise
+            print(f"  retry {attempt}/3 after timeout: {filepath}")
+        except urllib.error.URLError as exc:
+            if attempt == 3 or not isinstance(exc.reason, TimeoutError):
+                raise
+            print(f"  retry {attempt}/3 after timeout: {filepath}")
 
 
 def fetch_remote_results(

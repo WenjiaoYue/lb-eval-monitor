@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { RunStatus } from '$lib/types';
 
-let { status = 'unknown' }: { status: RunStatus } = $props();
+let { status }: { status: RunStatus } = $props();
 </script>
 
 <span class={`badge badge--${status}`}>{status}</span>
@@ -33,10 +33,5 @@ let { status = 'unknown' }: { status: RunStatus } = $props();
 	background: #fffbeb;
 	color: #d97706;
 	border: 1px solid #fde68a;
-}
-.badge--unknown {
-	background: #f1f5f9;
-	color: #64748b;
-	border: 1px solid #e2e8f0;
 }
 </style>

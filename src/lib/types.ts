@@ -1,4 +1,4 @@
-export type RunStatus = 'success' | 'failed' | 'running' | 'unknown';
+export type RunStatus = 'success' | 'failed' | 'running';
 
 export interface QuantDetails {
 	original_size_mb?: number;
@@ -25,7 +25,7 @@ export interface EvalDetails {
 	task_results?: Record<string, TaskResult>;
 }
 
-export type PipelineStatus = 'pending' | 'running' | 'succeeded' | 'failed' | 'cancelled' | 'unknown';
+export type PipelineStatus = 'pending' | 'running' | 'succeeded' | 'failed' | 'cancelled';
 
 export interface PipelineInfo {
 	status: PipelineStatus;
@@ -53,7 +53,6 @@ export interface RunRecord {
 	run_timestamp: string;
 	run_path: string;
 	auto_quant_status: RunStatus;
-	auto_eval_status: RunStatus;
 	quant_errors: string[];
 	eval_errors: string[];
 	issues: string[];
@@ -76,6 +75,5 @@ export interface SummaryData {
 	total_runs: number;
 	latest_models_count: number;
 	quant: Record<RunStatus, number>;
-	eval: Record<RunStatus, number>;
 	pipeline?: Record<PipelineStatus, number>;
 }

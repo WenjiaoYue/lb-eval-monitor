@@ -34,4 +34,9 @@ let { status }: { status: RunStatus } = $props();
 	color: #d97706;
 	border: 1px solid #fde68a;
 }
+.badge--pending {
+	background: #eff6ff;
+	color: #2563eb;
+	border: 1px solid #bfdbfe;
+}
 </style>

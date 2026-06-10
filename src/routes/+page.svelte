@@ -3,9 +3,9 @@ import RunDetailPanel from '$lib/components/RunDetailPanel.svelte';
 import StatusBadge from '$lib/components/StatusBadge.svelte';
 import { fetchFromGitHub } from '$lib/fetcher';
 import type { RunRecord, SummaryData } from '$lib/types';
-import { onMount } from 'svelte';
+import { onMount, tick } from 'svelte';
 
-type StatusFilter = 'all' | 'failed' | 'success' | 'running';
+type StatusFilter = 'all' | 'failed' | 'success' | 'running' | 'pending';
 type QuantStatusFilter = Exclude<StatusFilter, 'all'>;
 type SortKey = 'updated_at' | 'model_id' | 'artifact_name' | 'owner';
 type SubmitterBucket = 'Intel' | 'Non-Intel';
@@ -33,6 +33,7 @@ interface QuantCounts {
 	success: number;
 	failed: number;
 	running: number;
+	pending: number;
 }
 
 	let runs = $state<RunRecord[]>([]);
@@ -41,7 +42,7 @@ interface QuantCounts {
 		generated_at: '',
 		total_runs: 0,
 		latest_models_count: 0,
-		quant: { success: 0, failed: 0, running: 0 }
+		quant: { success: 0, failed: 0, running: 0, pending: 0 }
 	});
 
 	let loading = $state(true);
@@ -68,28 +69,52 @@ interface QuantCounts {
 		}).replace(',', '');
 	};
 
+	let refreshing = $state(false);
+
+	// Pull the latest snapshot. The initial call shows the full-page loader; the
+	// periodic background refreshes swap the data in place without blocking the UI
+	// so the dashboard stays in sync with the repo without a manual page reload.
+	const loadData = async (background: boolean) => {
+		if (background) {
+			if (refreshing) return;
+			refreshing = true;
+		}
+		try {
+			const result = await fetchFromGitHub(background ? undefined : (msg) => { loadingMsg = msg; });
+			runs = result.runs;
+			latest = result.latest;
+			summary = result.summary;
+			// Keep the open detail panel pointed at the freshly-loaded record.
+			if (selected) {
+				const match = [...result.latest, ...result.runs].find((r) => r.run_path === selected?.run_path);
+				if (match) selected = match;
+			}
+			fetchError = '';
+		} catch (e: any) {
+			if (!background) fetchError = e?.message || 'Failed to fetch data';
+		} finally {
+			if (background) refreshing = false;
+			else loading = false;
+		}
+	};
+
+	const REFRESH_INTERVAL_MS = 60_000;
+
 onMount(() => {
 tickClock();
 const clockInterval = setInterval(tickClock, 1000);
-(async () => {
-try {
-const result = await fetchFromGitHub((msg) => { loadingMsg = msg; });
-	runs = result.runs;
-	latest = result.latest;
-	summary = result.summary;
-	fetchError = '';
-} catch (e: any) {
-fetchError = e?.message || 'Failed to fetch data';
-} finally {
-loading = false;
-}
-})();
+void loadData(false);
+const refreshInterval = setInterval(() => void loadData(true), REFRESH_INTERVAL_MS);
 
-return () => { clearInterval(clockInterval); };
+return () => { clearInterval(clockInterval); clearInterval(refreshInterval); };
 });
 
-const currentRows = $derived(runs);
-const owners = $derived(['all', ...new Set(runs.map((r) => r.owner).filter(Boolean)).values()]);
+// The whole dashboard (table + every statistic) operates on the per-model latest
+// set so all the breakdowns reconcile. "Total Runs" is the only metric that counts
+// raw run attempts; everything else (models, failed, By Scheme, submissions) lives in
+// this single latest-per-model universe.
+const currentRows = $derived(latest.length > 0 ? latest : runs);
+const owners = $derived(['all', ...new Set(currentRows.map((r) => r.owner).filter(Boolean)).values()]);
 const SCHEME_TOKENS = ['W4A16', 'MXFP4', 'NVFP4'];
 const extractScheme = (run: RunRecord) => {
 	const raw = run.pipeline?.quant_scheme || run.scheme || '';
@@ -105,17 +130,27 @@ const displayScheme = (run: RunRecord) => {
 const displayMethod = (run: RunRecord) => {
 	const hay = `${run.method || ''} ${run.artifact_name || ''}`.toLowerCase();
 	if (hay.includes('rtn')) return 'RTN';
-	if (hay.includes('tuning') || hay.includes('autoround') || hay.includes('auto_eval') || String(run.method || '').trim()) return 'TUNING';
+	if (hay.includes('tuning')) return 'TUNING';
+	if (run.status_url && !String(run.status_url.split('/').pop() || '').toLowerCase().includes('_tuning')) return 'RTN';
+	if (hay.includes('autoround') || hay.includes('auto_eval') || String(run.method || '').trim()) return 'TUNING';
 	return '-';
 };
-const schemes = $derived(['all', ...new Set(runs.map(displayScheme).filter(Boolean)).values()]);
-const submitters = $derived([...new Set(runs.map((r) => String(r.submitted_by || '')).filter(Boolean)).values()]);
+const schemes = $derived(['all', ...new Set(currentRows.map(displayScheme).filter(Boolean)).values()]);
+const submitters = $derived([...new Set(currentRows.map((r) => String(r.submitted_by || '')).filter(Boolean)).values()]);
 
 const statusBucket = (run: RunRecord): QuantStatusFilter => {
 if (run.auto_quant_status === 'failed' || run.auto_eval_status === 'failed') return 'failed';
 if (run.auto_quant_status === 'success' && (run.auto_eval_status == null || run.auto_eval_status === 'success')) return 'success';
+// A job that has been submitted but not yet picked up by the pipeline is Pending,
+// which is distinct from an actively Running job.
+if (run.pipeline?.status === 'pending') return 'pending';
 return 'running';
 };
+
+// updated_at is the dashboard scan time, so it makes every row look freshly updated.
+// The submit time is what users care about: prefer the pipeline submit timestamp, then
+// the run timestamp, and only fall back to updated_at if neither exists.
+const submittedTime = (run: RunRecord) => run.pipeline?.submitted_time || run.run_timestamp || run.updated_at || '';
 
 const filteredRows = $derived.by(() => {
 const keyword = search.trim().toLowerCase();
@@ -134,8 +169,8 @@ const joined = [run.model_id, run.artifact_name, run.owner, run.summary, run.iss
 return joined.includes(keyword);
 })
 .sort((a, b) => {
-const left = String(a[sortKey] ?? '');
-const right = String(b[sortKey] ?? '');
+const left = sortKey === 'updated_at' ? submittedTime(a) : String(a[sortKey] ?? '');
+const right = sortKey === 'updated_at' ? submittedTime(b) : String(b[sortKey] ?? '');
 const cmp = left.localeCompare(right);
 return sortAsc ? cmp : -cmp;
 });
@@ -184,7 +219,8 @@ sortKey = key;
 sortAsc = key !== 'updated_at';
 };
 
-const failedRuns = $derived(runs.filter((r) => statusBucket(r) === 'failed'));
+const quantBase = $derived(latest.length > 0 ? latest : runs);
+const failedRuns = $derived(quantBase.filter((r) => statusBucket(r) === 'failed'));
 const errorCount = (run: RunRecord) => run.quant_errors.length + run.eval_errors.length;
 
 let detailRef: HTMLElement | undefined = $state();
@@ -193,9 +229,13 @@ let filtersRef: HTMLElement | undefined = $state();
 const scrollTo = (el?: HTMLElement, block: ScrollLogicalPosition = 'start') =>
 	queueMicrotask(() => el?.scrollIntoView({ behavior: 'smooth', block }));
 
-const selectRun = (run: RunRecord) => {
+const selectRun = async (run: RunRecord) => {
 selected = run;
-scrollTo(detailRef, 'nearest');
+await tick();
+for (let i = 0; i < 4; i += 1) {
+	await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+	detailRef?.scrollIntoView({ behavior: 'auto', block: 'start' });
+}
 };
 
 const filterByBar = (s: StatusFilter) => {
@@ -226,7 +266,7 @@ interface ActiveFilter {
 const activeFilters = $derived.by<ActiveFilter[]>(() => {
 	const list: ActiveFilter[] = [];
 	if (search.trim()) list.push({ key: 'search', label: 'Search', value: search.trim(), clear: () => { search = ''; } });
-	if (owner !== 'all') list.push({ key: 'owner', label: 'Owner', value: owner, clear: () => { owner = 'all'; } });
+	if (owner !== 'all') list.push({ key: 'owner', label: 'Org', value: owner, clear: () => { owner = 'all'; } });
 	if (scheme !== 'all') list.push({ key: 'scheme', label: 'Scheme', value: scheme, clear: () => { scheme = 'all'; } });
 	if (status !== 'all') list.push({ key: 'status', label: 'Status', value: status, clear: () => { status = 'all'; } });
 	if (selectedSubmitter) list.push({ key: 'submitter', label: 'Submitter', value: selectedSubmitter, clear: () => { selectedSubmitter = null; } });
@@ -251,15 +291,15 @@ return d.toLocaleDateString('en-CA');
 };
 
 const countQuant = (rows: RunRecord[]): QuantCounts => {
-	const counts: QuantCounts = { success: 0, failed: 0, running: 0 };
+	const counts: QuantCounts = { success: 0, failed: 0, running: 0, pending: 0 };
 	for (const run of rows) {
 		const bucket = statusBucket(run);
 		counts[bucket] += 1;
 	}
 	return counts;
 };
-const quantCounts = $derived(countQuant(latest.length > 0 ? latest : runs));
-const quantTotal = $derived(quantCounts.success + quantCounts.failed + quantCounts.running);
+const quantCounts = $derived(countQuant(quantBase));
+const quantTotal = $derived(quantCounts.success + quantCounts.failed + quantCounts.running + quantCounts.pending);
 const pct = (n: number, total: number) => total > 0 ? (n / total * 100).toFixed(1) : '0';
 
 // ── Statistics (merged from /stats) ──
@@ -303,7 +343,7 @@ const schemeRows = $derived.by<SchemeRow[]>(() => {
 	const map = new Map<string, SchemeRow>();
 	for (const run of scoped) {
 		const b = statusBucket(run);
-		if (b === 'running') continue;
+		if (b === 'running' || b === 'pending') continue;
 		const s = displayScheme(run);
 		if (!s) continue;
 		const row = map.get(s) || { scheme: s, count: 0, success: 0, failed: 0 };
@@ -431,12 +471,14 @@ return sortAsc ? ' \u2191' : ' \u2193';
 				<button class="sbar-fill sbar-fill--success" style="width: {pct(quantCounts.success, quantTotal)}%" onclick={() => filterByBar('success')} aria-label="Filter quant success"></button>
 				<button class="sbar-fill sbar-fill--failed" style="width: {pct(quantCounts.failed, quantTotal)}%" onclick={() => filterByBar('failed')} aria-label="Filter quant failed"></button>
 				<button class="sbar-fill sbar-fill--running" style="width: {pct(quantCounts.running, quantTotal)}%" onclick={() => filterByBar('running')} aria-label="Filter quant running"></button>
+				<button class="sbar-fill sbar-fill--pending" style="width: {pct(quantCounts.pending, quantTotal)}%" onclick={() => filterByBar('pending')} aria-label="Filter quant pending"></button>
 				{/if}
 			</div>
 			<div class="sbar-legend">
 				<button class="legend-btn" onclick={() => filterByBar('success')}><span class="ldot ldot--success"></span>Success <strong>{quantCounts.success}</strong></button>
 				<button class="legend-btn" onclick={() => filterByBar('failed')}><span class="ldot ldot--failed"></span>Failed <strong>{quantCounts.failed}</strong></button>
 				<button class="legend-btn" onclick={() => filterByBar('running')}><span class="ldot ldot--running"></span>Running <strong>{quantCounts.running}</strong></button>
+				<button class="legend-btn" onclick={() => filterByBar('pending')}><span class="ldot ldot--pending"></span>Pending <strong>{quantCounts.pending}</strong></button>
 			</div>
 		</div>
 
@@ -572,7 +614,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 			<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 			<input bind:value={search} placeholder="Search model, error, issue..." aria-label="Search" />
 		</div>
-		<select bind:value={owner} aria-label="Owner filter">{#each owners as item}<option value={item}>{item === 'all' ? 'All owners' : item}</option>{/each}</select>
+		<select bind:value={owner} aria-label="Org filter">{#each owners as item}<option value={item}>{item === 'all' ? 'All orgs' : item}</option>{/each}</select>
 		<select bind:value={scheme} aria-label="Scheme filter">{#each schemes as item}<option value={item}>{item === 'all' ? 'All schemes' : item}</option>{/each}</select>
 		<select bind:value={selectedSubmitter} aria-label="Submitter filter"><option value={null}>All submitters</option>{#each submitters as item}<option value={item}>{item}</option>{/each}</select>
 		<select bind:value={status} aria-label="Status filter">
@@ -580,6 +622,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 			<option value="failed">Failed</option>
 			<option value="success">Success</option>
 			<option value="running">Running</option>
+			<option value="pending">Pending</option>
 		</select>
 	</section>
 
@@ -605,6 +648,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 
 	<div class="results-meta">
 		<span class="results-count">{tableRows.length} runs</span>
+		{#if refreshing}<span class="refresh-indicator"><span class="refresh-dot"></span>Updating…</span>{/if}
 	</div>
 
 	<!-- Detail panel above table -->
@@ -617,8 +661,8 @@ return sortAsc ? ' \u2191' : ' \u2193';
 		<table>
 			<thead>
 				<tr>
-					<th><button type="button" onclick={() => setSort('updated_at')}>Updated{sortIcon('updated_at')}</button></th>
-					<th><button type="button" onclick={() => setSort('owner')}>Owner{sortIcon('owner')}</button></th>
+					<th><button type="button" onclick={() => setSort('updated_at')}>Submitted{sortIcon('updated_at')}</button></th>
+					<th><button type="button" onclick={() => setSort('owner')}>Org{sortIcon('owner')}</button></th>
 					<th><button type="button" onclick={() => setSort('model_id')}>Model / Artifact{sortIcon('model_id')}</button></th>
 					<th>Scheme</th>
 					<th>Method</th>
@@ -635,7 +679,7 @@ return sortAsc ? ' \u2191' : ' \u2193';
 					class:row-failed={statusBucket(run) === 'failed'}
 					onclick={() => selectRun(run)}
 				>
-					<td class="cell-time">{formatTime(run.updated_at)}</td>
+					<td class="cell-time">{formatTime(submittedTime(run))}</td>
 					<td class="cell-owner">{run.owner}</td>
 					<td class="cell-model">
 						<span class="model-name">{run.model_id}</span>
@@ -878,9 +922,10 @@ a.hero-pill:hover {
 .sbar-fill--success { background: #10b981; }
 .sbar-fill--failed { background: #ef4444; }
 .sbar-fill--running { background: #f59e0b; }
+.sbar-fill--pending { background: #3b82f6; }
 .sbar-legend {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 0.375rem;
 }
 .legend-btn {
@@ -915,6 +960,7 @@ a.hero-pill:hover {
 .ldot--success { background: #10b981; }
 .ldot--failed { background: #ef4444; }
 .ldot--running { background: #f59e0b; }
+.ldot--pending { background: #3b82f6; }
 
 /* ── Alert banner ── */
 .alert-banner {
@@ -1095,6 +1141,25 @@ a.hero-pill:hover {
 	font-size: 0.8125rem;
 	color: #64748b;
 	font-weight: 600;
+}
+.refresh-indicator {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	font-size: 0.75rem;
+	color: #2563eb;
+	font-weight: 600;
+}
+.refresh-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #3b82f6;
+	animation: refresh-pulse 1s ease-in-out infinite;
+}
+@keyframes refresh-pulse {
+	0%, 100% { opacity: 0.3; }
+	50% { opacity: 1; }
 }
 .active-pill {
 	display: inline-flex;

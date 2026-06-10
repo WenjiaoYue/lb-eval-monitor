@@ -1,8 +1,10 @@
 <script lang="ts">
 import StatusBadge from '$lib/components/StatusBadge.svelte';
 import type { RunRecord } from '$lib/types';
+import { tick } from 'svelte';
 
 let { run = null, onClose }: { run: RunRecord | null; onClose: () => void } = $props();
+let panelBody: HTMLElement | undefined = $state();
 
 const formatMetric = (value: number | string) => {
 	if (typeof value === 'number') return value.toFixed(4);
@@ -30,6 +32,38 @@ const formatDuration = (sec: number | string | undefined) => {
 };
 
 const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.eval_errors.length > 0;
+
+const displayMethod = (record: RunRecord) => {
+	const hay = `${record.method || ''} ${record.artifact_name || ''}`.toLowerCase();
+	if (hay.includes('rtn')) return 'RTN';
+	if (hay.includes('tuning')) return 'TUNING';
+	if (record.status_url && !String(record.status_url.split('/').pop() || '').toLowerCase().includes('_tuning')) return 'RTN';
+	if (hay.includes('autoround') || hay.includes('auto_eval') || String(record.method || '').trim()) return 'TUNING';
+	return '-';
+};
+
+const scrollToBottom = (el: Element | null | undefined) => {
+	if (el instanceof HTMLElement) {
+		el.scrollTop = el.scrollHeight;
+		el.scrollTo({ top: el.scrollHeight, behavior: 'auto' });
+	}
+};
+
+const scrollNestedLogsToBottom = () => {
+		panelBody?.querySelectorAll('.err-scroll').forEach(scrollToBottom);
+};
+
+const scrollOpenContentToBottom = async () => {
+	await tick();
+	for (let i = 0; i < 8; i += 1) {
+		await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+		scrollNestedLogsToBottom();
+	}
+};
+
+$effect(() => {
+	if (run) void scrollOpenContentToBottom();
+});
 </script>
 
 {#if run}
@@ -40,9 +74,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 			<div class="panel-meta">
 				<StatusBadge status={run.auto_quant_status} /> <span class="meta-label">quant</span>
 				<span class="meta-divider"></span>
-				<span class="meta-text">{run.scheme} / {run.method}</span>
-				<span class="meta-divider"></span>
-				<span class="meta-text">{formatTime(run.updated_at)}</span>
+				<span class="meta-text">{run.scheme} / {displayMethod(run)}</span>
 			</div>
 		</div>
 		<button type="button" class="close-btn" onclick={onClose} aria-label="Close">
@@ -50,7 +82,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 		</button>
 	</div>
 
-	<div class="panel-body" class:single-col={!hasLogs(run)}>
+	<div class="panel-body" class:single-col={!hasLogs(run)} bind:this={panelBody}>
 		<div class="col info-col">
 			<div class="top-grid">
 				<div class="top-col">
@@ -164,30 +196,13 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 				{/if}
 			</div>
 			{/if}
-
-			{#if run.summary}
-			<div class="card">
-				<h3>Summary</h3>
-				<p class="summary-text">{run.summary}</p>
-			</div>
-			{/if}
-
-			{#if run.issues.length > 0}
-			<div class="card">
-				<h3>Issues ({run.issues.length})</h3>
-				<ul class="issues-list">
-					{#each run.issues as issue}
-					<li>{issue}</li>
-					{/each}
-				</ul>
-			</div>
-			{/if}
 		</div>
 
 		{#if hasLogs(run)}
 		<div class="col log-col">
 			<div class="card card--error log-card">
 				<h3>Error Logs</h3>
+				<div class="err-scroll">
 				{#if run.quant_errors.length > 0}
 				<h4>Quantization Errors</h4>
 				{#each run.quant_errors as err}
@@ -200,6 +215,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 				<pre class="err-block">{err}</pre>
 				{/each}
 				{/if}
+				</div>
 			</div>
 		</div>
 		{/if}
@@ -281,8 +297,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	grid-template-columns: 1fr;
 	gap: 1rem;
 	padding: 1.125rem 1.75rem;
-	max-height: 560px;
-	overflow: auto;
+	overflow: visible;
 }
 .panel-body.single-col {
 	grid-template-columns: 1fr;
@@ -302,8 +317,13 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	flex-direction: column;
 	gap: 1rem;
 }
-.log-card .err-block {
-	max-height: 420px;
+/* A single bounded scroll region for all error logs. Keeping the logs inside one
+   contained scroller (instead of several tall per-block scrollers that fill the
+   viewport) lets the card stay at the top while the page itself stays scrollable. */
+.err-scroll {
+	max-height: 55vh;
+	overflow: auto;
+	overscroll-behavior: auto;
 }
 .card {
 	padding: 0.875rem 1.125rem;
@@ -396,21 +416,7 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	white-space: pre-wrap;
 	word-break: break-word;
 	color: #991b1b;
-	max-height: 160px;
-	overflow: auto;
 }
-
-/* Summary & issues */
-.summary-text { margin: 0; font-size: 0.8125rem; line-height: 1.6; color: #334155; }
-.issues-list {
-	margin: 0;
-	padding-left: 1.25rem;
-	font-size: 0.8125rem;
-	line-height: 1.6;
-	max-height: 160px;
-	overflow: auto;
-}
-.issues-list li { margin-bottom: 0.25rem; color: #475569; }
 
 /* Chips */
 .chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }

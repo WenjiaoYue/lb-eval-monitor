@@ -1,4 +1,4 @@
-export type RunStatus = 'success' | 'failed' | 'running';
+export type RunStatus = 'success' | 'failed' | 'running' | 'pending';
 
 export interface QuantDetails {
 	original_size_mb?: number;

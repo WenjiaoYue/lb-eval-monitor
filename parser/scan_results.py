@@ -16,6 +16,15 @@ from typing import Any
 COMMON_TASKS = ("piqa", "mmlu", "hellaswag")
 STATUS_PRIORITY = {"failed": 0, "running": 1, "success": 2}
 STATUS_JOB_TYPE = "quantization & evaluation"
+# Failure logs can be megabytes long. Only the tail carries the actual error, so we
+# keep the last slice to avoid bloating runs.json/latest.json (and the page load).
+MAX_ERROR_LOG_CHARS = 16000
+
+
+def cap_log_text(text: str) -> str:
+    if len(text) <= MAX_ERROR_LOG_CHARS:
+        return text
+    return "...[truncated]...\n" + text[-MAX_ERROR_LOG_CHARS:]
 
 
 def read_json(path: Path) -> dict[str, Any] | list[Any] | None:
@@ -144,7 +153,7 @@ def read_failure_log(run_dir: Path, phase: str | None = None) -> str | None:
         if log_path.exists():
             content = log_path.read_text(encoding="utf-8", errors="ignore").strip()
             if content:
-                return content
+                return cap_log_text(content)
     return None
 
 
@@ -174,24 +183,61 @@ def extract_issues_from_markdown(content: str) -> list[str]:
     return dedupe(issues)
 
 
+def _clean_summary_line(line: str) -> str:
+    # Strip leading markdown bullet / emphasis / heading markers.
+    return line.strip().lstrip("#-*> \t").strip()
+
+
+def _is_useful_summary(line: str) -> bool:
+    """Reject file paths, JSON fragments, bare headers and log noise."""
+    text = _clean_summary_line(line).strip("`").strip()
+    if len(text) < 12:
+        return False
+    lowered = text.lower()
+    # Bare "Summary:" / "Workflow Summary" style headers.
+    if re.fullmatch(r"(?:final|overall|workflow)?\s*summary\s*:?", lowered):
+        return False
+    # Lines that are (or end in) a file path.
+    if re.search(r"[/~][\w./-]*\.(?:json|md|log|txt)$", text):
+        return False
+    if text.startswith(("/", "~/", "./")):
+        return False
+    # JSON fragments like  "status": "success",
+    if re.match(r'^"[^"]+"\s*:', text):
+        return False
+    # Tool/exec log noise:  **Tool:** `exec` | **Status:** ...
+    if re.match(r"^\*?\*?(?:tool|status|exit code)\b", lowered) and "`" in text:
+        return False
+    # Needs to look like a sentence rather than a label fragment.
+    if " " not in text:
+        return False
+    return True
+
+
 def extract_summary_from_markdown(content: str) -> str | None:
     lines = [line.strip() for line in content.splitlines() if line.strip()]
     if not lines:
         return None
 
+    # Prefer the first useful prose line that follows a "Summary" heading.
     for idx, line in enumerate(lines):
-        lower = line.lower()
-        if lower.startswith(("summary", "final summary", "overall summary")):
-            if idx + 1 < len(lines):
-                return lines[idx + 1][:280]
-            return line[:280]
+        if line.lower().lstrip("#-*> \t").startswith(("summary", "final summary", "overall summary")):
+            for candidate in lines[idx + 1:]:
+                if _is_useful_summary(candidate):
+                    return _clean_summary_line(candidate)[:280]
 
+    # Otherwise fall back to the last useful line mentioning completion/failure.
     for line in reversed(lines):
         lower = line.lower()
-        if "summary" in lower or "completed" in lower or "failed" in lower:
-            return line[:280]
+        if ("summary" in lower or "completed" in lower or "failed" in lower) and _is_useful_summary(line):
+            return _clean_summary_line(line)[:280]
 
-    return lines[-1][:280]
+    # Last resort: the last useful prose line in the document.
+    for line in reversed(lines):
+        if _is_useful_summary(line):
+            return _clean_summary_line(line)[:280]
+
+    return None
 
 
 def metrics_preview_from_accuracy(data: dict[str, Any]) -> dict[str, float | str]:
@@ -273,7 +319,7 @@ def status_filename_meta(path: str | None) -> dict[str, str]:
     owner, model_name, tail = match.groups()
     tokens = [token for token in tail.split("_") if token]
     scheme = next((token for token in tokens if re.fullmatch(r"(?:W\d+A\d+|MXFP\d+|NVFP\d+)", token, re.IGNORECASE)), "")
-    method = next((token for token in tokens if token.upper() in ("RTN", "TUNING")), "")
+    method = next((token for token in tokens if token.upper() in ("RTN", "TUNING")), "RTN")
     time = next((token for token in tokens if re.fullmatch(r"\d{8}T\d{6}Z", token)), "")
     return {"owner": owner, "model_name": model_name, "scheme": scheme, "method": method.upper(), "time": time}
 
@@ -717,7 +763,7 @@ def _lifecycle_rank(data: dict[str, Any], dirname: str) -> tuple[int, int, str]:
 
 def _lifecycle_method(data: dict[str, Any]) -> str:
     meta = status_filename_meta(data.get("_lifecycle_path"))
-    return str(first_nonempty(data.get("method"), meta.get("method"), "") or "").strip().upper()
+    return str(first_nonempty(meta.get("method"), data.get("method"), "RTN") or "RTN").strip().upper()
 
 
 def _lifecycle_time(data: dict[str, Any]) -> str:
@@ -798,29 +844,34 @@ def _base_model_from_record(record: dict[str, Any]) -> str:
 
 
 def load_lifecycle_index(repo_root: Path) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
-    """Load status/, requests/, and pending_requests/ data without collapsing distinct requests."""
+    """Load the status/ folder, the single source of truth for the dashboard.
+
+    Only entries whose ``job_type`` is the quant+eval pipeline are kept. The
+    requests/ and pending_requests/ folders are intentionally ignored: a model
+    is only shown once it has a matching status/ entry.
+    """
     entries: list[dict[str, Any]] = []
     model_only: dict[str, dict[str, Any]] = {}
 
-    for dirname in ("requests", "pending_requests", "status"):
-        lifecycle_dir = repo_root / dirname
-        if not lifecycle_dir.exists():
-            continue
+    lifecycle_dir = repo_root / "status"
+    if lifecycle_dir.exists():
         for json_file in sorted(lifecycle_dir.rglob("*.json")):
             data = read_json(json_file)
             if not isinstance(data, dict):
+                continue
+            if str(data.get("job_type") or "").strip().lower() != STATUS_JOB_TYPE:
                 continue
             key = _model_key_from_status(data)
             if not key or "::" not in key:
                 continue
             candidate = dict(data)
-            candidate["_lifecycle_dir"] = dirname
+            candidate["_lifecycle_dir"] = "status"
             candidate["_lifecycle_path"] = str(json_file.relative_to(repo_root))
             entries.append(candidate)
             model_name = data.get("model", "")
             if model_name:
                 existing = model_only.get(model_name)
-                if existing is None or _lifecycle_rank(candidate, dirname) >= _lifecycle_rank(existing, str(existing.get("_lifecycle_dir", ""))):
+                if existing is None or _lifecycle_rank(candidate, "status") >= _lifecycle_rank(existing, str(existing.get("_lifecycle_dir", ""))):
                     model_only[model_name] = candidate
 
     return entries, model_only
@@ -875,7 +926,7 @@ def record_from_lifecycle(
         "submitted_by": first_nonempty(data.get("submitted_by")),
         "orgs": extract_org_list(data.get("orgs"), data.get("org"), data.get("organizations")),
         "scheme": scheme,
-        "method": "autoround" if "auto_quant" in str(data.get("script", "")) else str(data.get("script", "")),
+        "method": _lifecycle_method(data),
         "run_id": "",
         "run_timestamp": submitted or datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "run_path": "",
@@ -931,6 +982,7 @@ def scan_results(
         lc_scheme = lifecycle_scheme(lc_data)
         if lc_scheme:
             rec["scheme"] = lc_scheme
+        rec["method"] = _lifecycle_method(lc_data)
         phase = _lifecycle_failed_phase(lc_data.get("status"))
         if rec["auto_quant_status"] == "failed":
             failure_log = read_failure_log(source_root / str(rec.get("run_path", "")), phase or "quant")
@@ -1068,21 +1120,9 @@ def scan_results(
         records.append(record)
     print(f"Built {len(records)} records from status/ (source of truth)")
 
-    # ── 4. Keep result runs that have no status entry (legacy / orphans) ──
-    orphan_count = 0
-    for rec in detail_records:
-        if id(rec) in matched_detail_ids:
-            continue
-        lc_data = (
-            lifecycle_model_only.get(_base_model_from_record(rec))
-        )
-        if lc_data is not None or _has_lifecycle_for_record(rec):
-            continue  # already represented by the status-driven loop
-        _apply_lifecycle(rec, None)
-        records.append(rec)
-        orphan_count += 1
-    if orphan_count:
-        print(f"Added {orphan_count} result runs with no status entry")
+    # The status/ folder is the single source of truth: result runs without a
+    # matching status entry are intentionally dropped so the dashboard never
+    # surfaces models that were never submitted through the quant+eval pipeline.
 
     records = dedupe_same_model_runs(records)
     records.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
@@ -1118,8 +1158,8 @@ _NEEDED_PATTERNS = re.compile(
     r"|(run_[^/]+/session_.*\.md$)"
 )
 
-# Prefixes for lifecycle directories (status tracking)
-_LIFECYCLE_PREFIXES = ("status/", "requests/", "pending_requests/")
+# Prefix for the lifecycle directory (status tracking, source of truth)
+_LIFECYCLE_PREFIXES = ("status/",)
 
 
 def _gh_api(url: str, token: str | None = None) -> Any:

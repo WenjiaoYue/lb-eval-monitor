@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-06-11T08:47:38Z",
+  "total_runs": 95,
+  "latest_models_count": 93,
+  "quant": {
+    "success": 67,
+    "failed": 26,
+    "running": 0
+  },
+  "eval": {
+    "success": 65,
+    "failed": 2,
+    "running": 26
+  },
+  "pipeline": {
+    "pending": 0,
+    "running": 0,
+    "succeeded": 65,
+    "failed": 28,
+    "cancelled": 0
+  }
+}

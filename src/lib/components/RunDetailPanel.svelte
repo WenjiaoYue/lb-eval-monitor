@@ -5,6 +5,21 @@ import { tick } from 'svelte';
 
 let { run = null, onClose }: { run: RunRecord | null; onClose: () => void } = $props();
 let panelBody: HTMLElement | undefined = $state();
+let evalOpen = $state(false);
+
+const evalResultCount = $derived(
+	run
+		? (Object.keys(run.eval_details?.task_results ?? {}).length
+			|| Object.keys(run.metrics_preview ?? {}).length
+			|| run.tasks.length)
+		: 0
+);
+
+$effect(() => {
+	// Re-collapse the Evaluation Results section whenever a different run opens.
+	run;
+	evalOpen = false;
+});
 
 const formatMetric = (value: number | string) => {
 	if (typeof value === 'number') return value.toFixed(4);
@@ -85,10 +100,9 @@ $effect(() => {
 	<div class="panel-body" class:single-col={!hasLogs(run)} bind:this={panelBody}>
 		<div class="col info-col">
 			<div class="top-grid">
-				<div class="top-col">
-					{#if run.pipeline}
-					<div class="card">
-						<h3>Pipeline Status</h3>
+				{#if run.pipeline}
+				<div class="card">
+					<h3>Pipeline Status</h3>
 						<div class="pipeline-timeline">
 							<div class="pipeline-step" class:step-done={run.pipeline.submitted_time} class:step-active={run.pipeline.status === 'pending' && !run.pipeline.triggered_time}>
 								<span class="step-dot"></span>
@@ -116,13 +130,11 @@ $effect(() => {
 							{#if run.pipeline.ci_run_id}<div class="info-item"><span class="info-label">CI Run</span><span class="info-value">#{run.pipeline.ci_run_id}</span></div>{/if}
 						</div>
 					</div>
-					{/if}
-				</div>
+				{/if}
 
-				<div class="top-col">
-					{#if run.quant_details}
-					<div class="card">
-						<h3>Quantization Details</h3>
+				{#if run.quant_details}
+				<div class="card">
+					<h3>Quantization Details</h3>
 						<div class="info-grid">
 							<div class="info-item"><span class="info-label">Source Model</span><span class="info-value">{run.quant_details.model_id || run.model_id}</span></div>
 							<div class="info-item"><span class="info-label">Original Size</span><span class="info-value">{formatSize(run.quant_details.original_size_mb)}</span></div>
@@ -136,27 +148,39 @@ $effect(() => {
 							{/if}
 						</div>
 					</div>
-					{/if}
+				{/if}
+			</div>
 
-					<div class="card">
-						<h3>Source & Links</h3>
-						<div class="links-row">
-							{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
-							{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Quant / Setup Log</a>{/if}
-							{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
-							{#if run.status_url}<a href={run.status_url} target="_blank" rel="noreferrer" class="link-pill">Status File</a>{/if}
-						</div>
-						<div class="run-meta">
-							<span>Run: <code>{run.run_id}</code></span>
-							<span>Path: <code>{run.run_path}</code></span>
-						</div>
+			<div class="card source-card">
+				<h3>Source &amp; Links</h3>
+				<div class="source-grid">
+					<div class="links-row">
+						{#if run.session_eval_url}<a href={run.session_eval_url} target="_blank" rel="noreferrer" class="link-pill">Session Eval Log</a>{/if}
+						{#if run.session_quant_url}<a href={run.session_quant_url} target="_blank" rel="noreferrer" class="link-pill">Quant / Setup Log</a>{/if}
+						{#if run.aggregate_result_url}<a href={run.aggregate_result_url} target="_blank" rel="noreferrer" class="link-pill">Aggregate Result</a>{/if}
+						{#if run.status_url}<a href={run.status_url} target="_blank" rel="noreferrer" class="link-pill">Status File</a>{/if}
+					</div>
+					<div class="run-meta">
+						<span>Run: <code>{run.run_id || '-'}</code></span>
+						<span>Path: <code>{run.run_path || '-'}</code></span>
 					</div>
 				</div>
 			</div>
 
 			{#if run.eval_details || run.tasks.length > 0}
-			<div class="card">
-				<h3>Evaluation Results</h3>
+			<div class="card eval-card" class:eval-card--open={evalOpen}>
+				<button type="button" class="collapse-head eval-head" onclick={() => (evalOpen = !evalOpen)} aria-expanded={evalOpen}>
+					<span class="eval-head-left">
+						<h3>Evaluation Results</h3>
+						{#if evalResultCount > 0}<span class="eval-count">{evalResultCount} {evalResultCount === 1 ? 'task' : 'tasks'}</span>{/if}
+					</span>
+					<span class="eval-toggle">
+						{evalOpen ? 'Hide' : 'Show'}
+						<span class="collapse-caret" class:collapse-caret--open={evalOpen} aria-hidden="true">▶</span>
+					</span>
+				</button>
+				{#if evalOpen}
+				<div class="collapse-body">
 				{#if run.eval_details}
 				<div class="eval-meta">
 					{#if run.eval_details.eval_framework}<span>Framework: <strong>{run.eval_details.eval_framework}</strong></span>{/if}
@@ -194,6 +218,8 @@ $effect(() => {
 				{:else if run.tasks.length > 0}
 				<div class="chips">{#each run.tasks as task}<span class="chip">{task}</span>{/each}</div>
 				{/if}
+				</div>
+				{/if}
 			</div>
 			{/if}
 		</div>
@@ -225,18 +251,19 @@ $effect(() => {
 
 <style>
 .panel {
-	margin-bottom: 1.25rem;
-	border-radius: 14px;
+	margin-bottom: 1.5rem;
+	border-radius: 16px;
 	background: #fff;
 	overflow: hidden;
-	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+	border: 1px solid #e8eef5;
+	box-shadow: 0 4px 24px rgba(15,23,42,0.07), 0 1px 4px rgba(15,23,42,0.04);
 }
 .panel-head {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
-	padding: 1rem 1.75rem;
-	background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+	padding: 1.125rem 1.75rem;
+	background: linear-gradient(130deg, #1340b8 0%, #1d4ed8 45%, #3b82f6 100%);
 	border-bottom: none;
 }
 .panel-title h2 {
@@ -244,6 +271,7 @@ $effect(() => {
 	font-size: 1rem;
 	font-weight: 700;
 	color: #fff;
+	line-height: 1.3;
 }
 .title-link {
 	color: #fff;
@@ -258,45 +286,50 @@ $effect(() => {
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 0.375rem;
-	margin-top: 0.375rem;
+	margin-top: 0.5rem;
 	font-size: 0.8125rem;
 }
 .meta-label {
 	font-size: 0.75rem;
-	color: rgba(255,255,255,0.7);
-	margin-right: 0.25rem;
+	color: rgba(255,255,255,0.65);
+	margin-right: 0.125rem;
 }
 .meta-divider {
 	width: 1px;
 	height: 14px;
-	background: rgba(255,255,255,0.25);
+	background: rgba(255,255,255,0.22);
 	margin: 0 0.375rem;
 }
 .meta-text {
 	font-size: 0.8125rem;
-	color: rgba(255,255,255,0.8);
+	color: rgba(255,255,255,0.85);
+	font-weight: 500;
 }
 .close-btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 30px;
-	height: 30px;
-	border: 1px solid rgba(255,255,255,0.2);
+	width: 32px;
+	height: 32px;
+	border: 1px solid rgba(255,255,255,0.22);
 	background: rgba(255,255,255,0.1);
-	border-radius: 6px;
+	border-radius: 8px;
 	cursor: pointer;
-	color: rgba(255,255,255,0.8);
-	transition: background 0.15s;
+	color: rgba(255,255,255,0.85);
+	transition: background 0.15s, border-color 0.15s;
 	flex-shrink: 0;
 }
-.close-btn:hover { background: rgba(255,255,255,0.2); }
+.close-btn:hover {
+	background: rgba(255,255,255,0.22);
+	border-color: rgba(255,255,255,0.35);
+}
 
 .panel-body {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 1rem;
-	padding: 1.125rem 1.75rem;
+	gap: 1.125rem;
+	padding: 1.375rem 1.75rem;
+	background: #f8fafc;
 	overflow: visible;
 }
 .panel-body.single-col {
@@ -309,78 +342,159 @@ $effect(() => {
 }
 .top-grid {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	align-items: start;
 	gap: 1rem;
 }
-.top-col {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-/* A single bounded scroll region for all error logs. Keeping the logs inside one
-   contained scroller (instead of several tall per-block scrollers that fill the
-   viewport) lets the card stay at the top while the page itself stays scrollable. */
 .err-scroll {
 	max-height: 55vh;
 	overflow: auto;
 	overscroll-behavior: auto;
 }
 .card {
-	padding: 0.875rem 1.125rem;
-	border: 1px solid #e2e8f0;
-	border-radius: 10px;
-	background: #f8fafc;
+	padding: 1rem 1.25rem;
+	border: 1px solid #e8eef5;
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(15,23,42,0.04);
 }
 .card h3 {
-	margin: 0 0 0.625rem;
+	margin: 0 0 0.75rem;
 	font-size: 0.6875rem;
 	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	color: #475569;
+	letter-spacing: 0.07em;
+	color: #64748b;
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 }
+.collapse-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+}
+.collapse-head h3 {
+	margin: 0;
+}
+.collapse-caret {
+	font-size: 0.6rem;
+	color: #94a3b8;
+	transition: transform 0.15s ease;
+}
+.collapse-caret--open {
+	transform: rotate(90deg);
+}
+.collapse-body {
+	margin-top: 0.75rem;
+}
+
+/* Evaluation Results collapsible header */
+.eval-card {
+	padding: 0;
+	overflow: hidden;
+}
+.eval-head {
+	padding: 0.875rem 1.25rem;
+	background: linear-gradient(90deg, #eff6ff, #f8fbff);
+	border-bottom: 1px solid transparent;
+	transition: background 0.15s, border-color 0.15s;
+}
+.eval-card--open .eval-head {
+	border-bottom-color: #e8eef5;
+}
+.eval-head:hover {
+	background: linear-gradient(90deg, #e0ecff, #eff6ff);
+}
+.eval-head-left {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+}
+.eval-head h3 {
+	color: #1d4ed8;
+}
+.eval-count {
+	font-size: 0.6875rem;
+	font-weight: 700;
+	color: #1d4ed8;
+	background: #dbeafe;
+	border: 1px solid #bfdbfe;
+	border-radius: 999px;
+	padding: 0.0625rem 0.5rem;
+	text-transform: none;
+	letter-spacing: 0;
+}
+.eval-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	color: #1d4ed8;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.eval-card .collapse-body {
+	margin-top: 0;
+	padding: 1rem 1.25rem 1.125rem;
+}
 .card h4 {
-	margin: 0.75rem 0 0.375rem;
+	margin: 0.875rem 0 0.4rem;
 	font-size: 0.75rem;
 	font-weight: 700;
 	color: #334155;
 }
 .card--error {
-	background: #fef2f2;
-	border-color: #fecaca;
+	background: #fff8f8;
+	border-color: #fed7d7;
 }
-.card--error h3 { color: #b91c1c; }
+.card--error h3 { color: #c53030; }
 
 /* Info grid */
 .info-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 0.5rem 1rem;
+	gap: 0.625rem 1.25rem;
 }
 .info-item { display: flex; flex-direction: column; font-size: 0.8125rem; }
 .info-item.full { grid-column: 1 / -1; }
-.info-label { font-size: 0.6875rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; margin-bottom: 0.125rem; }
-.info-value { font-weight: 700; color: #0f172a; }
-.info-link { color: #2563eb; text-decoration: none; font-size: 0.75rem; word-break: break-all; font-weight: 600; }
+.info-label {
+	font-size: 0.6875rem;
+	color: #94a3b8;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 600;
+	margin-bottom: 0.1875rem;
+}
+.info-value { font-weight: 700; color: #0f172a; font-size: 0.8125rem; }
+.info-link { color: #1d4ed8; text-decoration: none; font-size: 0.75rem; word-break: break-all; font-weight: 600; }
 .info-link:hover { text-decoration: underline; }
-.pipeline-grid { margin-top: 0.75rem; }
+.pipeline-grid { margin-top: 0.875rem; padding-top: 0.875rem; border-top: 1px solid #e8eef5; }
 
 /* Eval meta */
 .eval-meta {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.875rem;
-	margin-bottom: 0.625rem;
+	gap: 1rem;
+	margin-bottom: 0.75rem;
 	font-size: 0.8125rem;
 	color: #475569;
 }
+.eval-meta strong { color: #1e293b; }
 
 /* Benchmark table */
 .bench-wrap {
 	overflow-x: auto;
+	border-radius: 8px;
+	border: 1px solid #e8eef5;
 }
 .bench {
 	width: 100%;
@@ -388,34 +502,36 @@ $effect(() => {
 	font-size: 0.8125rem;
 }
 .bench th, .bench td {
-	padding: 0.5rem 0.625rem;
+	padding: 0.5rem 0.75rem;
 	text-align: left;
-	border-bottom: 1px solid #e2e8f0;
+	border-bottom: 1px solid #e8eef5;
 }
+.bench tbody tr:last-child td { border-bottom: none; }
 .bench th {
 	color: #64748b;
 	font-weight: 600;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
-	letter-spacing: 0.04em;
-	background: #f1f5f9;
+	letter-spacing: 0.05em;
+	background: #f8fafc;
 }
+.bench tbody tr:hover { background: #f8fafc; }
 .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-weight: 700; font-size: 0.75rem; color: #0f172a; }
 .muted { color: #94a3b8; font-weight: 400; }
 
 /* Errors */
 .err-block {
 	margin: 0.375rem 0;
-	padding: 0.75rem;
+	padding: 0.875rem;
 	background: #fff;
-	border: 1px solid #fecaca;
+	border: 1px solid #fed7d7;
 	border-radius: 8px;
 	font-family: 'SF Mono', 'Fira Code', monospace;
 	font-size: 0.6875rem;
-	line-height: 1.6;
+	line-height: 1.65;
 	white-space: pre-wrap;
 	word-break: break-word;
-	color: #991b1b;
+	color: #9b1c1c;
 }
 
 /* Chips */
@@ -437,18 +553,43 @@ $effect(() => {
 	gap: 0.5rem;
 	margin-bottom: 0.75rem;
 }
+.source-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+.source-grid .links-row {
+	margin-bottom: 0;
+}
+.source-grid .run-meta {
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.4rem 1.5rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid #f1f5f9;
+}
+.source-grid .run-meta span {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-width: 0;
+	max-width: 100%;
+}
+.source-grid .run-meta code {
+	word-break: break-all;
+}
 .link-pill {
 	font-size: 0.75rem;
-	color: #2563eb;
+	color: #1d4ed8;
 	text-decoration: none;
-	padding: 0.25rem 0.625rem;
+	padding: 0.3125rem 0.75rem;
 	background: #eff6ff;
 	border: 1px solid #bfdbfe;
-	border-radius: 6px;
+	border-radius: 7px;
 	font-weight: 600;
-	transition: background 0.15s;
+	transition: background 0.15s, border-color 0.15s;
 }
-.link-pill:hover { background: #dbeafe; }
+.link-pill:hover { background: #dbeafe; border-color: #93c5fd; }
 .run-meta {
 	display: flex;
 	flex-direction: column;
@@ -456,7 +597,15 @@ $effect(() => {
 	font-size: 0.75rem;
 	color: #64748b;
 }
-.run-meta code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.6875rem; color: #334155; background: #f1f5f9; padding: 0.125rem 0.375rem; border-radius: 4px; }
+.run-meta code {
+	font-family: 'SF Mono', 'Fira Code', monospace;
+	font-size: 0.6875rem;
+	color: #334155;
+	background: #f1f5f9;
+	padding: 0.125rem 0.4rem;
+	border-radius: 4px;
+	border: 1px solid #e2e8f0;
+}
 
 /* Pipeline timeline */
 .pipeline-timeline {
@@ -464,13 +613,14 @@ $effect(() => {
 	align-items: flex-start;
 	gap: 0;
 	position: relative;
+	margin-bottom: 0.25rem;
 }
 .pipeline-step {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 0.25rem;
+	gap: 0.3rem;
 	position: relative;
 }
 .pipeline-step::before {
@@ -480,36 +630,50 @@ $effect(() => {
 	left: 50%;
 	width: 100%;
 	height: 2px;
-	background: #e5e7eb;
+	background: #e8eef5;
 	z-index: 0;
 }
 .pipeline-step:last-child::before { display: none; }
 .step-dot {
-	width: 14px;
-	height: 14px;
+	width: 15px;
+	height: 15px;
 	border-radius: 50%;
-	background: #e5e7eb;
-	border: 2px solid #d1d5db;
+	background: #e8eef5;
+	border: 2px solid #cbd5e1;
 	position: relative;
 	z-index: 1;
+	transition: background 0.2s, border-color 0.2s;
 }
 .step-done .step-dot { background: #10b981; border-color: #059669; }
 .step-active .step-dot { background: #f59e0b; border-color: #d97706; animation: pulse 1.5s infinite; }
 .step-failed .step-dot { background: #ef4444; border-color: #dc2626; }
-.step-label { font-size: 0.6875rem; font-weight: 600; color: #6b7280; text-align: center; }
+.step-label { font-size: 0.6875rem; font-weight: 600; color: #94a3b8; text-align: center; }
 .step-done .step-label { color: #059669; }
 .step-active .step-label { color: #d97706; }
 .step-failed .step-label { color: #dc2626; }
-.step-time { font-size: 0.625rem; color: #9ca3af; text-align: center; }
+.step-time { font-size: 0.6rem; color: #94a3b8; text-align: center; line-height: 1.4; }
 @keyframes pulse {
 	0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-	50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+	50% { box-shadow: 0 0 0 5px rgba(245, 158, 11, 0); }
+}
+
+/* Log column layout when errors present */
+.panel-body:has(.log-col) {
+	grid-template-columns: 1fr;
+	gap: 1.125rem;
+}
+.log-card {
+	display: flex;
+	flex-direction: column;
+}
+.log-card .err-scroll {
+	flex: 1;
 }
 
 @media (max-width: 900px) {
-	.panel-body { grid-template-columns: 1fr; }
+	.panel-body { padding: 1rem 1.25rem; }
+	.panel-body:has(.log-col) { grid-template-columns: 1fr; }
 	.top-grid { grid-template-columns: 1fr; }
-	.panel-head { padding: 0.875rem 1.25rem; }
-	.panel-body { padding: 0.875rem 1.25rem; }
+	.panel-head { padding: 1rem 1.25rem; }
 }
 </style>

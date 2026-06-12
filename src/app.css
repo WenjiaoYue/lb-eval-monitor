@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+/* ── Design tokens (indigo / violet on slate canvas) ── */
+@theme {
+	--font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+	--color-brand-50: #eef2ff;
+	--color-brand-100: #e0e7ff;
+	--color-brand-200: #c7d2fe;
+	--color-brand-300: #a5b4fc;
+	--color-brand-400: #818cf8;
+	--color-brand-500: #6366f1;
+	--color-brand-600: #4f46e5;
+	--color-brand-700: #4338ca;
+
+	--color-accent-400: #a78bfa;
+	--color-accent-500: #8b5cf6;
+	--color-accent-600: #7c3aed;
+
+	--color-surface: #ffffff;
+	--color-canvas: #f1f5f9;
+}
+
+/* ── Global base ── */
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-sans);
+	background: var(--color-canvas);
+	color: #1e293b;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+	font-family: inherit;
+}
+
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #cbd5e1;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #94a3b8;
+}
+
+/* Custom dropdown chevron (positioned slightly inward, not flush right) */
+.select-arrow {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%2394a3b8'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpolyline%20points='6%209%2012%2015%2018%209'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.7rem center;
+	background-size: 14px;
+}

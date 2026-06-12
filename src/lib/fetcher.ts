@@ -62,7 +62,9 @@ async function fetchJson(path: string): Promise<any | null> {
 }
 
 async function fetchStaticJson<T>(path: string): Promise<T> {
-	const resp = await fetch(path);
+	// `no-store` so periodic refreshes always pull the latest cached snapshot
+	// instead of a stale browser-cached copy.
+	const resp = await fetch(path, { cache: 'no-store' });
 	if (!resp.ok) throw new Error(`Static data error: ${resp.status}`);
 	return await resp.json() as T;
 }

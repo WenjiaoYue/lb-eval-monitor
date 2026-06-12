@@ -7,7 +7,7 @@ import { onMount } from 'svelte';
 
 type StatusFilter = 'all' | 'failed' | 'success' | 'running';
 type QuantStatusFilter = Exclude<StatusFilter, 'all'>;
-type SortKey = 'updated_at' | 'model_id' | 'artifact_name' | 'owner';
+type SortKey = 'submitted_time' | 'model_id' | 'artifact_name' | 'owner';
 type SubmitterBucket = 'Intel' | 'Non-Intel';
 
 interface SubmitterRow {
@@ -52,9 +52,10 @@ interface QuantCounts {
 	let owner = $state('all');
 	let scheme = $state('all');
 	let status = $state<StatusFilter>('all');
-	let sortKey = $state<SortKey>('updated_at');
+	let sortKey = $state<SortKey>('submitted_time');
 	let sortAsc = $state(false);
 	let nowStr = $state('');
+	let sidebarCollapsed = $state(true);
 
 	let expandedBucket = $state<SubmitterBucket | null>(null);
 	let selectedSubmitter = $state<string | null>(null);
@@ -68,24 +69,32 @@ interface QuantCounts {
 		}).replace(',', '');
 	};
 
-onMount(() => {
-tickClock();
-const clockInterval = setInterval(tickClock, 1000);
-(async () => {
-try {
-const result = await fetchFromGitHub((msg) => { loadingMsg = msg; });
-	runs = result.runs;
-	latest = result.latest;
-	summary = result.summary;
-	fetchError = '';
-} catch (e: any) {
-fetchError = e?.message || 'Failed to fetch data';
-} finally {
-loading = false;
-}
-})();
+// Refresh the dashboard data. `initial` controls whether the full-screen
+// loading state is shown; periodic refreshes update silently in the background.
+const loadData = async (initial = false) => {
+	try {
+		const result = await fetchFromGitHub((msg) => { if (initial) loadingMsg = msg; });
+		runs = result.runs;
+		latest = result.latest;
+		summary = result.summary;
+		fetchError = '';
+	} catch (e: any) {
+		// Only surface errors on the first load; ignore transient refresh failures.
+		if (initial) fetchError = e?.message || 'Failed to fetch data';
+	} finally {
+		if (initial) loading = false;
+	}
+};
 
-return () => { clearInterval(clockInterval); };
+// Auto-refresh interval (ms): keep the open page in sync with the cached data.
+const DATA_REFRESH_MS = 5 * 60 * 1000;
+
+onMount(() => {
+	tickClock();
+	const clockInterval = setInterval(tickClock, 1000);
+	loadData(true);
+	const dataInterval = setInterval(() => loadData(false), DATA_REFRESH_MS);
+	return () => { clearInterval(clockInterval); clearInterval(dataInterval); };
 });
 
 const currentRows = $derived(runs);
@@ -134,8 +143,8 @@ const joined = [run.model_id, run.artifact_name, run.owner, run.summary, run.iss
 return joined.includes(keyword);
 })
 .sort((a, b) => {
-const left = String(a[sortKey] ?? '');
-const right = String(b[sortKey] ?? '');
+const left = sortValue(a, sortKey);
+const right = sortValue(b, sortKey);
 const cmp = left.localeCompare(right);
 return sortAsc ? cmp : -cmp;
 });
@@ -176,7 +185,7 @@ sortAsc = !sortAsc;
 return;
 }
 sortKey = key;
-sortAsc = key !== 'updated_at';
+sortAsc = key !== 'submitted_time';
 };
 
 const failedRuns = $derived(runs.filter((r) => statusBucket(r) === 'failed'));
@@ -236,13 +245,24 @@ const formatTime = (iso: string) => {
 if (!iso) return '-';
 const d = new Date(iso);
 const now = new Date();
-const diffMs = now.getTime() - d.getTime();
+const diffMs = Math.max(0, now.getTime() - d.getTime());
 const diffH = Math.floor(diffMs / 3600000);
-if (diffH < 1) return `${Math.floor(diffMs / 60000)}m ago`;
+if (diffH < 1) {
+	const diffMin = Math.floor(diffMs / 60000);
+	return diffMin < 1 ? 'just now' : `${diffMin}m ago`;
+}
 if (diffH < 24) return `${diffH}h ago`;
 const diffD = Math.floor(diffH / 24);
 if (diffD < 7) return `${diffD}d ago`;
 return d.toLocaleDateString('en-CA');
+};
+
+const submittedTime = (run: RunRecord) =>
+	run.pipeline?.submitted_time || run.run_timestamp || run.updated_at || '';
+
+const sortValue = (run: RunRecord, key: SortKey): string => {
+	if (key === 'submitted_time') return submittedTime(run);
+	return String((run as unknown as Record<string, unknown>)[key] ?? '');
 };
 
 const countQuant = (rows: RunRecord[]): QuantCounts => {
@@ -350,54 +370,130 @@ const sortIcon = (key: SortKey) => {
 if (sortKey !== key) return '';
 return sortAsc ? ' \u2191' : ' \u2193';
 };
+
+const selectClass =
+	'select-arrow min-w-[130px] cursor-pointer rounded-lg border border-slate-200 bg-white py-2 pl-3 pr-8 text-[0.8125rem] text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/15';
+
+const navLinkClass =
+	'flex items-center gap-2.5 rounded-lg px-3 py-2 text-[0.8125rem] font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-900';
+
+const thBtnClass =
+	'cursor-pointer border-0 bg-transparent p-0 text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-slate-500 transition-colors hover:text-indigo-600';
+const tdClass = 'border-b border-slate-100 px-4 py-3 align-middle text-[0.8125rem] text-slate-700';
+const pagerBtnClass =
+	'flex h-8 min-w-[32px] items-center justify-center rounded-lg border border-slate-300 bg-white px-2 text-[0.95rem] font-bold text-slate-800 transition hover:enabled:border-indigo-300 hover:enabled:bg-indigo-50 disabled:cursor-default disabled:opacity-40';
+
+const rowClass = (run: RunRecord) => {
+	const failed = statusBucket(run) === 'failed';
+	const active = selected?.run_path === run.run_path;
+	const base = 'cursor-pointer transition-colors';
+	if (failed && active) return `${base} bg-red-100 shadow-[inset_3px_0_0_#ef4444]`;
+	if (failed) return `${base} bg-red-50 hover:bg-red-100`;
+	if (active) return `${base} bg-indigo-50 shadow-[inset_3px_0_0_#4f46e5]`;
+	return `${base} hover:bg-slate-50`;
+};
 </script>
 
-<div class="shell">
-<header class="hero-wrap">
-	<div class="hero">
-		<div class="hero-content">
-			<h1>lb_eval Monitor</h1>
-			<p class="hero-desc">Automated quantization pipeline dashboard for LLM leaderboard models.</p>
-			<div class="hero-pills">
-				<a class="hero-pill" href="https://github.com/XuehaoSun/lb_eval" target="_blank" rel="noopener noreferrer">
-					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-					Source: XuehaoSun/lb_eval/results
-				</a>
-			</div>
+<div class="flex min-h-screen bg-slate-100 text-slate-800">
+<!-- ── Sidebar ── -->
+<aside class="sticky top-0 hidden h-screen shrink-0 flex-col border-r border-slate-200 bg-white transition-all duration-200 lg:flex {sidebarCollapsed ? 'w-16' : 'w-60'}">
+	<div class="flex items-center gap-2.5 border-b border-slate-100 py-4 {sidebarCollapsed ? 'justify-center px-0' : 'px-5'}">
+		{#if sidebarCollapsed}
+		<button type="button" onclick={() => (sidebarCollapsed = false)} aria-label="Expand sidebar" title="Expand sidebar" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-500 text-white shadow-sm transition hover:brightness-110">
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+		</button>
+		{:else}
+		<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-500 text-white shadow-sm">
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
 		</div>
+		<div class="leading-tight">
+			<div class="text-sm font-extrabold tracking-tight text-slate-900">lb_eval</div>
+			<div class="text-[0.6875rem] font-semibold uppercase tracking-wide text-slate-400">Monitor</div>
+		</div>
+		<button type="button" onclick={() => (sidebarCollapsed = true)} aria-label="Collapse sidebar" title="Collapse sidebar" class="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+		</button>
+		{/if}
+	</div>
+	<nav class="flex flex-col gap-0.5 p-3">
+		<a href="#overview" class="{navLinkClass} {sidebarCollapsed ? 'justify-center px-0' : ''}" title="Overview">
+			<svg class="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+			{#if !sidebarCollapsed}Overview{/if}
+		</a>
+		<a href="#analytics" class="{navLinkClass} {sidebarCollapsed ? 'justify-center px-0' : ''}" title="Analytics">
+			<svg class="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+			{#if !sidebarCollapsed}Analytics{/if}
+		</a>
+		<a href="#models" class="{navLinkClass} {sidebarCollapsed ? 'justify-center px-0' : ''}" title="Models">
+			<svg class="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+			{#if !sidebarCollapsed}Models{/if}
+		</a>
+	</nav>
+	{#if !sidebarCollapsed}
+	<div class="mt-auto border-t border-slate-100 p-4">
+		<div class="mb-3 flex items-center gap-2 text-[0.6875rem] font-medium tabular-nums text-slate-400">
+			<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+			{nowStr || '—'} CST
+		</div>
+		<a class="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-[0.75rem] font-semibold text-slate-600 transition hover:border-indigo-300 hover:text-indigo-700" href="https://github.com/XuehaoSun/lb_eval" target="_blank" rel="noopener noreferrer">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+			XuehaoSun/lb_eval
+		</a>
+	</div>
+	{/if}
+</aside>
+
+<!-- ── Main column ── -->
+<div class="flex min-w-0 flex-1 flex-col">
+<header class="sticky top-0 z-20 flex flex-wrap items-center gap-3 border-b border-slate-200 bg-white/85 px-5 py-3 backdrop-blur-md sm:px-7">
+	<div class="mr-auto min-w-0">
+		<h1 class="text-base font-extrabold tracking-tight text-slate-900">Low-bit LLM Dashboard</h1>
+		<p class="truncate text-xs text-slate-400">Automated quantization pipeline for LLM leaderboard models</p>
+	</div>
+	<div class="relative w-full sm:w-64">
+		<svg class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+		<input bind:value={search} placeholder="Search models, errors..." aria-label="Search" class="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-[0.8125rem] text-slate-900 transition placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/15" />
 	</div>
 </header>
 
-<main class="content">
-	<!-- KPI Cards -->
-	<section class="kpi-row">
-		<div class="kpi-card kpi-card--blue">
-			<div class="kpi-top">
+<main class="flex-1 px-5 py-5 sm:px-7">
+	<!-- KPI strip -->
+	<section id="overview" class="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+		<div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200/70 transition hover:ring-indigo-200">
+			<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-				<span class="kpi-label">Total Runs</span>
 			</div>
-			<span class="kpi-value">{runs.length}</span>
+			<div class="min-w-0">
+				<span class="block text-[0.6875rem] font-semibold uppercase tracking-wide text-slate-400">Total Runs</span>
+				<span class="block text-xl font-extrabold leading-tight tracking-tight text-slate-900 tabular-nums">{runs.length}</span>
+			</div>
 		</div>
-		<div class="kpi-card kpi-card--teal">
-			<div class="kpi-top">
+		<div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200/70 transition hover:ring-violet-200">
+			<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-				<span class="kpi-label">Models</span>
 			</div>
-			<span class="kpi-value">{latest.length || runs.length}</span>
+			<div class="min-w-0">
+				<span class="block text-[0.6875rem] font-semibold uppercase tracking-wide text-slate-400">Models</span>
+				<span class="block text-xl font-extrabold leading-tight tracking-tight text-slate-900 tabular-nums">{latest.length || runs.length}</span>
+			</div>
 		</div>
-		<div class="kpi-card kpi-card--red">
-			<div class="kpi-top">
+		<div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200/70 transition hover:ring-red-200">
+			<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-600">
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-				<span class="kpi-label">Failed</span>
 			</div>
-			<span class="kpi-value">{quantCounts.failed}</span>
+			<div class="min-w-0">
+				<span class="block text-[0.6875rem] font-semibold uppercase tracking-wide text-slate-400">Failed</span>
+				<span class="block text-xl font-extrabold leading-tight tracking-tight text-red-600 tabular-nums">{quantCounts.failed}</span>
+			</div>
 		</div>
-		<div class="kpi-card kpi-card--green">
-			<div class="kpi-top">
+		<div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200/70 transition hover:ring-emerald-200">
+			<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-				<span class="kpi-label">Quant Pass</span>
 			</div>
-			<span class="kpi-value">{quantTotal > 0 ? pct(quantCounts.success, quantTotal) : '0'}%</span>
+			<div class="min-w-0">
+				<span class="block text-[0.6875rem] font-semibold uppercase tracking-wide text-slate-400">Quant Pass</span>
+				<span class="block text-xl font-extrabold leading-tight tracking-tight text-emerald-600 tabular-nums">{quantTotal > 0 ? pct(quantCounts.success, quantTotal) : '0'}%</span>
+			</div>
 		</div>
 	</section>
 
@@ -415,31 +511,31 @@ return sortAsc ? ' \u2191' : ' \u2193';
 	{/if}
 
 	<!-- ═══════ OVERVIEW CHARTS (top, click to drill down below) ═══════ -->
-	<section class="status-bars" bind:this={filtersRef}>
-		<div class="status-bar-card">
-			<div class="sbar-header">
-				<h3>Quantization Pipeline</h3>
-				<span class="sbar-total">{quantTotal} runs</span>
+	<section class="mb-6 grid grid-cols-1 gap-4" bind:this={filtersRef}>
+		<div class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+			<div class="mb-3.5 flex items-center justify-between">
+				<h3 class="text-[0.9375rem] font-bold text-slate-900">Quantization Pipeline</h3>
+				<span class="text-xs font-medium text-slate-400">{quantTotal} runs</span>
 			</div>
-			<div class="sbar-track">
+			<div class="mb-3 flex h-2.5 overflow-hidden rounded-full bg-slate-200">
 				{#if quantTotal > 0}
-				<button class="sbar-fill sbar-fill--success" style="width: {pct(quantCounts.success, quantTotal)}%" onclick={() => filterByBar('success')} aria-label="Filter quant success"></button>
-				<button class="sbar-fill sbar-fill--failed" style="width: {pct(quantCounts.failed, quantTotal)}%" onclick={() => filterByBar('failed')} aria-label="Filter quant failed"></button>
-				<button class="sbar-fill sbar-fill--running" style="width: {pct(quantCounts.running, quantTotal)}%" onclick={() => filterByBar('running')} aria-label="Filter quant running"></button>
+				<button class="cursor-pointer border-0 p-0 bg-emerald-500 transition hover:brightness-110" style="width: {pct(quantCounts.success, quantTotal)}%" onclick={() => filterByBar('success')} aria-label="Filter quant success"></button>
+				<button class="cursor-pointer border-0 p-0 bg-red-500 transition hover:brightness-110" style="width: {pct(quantCounts.failed, quantTotal)}%" onclick={() => filterByBar('failed')} aria-label="Filter quant failed"></button>
+				<button class="cursor-pointer border-0 p-0 bg-amber-500 transition hover:brightness-110" style="width: {pct(quantCounts.running, quantTotal)}%" onclick={() => filterByBar('running')} aria-label="Filter quant running"></button>
 				{/if}
 			</div>
-			<div class="sbar-legend">
-				<button class="legend-btn" onclick={() => filterByBar('success')}><span class="ldot ldot--success"></span>Success <strong>{quantCounts.success}</strong></button>
-				<button class="legend-btn" onclick={() => filterByBar('failed')}><span class="ldot ldot--failed"></span>Failed <strong>{quantCounts.failed}</strong></button>
-				<button class="legend-btn" onclick={() => filterByBar('running')}><span class="ldot ldot--running"></span>Running <strong>{quantCounts.running}</strong></button>
+			<div class="grid grid-cols-3 gap-1.5">
+				<button class="flex items-center justify-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-600 transition hover:border-slate-300 hover:bg-slate-100" onclick={() => filterByBar('success')}><span class="ldot ldot--success"></span>Success <strong class="font-bold text-slate-900">{quantCounts.success}</strong></button>
+				<button class="flex items-center justify-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-600 transition hover:border-slate-300 hover:bg-slate-100" onclick={() => filterByBar('failed')}><span class="ldot ldot--failed"></span>Failed <strong class="font-bold text-slate-900">{quantCounts.failed}</strong></button>
+				<button class="flex items-center justify-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-600 transition hover:border-slate-300 hover:bg-slate-100" onclick={() => filterByBar('running')}><span class="ldot ldot--running"></span>Running <strong class="font-bold text-slate-900">{quantCounts.running}</strong></button>
 			</div>
 		</div>
 
 	</section>
 
-	<section class="stats-grid">
+	<section id="analytics" class="stats-grid">
 		<!-- Affiliation donut -->
-		<div class="overview-card">
+		<div class="overview-card" class:overview-card--expanded={expandedBucket}>
 			<div class="donut-wrap">
 				<svg class="donut" viewBox="0 0 140 140" role="img" aria-label="Intel vs Non-Intel submissions">
 					<circle class="donut-bg" cx="70" cy="70" r="54" />
@@ -500,7 +596,6 @@ return sortAsc ? ' \u2191' : ' \u2193';
 					</div>
 					{/if}
 				</div>
-				<p class="rule-note">Intel = <code>orgs</code> contains <code>Intel</code>, or <code>orgs</code> empty and submitter in the whitelist. Click a bucket, then a person, to inspect their models below.</p>
 			</div>
 		</div>
 
@@ -508,7 +603,14 @@ return sortAsc ? ' \u2191' : ' \u2193';
 		<div class="stats-panel">
 			<div class="panel-header">
 				<h2>By Scheme{#if selectedSubmitter} · {selectedSubmitter}{/if}</h2>
+				{#if scheme !== 'all'}
+				<button type="button" class="scheme-clear" onclick={() => (scheme = 'all')} title="Clear scheme filter">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+					{scheme}
+				</button>
+				{:else}
 				<span class="panel-count">{schemeRows.length} scheme{schemeRows.length === 1 ? '' : 's'}</span>
+				{/if}
 			</div>
 			<div class="scheme-list">
 				{#if schemeRows.length === 0}
@@ -537,40 +639,36 @@ return sortAsc ? ' \u2191' : ' \u2193';
 
 	<!-- Failed runs alert -->
 	{#if failedRuns.length > 0}
-	<section class="alert-banner">
-		<div class="alert-banner-header">
-			<div class="alert-icon-wrap">
+	<section class="mb-6 rounded-2xl border border-red-200 border-l-4 border-l-red-500 bg-white p-5 shadow-sm">
+		<div class="mb-3.5 flex items-center gap-2.5 text-sm font-bold text-red-700">
+			<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-600">
 				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
 			</div>
 			<span>Needs Attention -- {failedRuns.length} failed run{failedRuns.length > 1 ? 's' : ''}</span>
 		</div>
-		<div class="alert-items">
+		<div class="flex flex-col gap-2">
 			{#each failedRuns.slice(0, 5) as run}
-			<button class="alert-row" onclick={() => selectRun(run)}>
-				<span class="alert-model">{run.owner}/{run.model_id}</span>
-				<span class="alert-badges">
+			<button class="grid grid-cols-1 items-center gap-1 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-left text-[0.8125rem] transition hover:bg-red-100 sm:grid-cols-[minmax(180px,auto)_auto_1fr] sm:gap-4" onclick={() => selectRun(run)}>
+				<span class="font-semibold text-slate-900">{run.owner}/{run.model_id}</span>
+				<span class="flex items-center gap-1.5 text-xs text-slate-500">
 					{#if run.auto_quant_status === 'failed'}<StatusBadge status="failed" /> quant{/if}
 				</span>
-				<span class="alert-msg">{(run.eval_errors[0] || run.quant_errors[0] || run.issues[0] || '').slice(0, 80)}{(run.eval_errors[0] || run.quant_errors[0] || run.issues[0] || '').length > 80 ? '...' : ''}</span>
+				<span class="truncate text-xs text-slate-500">{(run.eval_errors[0] || run.quant_errors[0] || run.issues[0] || '').slice(0, 80)}{(run.eval_errors[0] || run.quant_errors[0] || run.issues[0] || '').length > 80 ? '...' : ''}</span>
 			</button>
 			{/each}
 			{#if failedRuns.length > 5}
-			<button class="alert-more" onclick={() => { status = 'failed'; }}>View all {failedRuns.length} failures</button>
+			<button class="py-2 text-left text-[0.8125rem] font-bold text-red-600 transition hover:text-red-800" onclick={() => { status = 'failed'; }}>View all {failedRuns.length} failures</button>
 			{/if}
 		</div>
 	</section>
 	{/if}
 
 	<!-- Filter bar -->
-	<section class="filter-bar">
-		<div class="filter-search">
-			<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-			<input bind:value={search} placeholder="Search model, error, issue..." aria-label="Search" />
-		</div>
-		<select bind:value={owner} aria-label="Owner filter">{#each owners as item}<option value={item}>{item === 'all' ? 'All owners' : item}</option>{/each}</select>
-		<select bind:value={scheme} aria-label="Scheme filter">{#each schemes as item}<option value={item}>{item === 'all' ? 'All schemes' : item}</option>{/each}</select>
-		<select bind:value={selectedSubmitter} aria-label="Submitter filter"><option value={null}>All submitters</option>{#each submitters as item}<option value={item}>{item}</option>{/each}</select>
-		<select bind:value={status} aria-label="Status filter">
+	<section class="mb-4 flex flex-wrap items-center gap-2.5">
+		<select bind:value={owner} aria-label="Org filter" class={selectClass}>{#each owners as item}<option value={item}>{item === 'all' ? 'All orgs' : item}</option>{/each}</select>
+		<select bind:value={scheme} aria-label="Scheme filter" class={selectClass}>{#each schemes as item}<option value={item}>{item === 'all' ? 'All schemes' : item}</option>{/each}</select>
+		<select bind:value={selectedSubmitter} aria-label="Submitter filter" class={selectClass}><option value={null}>All submitters</option>{#each submitters as item}<option value={item}>{item}</option>{/each}</select>
+		<select bind:value={status} aria-label="Status filter" class={selectClass}>
 			<option value="all">All status</option>
 			<option value="failed">Failed</option>
 			<option value="success">Success</option>
@@ -580,26 +678,26 @@ return sortAsc ? ' \u2191' : ' \u2193';
 
 	<!-- ═══════ THE single model list (content varies by active filters) ═══════ -->
 	{#if activeFilters.length > 0}
-	<div class="active-filters">
-		<span class="active-filters-label">
+	<div class="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5">
+		<span class="mr-0.5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-500">
 			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
 			Active filters
 		</span>
 		{#each activeFilters as f (f.key)}
-		<button type="button" class="filter-chip" onclick={f.clear} title="Remove {f.label} filter">
-			<span class="filter-chip-key">{f.label}:</span>
-			<span class="filter-chip-val">{f.value}</span>
-			<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		<button type="button" class="group inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700 transition hover:border-red-300 hover:bg-red-50 hover:text-red-700" onclick={f.clear} title="Remove {f.label} filter">
+			<span class="font-bold text-slate-500 group-hover:text-red-700">{f.label}:</span>
+			<span class="font-bold">{f.value}</span>
+			<svg class="opacity-70" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 		</button>
 		{/each}
 		{#if activeFilters.length > 1}
-		<button type="button" class="filter-clear-all" onclick={clearAllFilters}>Clear all</button>
+		<button type="button" class="ml-auto rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-bold text-slate-600 transition hover:border-red-300 hover:bg-red-50 hover:text-red-700" onclick={clearAllFilters}>Clear all</button>
 		{/if}
 	</div>
 	{/if}
 
-	<div class="results-meta">
-		<span class="results-count">{tableRows.length} runs</span>
+	<div class="mb-3 flex items-center gap-2.5">
+		<span class="text-[0.8125rem] font-semibold text-slate-500">{tableRows.length} runs</span>
 	</div>
 
 	<!-- Detail panel above table -->
@@ -607,40 +705,36 @@ return sortAsc ? ' \u2191' : ' \u2193';
 		<RunDetailPanel run={selected} onClose={() => (selected = null)} />
 	</div>
 
-	<section class="table-card" bind:this={tableRef}>
-		<div class="table-scroll">
-		<table>
-			<thead>
+	<section id="models" class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100" bind:this={tableRef}>
+		<div class="overflow-x-auto">
+		<table class="w-full border-collapse">
+			<thead class="border-b border-slate-200 bg-slate-50">
 				<tr>
-					<th><button type="button" onclick={() => setSort('updated_at')}>Updated{sortIcon('updated_at')}</button></th>
-					<th><button type="button" onclick={() => setSort('owner')}>Owner{sortIcon('owner')}</button></th>
-					<th><button type="button" onclick={() => setSort('model_id')}>Model / Artifact{sortIcon('model_id')}</button></th>
-					<th>Scheme</th>
-					<th>Method</th>
-					<th>Status</th>
+					<th class="whitespace-nowrap px-4 py-3 text-left"><button type="button" class={thBtnClass} onclick={() => setSort('submitted_time')}>Submitted{sortIcon('submitted_time')}</button></th>
+					<th class="whitespace-nowrap px-4 py-3 text-left"><button type="button" class={thBtnClass} onclick={() => setSort('owner')}>Owner{sortIcon('owner')}</button></th>
+					<th class="whitespace-nowrap px-4 py-3 text-left"><button type="button" class={thBtnClass} onclick={() => setSort('model_id')}>Model / Artifact{sortIcon('model_id')}</button></th>
+					<th class="whitespace-nowrap px-4 py-3 text-left text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-slate-500">Scheme</th>
+					<th class="whitespace-nowrap px-4 py-3 text-left text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-slate-500">Method</th>
+					<th class="whitespace-nowrap px-4 py-3 text-left text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-slate-500">Status</th>
 				</tr>
 			</thead>
 			<tbody>
 				{#if tableRows.length === 0}
-				<tr><td colspan="6" class="empty-row">No runs match current filters.</td></tr>
+				<tr><td colspan="6" class="px-4 py-12 text-center italic text-slate-400">No runs match current filters.</td></tr>
 				{:else}
 				{#each pagedRows as run}
-				<tr
-					class:active={selected?.run_path === run.run_path}
-					class:row-failed={statusBucket(run) === 'failed'}
-					onclick={() => selectRun(run)}
-				>
-					<td class="cell-time">{formatTime(run.updated_at)}</td>
-					<td class="cell-owner">{run.owner}</td>
-					<td class="cell-model">
-						<span class="model-name">{run.model_id}</span>
+				<tr class={rowClass(run)} onclick={() => selectRun(run)}>
+					<td class="{tdClass} whitespace-nowrap text-xs font-medium text-slate-500">{formatTime(submittedTime(run))}</td>
+					<td class="{tdClass} font-semibold text-slate-800">{run.owner}</td>
+					<td class={tdClass}>
+						<span class="block font-bold text-slate-900">{run.model_id}</span>
 						{#if run.artifact_name !== run.model_id}
-						<span class="model-artifact">{run.artifact_name}</span>
+						<span class="mt-0.5 block text-[0.6875rem] text-slate-400">{run.artifact_name}</span>
 						{/if}
 					</td>
-					<td class="cell-scheme"><span class="scheme-tag">{displayScheme(run) || '-'}</span></td>
-					<td class="cell-method"><span class="method-text">{displayMethod(run)}</span></td>
-					<td class="cell-status"><StatusBadge status={statusBucket(run)} /></td>
+					<td class={tdClass}><span class="text-xs font-semibold text-slate-800">{displayScheme(run) || '-'}</span></td>
+					<td class={tdClass}><span class="text-[0.6875rem] text-slate-400">{displayMethod(run)}</span></td>
+					<td class={tdClass}><StatusBadge status={statusBucket(run)} /></td>
 				</tr>
 				{/each}
 				{/if}
@@ -648,17 +742,17 @@ return sortAsc ? ' \u2191' : ' \u2193';
 		</table>
 		</div>
 		{#if tableRows.length > PAGE_SIZE}
-		<div class="pager">
-			<span class="pager-info">Showing {pageStart}-{pageEnd} of {tableRows.length}</span>
-			<div class="pager-controls">
-				<button type="button" class="pager-btn" onclick={() => goToPage(1)} disabled={page === 1} aria-label="First page">«</button>
-				<button type="button" class="pager-btn" onclick={() => goToPage(page - 1)} disabled={page === 1} aria-label="Previous page">‹</button>
-				<span class="pager-page">Page {page} / {totalPages}</span>
-				<button type="button" class="pager-btn" onclick={() => goToPage(page + 1)} disabled={page === totalPages} aria-label="Next page">›</button>
-				<button type="button" class="pager-btn" onclick={() => goToPage(totalPages)} disabled={page === totalPages} aria-label="Last page">»</button>
-				<form class="pager-jump" onsubmit={(e) => { e.preventDefault(); jumpToPage(); }}>
-					<input type="number" min="1" max={totalPages} bind:value={pageInput} placeholder="Go" aria-label="Go to page" />
-					<button type="submit" class="pager-btn">Go</button>
+		<div class="flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 bg-slate-50/60 px-5 py-3">
+			<span class="text-[0.78rem] text-slate-500">Showing {pageStart}-{pageEnd} of {tableRows.length}</span>
+			<div class="flex items-center gap-1.5">
+				<button type="button" class={pagerBtnClass} onclick={() => goToPage(1)} disabled={page === 1} aria-label="First page">«</button>
+				<button type="button" class={pagerBtnClass} onclick={() => goToPage(page - 1)} disabled={page === 1} aria-label="Previous page">‹</button>
+				<span class="px-1.5 text-[0.78rem] font-semibold text-slate-700">Page {page} / {totalPages}</span>
+				<button type="button" class={pagerBtnClass} onclick={() => goToPage(page + 1)} disabled={page === totalPages} aria-label="Next page">›</button>
+				<button type="button" class={pagerBtnClass} onclick={() => goToPage(totalPages)} disabled={page === totalPages} aria-label="Last page">»</button>
+				<form class="ml-1.5 flex items-center gap-1.5" onsubmit={(e) => { e.preventDefault(); jumpToPage(); }}>
+					<input type="number" min="1" max={totalPages} bind:value={pageInput} placeholder="Go" aria-label="Go to page" class="h-8 w-14 rounded-lg border border-slate-300 bg-white px-1.5 text-sm text-slate-800 focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/15" />
+					<button type="submit" class={pagerBtnClass}>Go</button>
 				</form>
 			</div>
 		</div>
@@ -667,239 +761,10 @@ return sortAsc ? ' \u2191' : ' \u2193';
 	{/if}
 </main>
 </div>
+</div>
 
 <style>
-/* ── Shell ── */
-.shell {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	background: #eef2f7;
-	color: #1e293b;
-}
-
-/* ── Hero header ── */
-.hero-wrap {
-	padding: 1.5rem 3rem 0;
-	max-width: 1600px;
-	margin: 0 auto;
-	width: 100%;
-}
-.hero {
-	background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #60a5fa 100%);
-	border-radius: 18px;
-	padding: 2rem 2.5rem 1.75rem;
-	position: relative;
-	overflow: hidden;
-}
-.hero::before {
-	content: '';
-	position: absolute;
-	top: -60%;
-	right: -5%;
-	width: 420px;
-	height: 420px;
-	border-radius: 50%;
-	background: rgba(255,255,255,0.06);
-	pointer-events: none;
-}
-.hero::after {
-	content: '';
-	position: absolute;
-	bottom: -40%;
-	right: 12%;
-	width: 280px;
-	height: 280px;
-	border-radius: 50%;
-	background: rgba(255,255,255,0.04);
-	pointer-events: none;
-}
-.hero-content {
-	position: relative;
-	z-index: 1;
-}
-.hero h1 {
-	margin: 0;
-	font-size: 1.625rem;
-	font-weight: 800;
-	color: #fff;
-	letter-spacing: -0.02em;
-}
-.hero-desc {
-	margin: 0.5rem 0 0;
-	font-size: 0.875rem;
-	color: rgba(255,255,255,0.75);
-	line-height: 1.5;
-}
-.hero-pills {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.625rem;
-	margin-top: 1.25rem;
-}
-.hero-pill {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	padding: 0.4rem 1rem;
-	background: rgba(255,255,255,0.15);
-	border: 1px solid rgba(255,255,255,0.22);
-	border-radius: 999px;
-	font-size: 0.8125rem;
-	color: #fff;
-	backdrop-filter: blur(4px);
-	font-variant-numeric: tabular-nums;
-	text-decoration: none;
-	transition: background 0.15s, border-color 0.15s;
-}
-a.hero-pill:hover {
-	background: rgba(255,255,255,0.28);
-	border-color: rgba(255,255,255,0.4);
-}
-.hero-link {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.4rem;
-	padding: 0.4rem 1rem;
-	background: #fff;
-	border: 1px solid rgba(255,255,255,0.38);
-	border-radius: 999px;
-	font-size: 0.8125rem;
-	font-weight: 700;
-	color: #1d4ed8;
-	text-decoration: none;
-	box-shadow: 0 10px 24px rgba(15,23,42,0.12);
-}
-.hero-link:hover {
-	background: #eff6ff;
-}
-
-/* ── Content ── */
-.content {
-	max-width: 1600px;
-	margin: 0 auto;
-	padding: 1.75rem 3rem 4rem;
-	width: 100%;
-}
-
-/* ── KPI Cards ── */
-.kpi-row {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 1rem;
-	margin-bottom: 1.5rem;
-}
-.kpi-card {
-	background: #fff;
-	border-radius: 14px;
-	padding: 1.25rem 1.5rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-	transition: box-shadow 0.2s, transform 0.2s;
-}
-.kpi-card:hover {
-	box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-	transform: translateY(-1px);
-}
-.kpi-top {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	color: #64748b;
-}
-.kpi-label {
-	font-size: 0.75rem;
-	font-weight: 500;
-	color: #64748b;
-}
-.kpi-value {
-	font-size: 2rem;
-	font-weight: 800;
-	line-height: 1;
-	letter-spacing: -0.02em;
-	color: #0f172a;
-}
-.kpi-card--red .kpi-value { color: #dc2626; }
-.kpi-card--green .kpi-value { color: #059669; }
-
 /* ── Status Bars ── */
-.status-bars {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 1rem;
-	margin-bottom: 1.5rem;
-}
-.status-bar-card {
-	background: #fff;
-	border-radius: 14px;
-	padding: 1.25rem 1.5rem;
-	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-	min-width: 0;
-}
-.sbar-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 0.875rem;
-}
-.sbar-header h3 {
-	margin: 0;
-	font-size: 0.9375rem;
-	font-weight: 700;
-	color: #0f172a;
-}
-.sbar-total {
-	font-size: 0.75rem;
-	color: #94a3b8;
-	font-weight: 500;
-}
-.sbar-track {
-	display: flex;
-	height: 10px;
-	border-radius: 5px;
-	overflow: hidden;
-	background: #e2e8f0;
-	margin-bottom: 0.75rem;
-}
-.sbar-fill {
-	border: none;
-	padding: 0;
-	cursor: pointer;
-	transition: filter 0.15s;
-}
-.sbar-fill:hover { filter: brightness(1.1); }
-.sbar-fill--success { background: #10b981; }
-.sbar-fill--failed { background: #ef4444; }
-.sbar-fill--running { background: #f59e0b; }
-.sbar-legend {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 0.375rem;
-}
-.legend-btn {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.375rem;
-	background: #f8fafc;
-	border: 1px solid #e2e8f0;
-	padding: 0.3rem 0.625rem;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 0.75rem;
-	color: #475569;
-	transition: background 0.15s, border-color 0.15s;
-}
-.legend-btn:hover {
-	background: #f1f5f9;
-	border-color: #cbd5e1;
-}
-.legend-btn strong {
-	color: #0f172a;
-	font-weight: 700;
-}
 .ldot {
 	display: inline-block;
 	width: 8px;
@@ -910,130 +775,6 @@ a.hero-pill:hover {
 .ldot--success { background: #10b981; }
 .ldot--failed { background: #ef4444; }
 .ldot--running { background: #f59e0b; }
-
-/* ── Alert banner ── */
-.alert-banner {
-	background: #fff;
-	border: 1px solid #fecaca;
-	border-left: 4px solid #ef4444;
-	border-radius: 14px;
-	padding: 1.25rem 1.5rem;
-	margin-bottom: 1.5rem;
-	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-.alert-banner-header {
-	display: flex;
-	align-items: center;
-	gap: 0.625rem;
-	margin-bottom: 0.875rem;
-	font-size: 0.875rem;
-	font-weight: 700;
-	color: #b91c1c;
-}
-.alert-icon-wrap {
-	width: 28px;
-	height: 28px;
-	border-radius: 8px;
-	background: #fef2f2;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #dc2626;
-	flex-shrink: 0;
-}
-.alert-items {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-.alert-row {
-	display: grid;
-	grid-template-columns: minmax(180px, auto) auto 1fr;
-	gap: 1rem;
-	align-items: center;
-	padding: 0.625rem 1rem;
-	background: #fef2f2;
-	border: 1px solid #fecaca;
-	border-radius: 10px;
-	cursor: pointer;
-	text-align: left;
-	font-size: 0.8125rem;
-	transition: background 0.15s;
-}
-.alert-row:hover {
-	background: #fee2e2;
-}
-.alert-model { font-weight: 600; color: #0f172a; }
-.alert-badges { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: #64748b; }
-.alert-msg { color: #64748b; font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.alert-more {
-	background: none;
-	border: none;
-	color: #dc2626;
-	cursor: pointer;
-	font-size: 0.8125rem;
-	font-weight: 700;
-	padding: 0.5rem 0;
-	text-align: left;
-	transition: color 0.15s;
-}
-.alert-more:hover { color: #991b1b; }
-
-/* ── Filter bar ── */
-.filter-bar {
-	display: flex;
-	align-items: center;
-	gap: 0.625rem;
-	margin-bottom: 1rem;
-	flex-wrap: wrap;
-}
-.filter-search {
-	position: relative;
-	flex: 1;
-	min-width: 240px;
-}
-.search-icon {
-	position: absolute;
-	left: 0.875rem;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #94a3b8;
-	pointer-events: none;
-}
-.filter-search input {
-	width: 100%;
-	padding: 0.5rem 0.875rem 0.5rem 2.25rem;
-	border: 1px solid #e2e8f0;
-	border-radius: 10px;
-	background: #fff;
-	font-size: 0.8125rem;
-	color: #0f172a;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-	transition: border-color 0.15s, box-shadow 0.15s;
-}
-.filter-search input::placeholder { color: #94a3b8; }
-.filter-search input:focus {
-	outline: none;
-	border-color: #3b82f6;
-	box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
-}
-.filter-bar select {
-	padding: 0.5rem 0.75rem;
-	border: 1px solid #e2e8f0;
-	border-radius: 10px;
-	background: #fff;
-	font-size: 0.8125rem;
-	color: #0f172a;
-	cursor: pointer;
-	min-width: 130px;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-	transition: border-color 0.15s;
-}
-.filter-bar select:focus {
-	outline: none;
-	border-color: #3b82f6;
-	box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
-}
 
 /* ── Loading ── */
 .loading-state {
@@ -1071,7 +812,7 @@ a.hero-pill:hover {
 	width: 22px;
 	height: 22px;
 	border: 2.5px solid #e2e8f0;
-	border-top-color: #2563eb;
+	border-top-color: #4f46e5;
 	border-radius: 50%;
 	animation: spin 0.6s linear infinite;
 }
@@ -1079,236 +820,9 @@ a.hero-pill:hover {
 	to { transform: rotate(360deg); }
 }
 
-/* ── Results meta ── */
-.results-meta {
-	display: flex;
-	align-items: center;
-	gap: 0.625rem;
-	margin-bottom: 0.75rem;
-}
-.results-count {
-	font-size: 0.8125rem;
-	color: #64748b;
-	font-weight: 600;
-}
-.active-pill {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.375rem;
-	padding: 0.25rem 0.75rem;
-	background: #eff6ff;
-	border: 1px solid #bfdbfe;
-	border-radius: 999px;
-	font-size: 0.75rem;
-	color: #1d4ed8;
-	font-weight: 600;
-}
-.pill-clear {
-	border: none;
-	background: none;
-	color: #dc2626;
-	cursor: pointer;
-	font-size: 0.8125rem;
-	font-weight: 800;
-	padding: 0 0.125rem;
-	line-height: 1;
-}
-.pill-clear:hover { color: #991b1b; }
-
-/* ── Active filters bar ── */
-.active-filters {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	padding: 0.625rem 0.875rem;
-	margin-bottom: 0.75rem;
-	background: #f8fafc;
-	border: 1px solid #e2e8f0;
-	border-radius: 0.75rem;
-}
-.active-filters-label {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.375rem;
-	font-size: 0.75rem;
-	font-weight: 700;
-	color: #64748b;
-	text-transform: uppercase;
-	letter-spacing: 0.03em;
-	margin-right: 0.125rem;
-}
-.filter-chip {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.375rem;
-	padding: 0.3125rem 0.625rem;
-	background: #eff6ff;
-	border: 1px solid #bfdbfe;
-	border-radius: 999px;
-	font-size: 0.75rem;
-	color: #1d4ed8;
-	font-weight: 600;
-	cursor: pointer;
-	transition: background 0.12s, border-color 0.12s;
-}
-.filter-chip:hover {
-	background: #fee2e2;
-	border-color: #fca5a5;
-	color: #b91c1c;
-}
-.filter-chip-key { color: #64748b; font-weight: 700; }
-.filter-chip:hover .filter-chip-key { color: #b91c1c; }
-.filter-chip-val { font-weight: 700; }
-.filter-chip svg { opacity: 0.7; }
-.filter-clear-all {
-	margin-left: auto;
-	padding: 0.3125rem 0.75rem;
-	background: #fff;
-	border: 1px solid #cbd5e1;
-	border-radius: 999px;
-	font-size: 0.75rem;
-	color: #475569;
-	font-weight: 700;
-	cursor: pointer;
-	transition: background 0.12s, color 0.12s, border-color 0.12s;
-}
-.filter-clear-all:hover {
-	background: #fef2f2;
-	border-color: #fca5a5;
-	color: #b91c1c;
-}
-
-/* ── Table ── */
-.table-card {
-	background: #fff;
-	border-radius: 14px;
-	overflow: hidden;
-	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-.table-scroll {
-	overflow-x: auto;
-}
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-thead {
-	background: #f8fafc;
-	border-bottom: 1px solid #e2e8f0;
-}
-th {
-	padding: 0.75rem 1rem;
-	text-align: left;
-	font-size: 0.6875rem;
-	font-weight: 700;
-	color: #64748b;
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	white-space: nowrap;
-}
-th button {
-	background: none;
-	border: none;
-	font-weight: 700;
-	font-size: 0.6875rem;
-	color: #64748b;
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	cursor: pointer;
-	padding: 0;
-	transition: color 0.15s;
-}
-th button:hover { color: #2563eb; }
-td {
-	padding: 0.75rem 1rem;
-	font-size: 0.8125rem;
-	border-bottom: 1px solid #f1f5f9;
-	vertical-align: middle;
-	color: #334155;
-}
-tbody tr {
-	cursor: pointer;
-	transition: background 0.12s;
-}
-tbody tr:hover { background: #f8fafc; }
-tbody tr.active {
-	background: #eff6ff;
-	box-shadow: inset 3px 0 0 #2563eb;
-}
-tbody tr.row-failed {
-	background: #fef2f2;
-}
-tbody tr.row-failed:hover {
-	background: #fee2e2;
-}
-tbody tr.row-failed.active {
-	background: #fee2e2;
-	box-shadow: inset 3px 0 0 #ef4444;
-}
-.empty-row {
-	text-align: center;
-	color: #94a3b8;
-	padding: 3rem 1rem;
-	font-style: italic;
-}
-
-/* Cell specifics */
-.cell-time {
-	white-space: nowrap;
-	font-size: 0.75rem;
-	color: #64748b;
-	font-weight: 500;
-}
-.cell-owner {
-	font-weight: 600;
-	color: #1e293b;
-}
-.model-name {
-	display: block;
-	font-weight: 700;
-	color: #0f172a;
-}
-.model-artifact {
-	display: block;
-	margin-top: 0.125rem;
-	font-size: 0.6875rem;
-	color: #94a3b8;
-}
-.scheme-tag {
-	font-weight: 600;
-	font-size: 0.75rem;
-	color: #1e293b;
-}
-.method-text {
-	font-size: 0.6875rem;
-	color: #94a3b8;
-}
 /* ── Responsive ── */
-@media (max-width: 1280px) {
-	.hero-wrap { padding: 1.25rem 2rem 0; }
-	.content { padding: 1.5rem 2rem 3rem; }
-}
-@media (max-width: 1024px) {
-	.kpi-row { grid-template-columns: repeat(2, 1fr); }
-	.status-bars { grid-template-columns: 1fr; }
-}
 @media (max-width: 768px) {
-	.hero-wrap { padding: 1rem 1.25rem 0; }
-	.hero { padding: 1.5rem 1.25rem 1.25rem; border-radius: 14px; }
-	.hero h1 { font-size: 1.25rem; }
-	.hero-pills { flex-direction: column; gap: 0.5rem; }
-	.hero-pill { font-size: 0.75rem; }
-	.content { padding: 1.25rem 1.25rem 2rem; }
-	.kpi-row { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-	.kpi-card { padding: 1rem 1.25rem; }
-	.kpi-value { font-size: 1.5rem; }
-	.sbar-legend { grid-template-columns: 1fr; }
-	.filter-bar { flex-direction: column; }
-	.filter-search { min-width: 100%; }
-	.filter-bar select { width: 100%; }
-	.toggle-label { width: 100%; }
-	.alert-row { grid-template-columns: 1fr; }
+	.stats-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Stats: layout ── */
@@ -1337,7 +851,7 @@ tbody tr.row-failed.active {
 	padding: 1.1rem 1.4rem;
 	border-bottom: 1px solid #eef2f7;
 }
-.panel-header h2 { margin: 0; font-size: 1rem; color: #0f172a; }
+.panel-header h2 { margin: 0; font-size: 1rem; font-weight: 700; color: #0f172a; }
 .panel-count {
 	font-size: 0.75rem;
 	font-weight: 700;
@@ -1346,6 +860,23 @@ tbody tr.row-failed.active {
 	padding: 0.2rem 0.6rem;
 	border-radius: 999px;
 }
+.scheme-clear {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: #4338ca;
+	background: #eef2ff;
+	border: 1px solid #c7d2fe;
+	padding: 0.2rem 0.6rem 0.2rem 0.45rem;
+	border-radius: 999px;
+	cursor: pointer;
+	max-width: 14rem;
+	transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.scheme-clear:hover { background: #fee2e2; border-color: #fecaca; color: #b91c1c; }
+.scheme-clear svg { flex-shrink: 0; }
 .empty-state {
 	padding: 1.5rem 1.4rem;
 	color: #94a3b8;
@@ -1356,28 +887,34 @@ tbody tr.row-failed.active {
 /* ── Stats: affiliation donut ── */
 .overview-card {
 	display: grid;
-	grid-template-columns: 180px 1fr;
-	gap: 1.5rem;
+	grid-template-columns: 180px minmax(0, 1fr);
+	gap: 1.25rem;
 	align-items: center;
 	background: #fff;
 	border-radius: 16px;
-	padding: 1.5rem 1.75rem;
+	padding: 1.75rem 2rem;
 	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+	border: 1px solid #eef2f7;
 }
+.overview-card--expanded {
+	grid-template-columns: 1fr;
+	align-items: stretch;
+}
+.overview-card--expanded .donut-wrap { display: none; }
 .donut-wrap { display: flex; justify-content: center; }
-.donut { width: 165px; height: 165px; transform: rotate(-90deg); }
-.donut-bg { fill: none; stroke: #eef2f7; stroke-width: 16; }
-.donut-seg { fill: none; stroke-width: 16; stroke-linecap: round; transition: stroke-dasharray 0.6s ease; }
-.donut-seg--external { stroke: #f97316; }
-.donut-seg--intel { stroke: #2563eb; }
-.donut-num { fill: #0f172a; font-size: 26px; font-weight: 800; text-anchor: middle; transform: rotate(90deg); transform-origin: 70px 70px; }
-.donut-cap { fill: #94a3b8; font-size: 10px; font-weight: 600; text-anchor: middle; text-transform: uppercase; letter-spacing: 0.08em; transform: rotate(90deg); transform-origin: 70px 70px; }
+.donut { width: 190px; height: 190px; }
+.donut-bg { fill: none; stroke: #eef2ff; stroke-width: 16; transform: rotate(-90deg); transform-origin: 70px 70px; }
+.donut-seg { fill: none; stroke-width: 16; stroke-linecap: round; transition: stroke-dasharray 0.6s ease; transform: rotate(-90deg); transform-origin: 70px 70px; }
+.donut-seg--external { stroke: #f59e0b; }
+.donut-seg--intel { stroke: #4f46e5; }
+.donut-num { fill: #0f172a; font-size: 26px; font-weight: 800; text-anchor: middle; }
+.donut-cap { fill: #94a3b8; font-size: 10px; font-weight: 600; text-anchor: middle; text-transform: uppercase; letter-spacing: 0.08em; }
 .overview-legend { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
 .legend-block { display: flex; flex-direction: column; gap: 0.5rem; }
 .legend-item {
 	display: flex;
 	align-items: center;
-	gap: 0.75rem;
+	gap: 0.6rem;
 	padding: 0.7rem 0.9rem;
 	border: 1px solid #eef2f7;
 	border-radius: 12px;
@@ -1391,11 +928,11 @@ tbody tr.row-failed.active {
 .legend-item--btn:hover { background: #f1f5f9; border-color: #dbe4ef; }
 .legend-item--open { border-color: #c7d2fe; background: #fff; }
 .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-.legend-dot--intel { background: #2563eb; }
-.legend-dot--external { background: #f97316; }
+.legend-dot--intel { background: #4f46e5; }
+.legend-dot--external { background: #f59e0b; }
 .legend-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.legend-name { font-weight: 700; font-size: 0.875rem; color: #0f172a; }
-.legend-meta { font-size: 0.75rem; color: #94a3b8; }
+.legend-name { font-weight: 700; font-size: 0.875rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.legend-meta { font-size: 0.75rem; color: #94a3b8; white-space: nowrap; }
 .legend-val { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; }
 .legend-val strong { font-size: 1.25rem; font-weight: 800; color: #0f172a; line-height: 1; }
 .legend-val span { font-size: 0.75rem; color: #64748b; }
@@ -1411,8 +948,8 @@ tbody tr.row-failed.active {
 	background: #fff;
 	transition: background 0.15s, border-color 0.15s;
 }
-.people-pill:hover { border-color: #bfdbfe; }
-.people-pill--active { border-color: #2563eb; background: #eff6ff; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
+.people-pill:hover { border-color: #c7d2fe; }
+.people-pill--active { border-color: #4f46e5; background: #eef2ff; box-shadow: 0 0 0 2px rgba(79,70,229,0.15); }
 .people-pill-select {
 	display: inline-flex;
 	align-items: center;
@@ -1423,7 +960,7 @@ tbody tr.row-failed.active {
 	font: inherit;
 	font-size: 0.78rem;
 	font-weight: 600;
-	color: #1d4ed8;
+	color: #4338ca;
 	cursor: pointer;
 	border-radius: 999px;
 }
@@ -1447,7 +984,7 @@ tbody tr.row-failed.active {
 }
 .scheme-row:last-child { border-bottom: none; }
 .scheme-row:hover { background: #f8fafc; }
-.scheme-row--active { background: #eff6ff; box-shadow: inset 3px 0 0 #2563eb; }
+.scheme-row--active { background: #eef2ff; box-shadow: inset 3px 0 0 #4f46e5; }
 .scheme-row-head {
 	display: flex;
 	align-items: center;
@@ -1461,8 +998,8 @@ tbody tr.row-failed.active {
 	text-align: left;
 	cursor: pointer;
 }
-.scheme-name { font-weight: 700; font-size: 0.85rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.scheme-count { font-size: 1rem; font-weight: 800; color: #0f172a; font-variant-numeric: tabular-nums; }
+.scheme-name { font-weight: 600; font-size: 0.8125rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.scheme-count { font-size: 0.8125rem; font-weight: 700; color: #0f172a; font-variant-numeric: tabular-nums; }
 .stack-track { display: flex; height: 11px; border-radius: 5px; overflow: hidden; background: #eef2f7; }
 .stack-seg {
 	display: block;
@@ -1473,7 +1010,7 @@ tbody tr.row-failed.active {
 	transition: filter 0.12s, box-shadow 0.12s;
 }
 .stack-seg:hover { filter: brightness(1.08) saturate(1.1); }
-.stack-seg--on { box-shadow: inset 0 0 0 2px rgba(15,23,42,0.55); }
+.stack-seg--on { box-shadow: inset 0 0 0 2px rgba(255,255,255,0.9); filter: brightness(0.96) saturate(1.18); }
 .stack-seg--success { background: #10b981; }
 .stack-seg--failed { background: #ef4444; }
 .scheme-row-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -1486,7 +1023,7 @@ tbody tr.row-failed.active {
 	padding: 0.1rem 0.35rem;
 	border-radius: 6px;
 	font: inherit;
-	font-size: 0.72rem;
+	font-size: 0.75rem;
 	font-weight: 600;
 	cursor: pointer;
 	transition: background 0.12s, border-color 0.12s;
@@ -1580,48 +1117,6 @@ tbody tr.row-failed.active {
 .model-item { min-width: 0; }
 .model-link { display: inline-block; max-width: 100%; font-size: 0.8rem; color: #1d4ed8; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .model-link:hover { text-decoration: underline; }
-
-/* ── Pagination ── */
-.pager {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 1rem;
-	flex-wrap: wrap;
-	padding: 0.75rem 1.4rem;
-	border-top: 1px solid #eef2f7;
-	background: #fafbfd;
-}
-.pager-info { font-size: 0.78rem; color: #64748b; }
-.pager-controls { display: flex; align-items: center; gap: 0.4rem; }
-.pager-btn {
-	min-width: 32px;
-	height: 32px;
-	padding: 0 0.5rem;
-	border: 1px solid #d7dfeb;
-	border-radius: 8px;
-	background: #fff;
-	color: #1e293b;
-	font-size: 0.95rem;
-	font-weight: 700;
-	cursor: pointer;
-	transition: background 0.15s, border-color 0.15s;
-}
-.pager-btn:hover:not(:disabled) { background: #eff6ff; border-color: #93c5fd; }
-.pager-btn:disabled { opacity: 0.4; cursor: default; }
-.pager-page { font-size: 0.78rem; font-weight: 600; color: #334155; padding: 0 0.4rem; }
-.pager-jump { display: flex; align-items: center; gap: 0.3rem; margin-left: 0.4rem; }
-.pager-jump input {
-	width: 56px;
-	height: 32px;
-	padding: 0 0.4rem;
-	border: 1px solid #d7dfeb;
-	border-radius: 8px;
-	background: #fff;
-	font-size: 0.8rem;
-	color: #1e293b;
-}
-.pager-jump input:focus { outline: none; border-color: #93c5fd; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
 
 @media (max-width: 1024px) {
 	.stats-grid { grid-template-columns: 1fr; }

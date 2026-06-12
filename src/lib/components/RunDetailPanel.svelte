@@ -4,6 +4,20 @@ import type { RunRecord } from '$lib/types';
 
 let { run = null, onClose }: { run: RunRecord | null; onClose: () => void } = $props();
 
+// Evaluation Results is collapsed by default; reset whenever a new run is shown.
+let evalOpen = $state(false);
+$effect(() => {
+	void run?.run_path;
+	evalOpen = false;
+});
+
+// Keep log panes scrolled to the latest (bottom) line.
+const scrollBottom = (node: HTMLElement, _dep?: unknown) => {
+	const toBottom = () => requestAnimationFrame(() => { node.scrollTop = node.scrollHeight; });
+	toBottom();
+	return { update: toBottom };
+};
+
 const formatMetric = (value: number | string) => {
 	if (typeof value === 'number') return value.toFixed(4);
 	return value;
@@ -123,7 +137,12 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 
 			{#if run.eval_details || run.tasks.length > 0}
 			<div class="card">
-				<h3>Evaluation Results</h3>
+				<button type="button" class="card-toggle" onclick={() => (evalOpen = !evalOpen)} aria-expanded={evalOpen}>
+					<h3>Evaluation Results</h3>
+					<svg class="toggle-caret" class:toggle-caret--open={evalOpen} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+				</button>
+				{#if evalOpen}
+				<div class="card-body">
 				{#if run.eval_details}
 				<div class="eval-meta">
 					{#if run.eval_details.eval_framework}<span>Framework: <strong>{run.eval_details.eval_framework}</strong></span>{/if}
@@ -161,24 +180,8 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 				{:else if run.tasks.length > 0}
 				<div class="chips">{#each run.tasks as task}<span class="chip">{task}</span>{/each}</div>
 				{/if}
-			</div>
-			{/if}
-
-			{#if run.summary}
-			<div class="card">
-				<h3>Summary</h3>
-				<p class="summary-text">{run.summary}</p>
-			</div>
-			{/if}
-
-			{#if run.issues.length > 0}
-			<div class="card">
-				<h3>Issues ({run.issues.length})</h3>
-				<ul class="issues-list">
-					{#each run.issues as issue}
-					<li>{issue}</li>
-					{/each}
-				</ul>
+				</div>
+				{/if}
 			</div>
 			{/if}
 		</div>
@@ -190,13 +193,13 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 				{#if run.quant_errors.length > 0}
 				<h4>Quantization Errors</h4>
 				{#each run.quant_errors as err}
-				<pre class="err-block">{err}</pre>
+				<pre class="err-block" use:scrollBottom={err}>{err}</pre>
 				{/each}
 				{/if}
 				{#if run.eval_errors.length > 0}
 				<h4>Evaluation Errors</h4>
 				{#each run.eval_errors as err}
-				<pre class="err-block">{err}</pre>
+				<pre class="err-block" use:scrollBottom={err}>{err}</pre>
 				{/each}
 				{/if}
 			</div>
@@ -280,8 +283,6 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	grid-template-columns: 1fr;
 	gap: 1rem;
 	padding: 1.125rem 1.75rem;
-	max-height: 560px;
-	overflow: auto;
 }
 .panel-body.single-col {
 	grid-template-columns: 1fr;
@@ -332,6 +333,24 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	border-color: #fecaca;
 }
 .card--error h3 { color: #b91c1c; }
+
+/* Collapsible card header */
+.card-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0;
+	border: none;
+	background: none;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+.card-toggle h3 { margin: 0; }
+.toggle-caret { flex-shrink: 0; color: #94a3b8; transition: transform 0.2s ease; }
+.toggle-caret--open { transform: rotate(180deg); }
+.card-body { margin-top: 0.625rem; }
 
 /* Info grid */
 .info-grid {
@@ -398,18 +417,6 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 	max-height: 160px;
 	overflow: auto;
 }
-
-/* Summary & issues */
-.summary-text { margin: 0; font-size: 0.8125rem; line-height: 1.6; color: #334155; }
-.issues-list {
-	margin: 0;
-	padding-left: 1.25rem;
-	font-size: 0.8125rem;
-	line-height: 1.6;
-	max-height: 160px;
-	overflow: auto;
-}
-.issues-list li { margin-bottom: 0.25rem; color: #475569; }
 
 /* Chips */
 .chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }

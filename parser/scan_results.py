@@ -149,7 +149,7 @@ def read_failure_log(run_dir: Path, phase: str | None = None) -> str | None:
 
 
 def find_quant_log_path(run_dir: Path) -> Path | None:
-    for rel_path in ("logs/setup_env.log", "logs/quantize.log"):
+    for rel_path in ("logs/quantize.log", "logs/setup_env.log"):
         log_path = run_dir / rel_path
         if log_path.exists():
             return log_path
@@ -705,18 +705,21 @@ def _base_model_from_record(record: dict[str, Any]) -> str:
 
 
 def load_lifecycle_index(repo_root: Path) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
-    """Load status/, requests/, and pending_requests/ data.
+    """Load lifecycle data from the status/ directory only.
+
+    The status/ folder is the single source of truth for what models are
+    actually being processed. requests/ and pending_requests/ are intentionally
+    excluded: they hold submitted-but-not-yet-started jobs that would otherwise
+    surface as phantom "running" models that don't exist under status/.
 
     Returns a tuple of (full_index, model_only_index):
       - full_index keyed by 'model::scheme'
       - model_only_index keyed by 'model' (fallback for records without scheme)
-    Priority: status/ > pending_requests/ > requests/
     """
     index: dict[str, dict[str, Any]] = {}
     model_only: dict[str, dict[str, Any]] = {}
 
-    # Load in priority order (lowest first, higher overwrites)
-    for dirname in ("requests", "pending_requests", "status"):
+    for dirname in ("status",):
         lifecycle_dir = repo_root / dirname
         if not lifecycle_dir.exists():
             continue
@@ -825,7 +828,7 @@ def scan_results(
     # The repo root is one level above source_root (results/)
     repo_root = source_root.parent
     lifecycle_index, lifecycle_model_only = load_lifecycle_index(repo_root)
-    print(f"Loaded {len(lifecycle_index)} lifecycle entries from status/requests/pending_requests")
+    print(f"Loaded {len(lifecycle_index)} lifecycle entries from status/ (source of truth)")
 
     def _apply_lifecycle(rec: dict[str, Any], lc_data: dict[str, Any] | None) -> None:
         rec["pipeline"] = extract_pipeline_info(lc_data) if lc_data else None
@@ -928,22 +931,8 @@ def scan_results(
         records.append(record)
     print(f"Built {len(records)} records from status/ (source of truth)")
 
-    # ── 4. Keep result runs that have no status entry (legacy / orphans) ──
-    orphan_count = 0
-    for rec in detail_records:
-        if id(rec) in matched_detail_ids:
-            continue
-        lc_data = (
-            lifecycle_index.get(_model_key_from_record(rec))
-            or lifecycle_model_only.get(_base_model_from_record(rec))
-        )
-        if lc_data is not None:
-            continue  # already represented by the status-driven loop
-        _apply_lifecycle(rec, None)
-        records.append(rec)
-        orphan_count += 1
-    if orphan_count:
-        print(f"Added {orphan_count} result runs with no status entry")
+    # status/ is the ONLY source of truth: result runs that have no matching
+    # status/ entry are intentionally dropped (no legacy/orphan fallback).
 
     records = dedupe_same_model_runs(records)
     records.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
@@ -979,8 +968,10 @@ _NEEDED_PATTERNS = re.compile(
     r"|(run_[^/]+/session_.*\.md$)"
 )
 
-# Prefixes for lifecycle directories (status tracking)
-_LIFECYCLE_PREFIXES = ("status/", "requests/", "pending_requests/")
+# Prefixes for lifecycle directories (status tracking).
+# Only status/ is the source of truth; requests/ and pending_requests/ are
+# excluded so pending-but-unstarted jobs don't appear as phantom running models.
+_LIFECYCLE_PREFIXES = ("status/",)
 
 
 def _gh_api(url: str, token: str | None = None) -> Any:

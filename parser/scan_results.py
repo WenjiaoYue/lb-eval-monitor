@@ -853,6 +853,12 @@ def scan_results(
             failure_log = read_failure_log(source_root / str(rec.get("run_path", "")), phase or "eval")
             if failure_log:
                 rec["eval_errors"] = [failure_log]
+        else:
+            # status/ is the source of truth: only surface log content when the
+            # model's lifecycle status is Failed. Success/running models keep no
+            # error logs even if result files happen to contain stale messages.
+            rec["quant_errors"] = []
+            rec["eval_errors"] = []
         rec["issues"] = dedupe(rec.get("quant_errors", []) + rec.get("eval_errors", []) + extract_errors(rec.get("issues")))
 
     def _run_model_key(record: dict[str, Any]) -> tuple[str, str, str]:

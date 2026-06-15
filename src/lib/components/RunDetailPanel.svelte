@@ -136,9 +136,10 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 			</div>
 
 			{#if run.eval_details || run.tasks.length > 0}
-			<div class="card">
+			<div class="card card--clickable" class:card--open={evalOpen}>
 				<button type="button" class="card-toggle" onclick={() => (evalOpen = !evalOpen)} aria-expanded={evalOpen}>
 					<h3>Evaluation Results</h3>
+					<span class="toggle-hint">{evalOpen ? 'Hide' : 'Click to view'}</span>
 					<svg class="toggle-caret" class:toggle-caret--open={evalOpen} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
 				</button>
 				{#if evalOpen}
@@ -351,6 +352,33 @@ const hasLogs = (record: RunRecord) => record.quant_errors.length > 0 || record.
 .toggle-caret { flex-shrink: 0; color: #94a3b8; transition: transform 0.2s ease; }
 .toggle-caret--open { transform: rotate(180deg); }
 .card-body { margin-top: 0.625rem; }
+
+/* Clickable (collapsible) eval card: make the affordance obvious */
+.card--clickable {
+	background: #eff6ff;
+	border-color: #bfdbfe;
+	transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.card--clickable:hover {
+	background: #dbeafe;
+	border-color: #93c5fd;
+	box-shadow: 0 1px 6px rgba(37, 99, 235, 0.15);
+}
+.card--clickable .card-toggle h3 { color: #1d4ed8; }
+.card--clickable .toggle-caret { color: #2563eb; }
+.card--clickable.card--open {
+	background: #fff;
+	border-color: #bfdbfe;
+}
+.toggle-hint {
+	margin-left: auto;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: #2563eb;
+	text-transform: none;
+}
+.card--clickable .card-toggle .toggle-caret { margin-left: 0.5rem; }
 
 /* Info grid */
 .info-grid {

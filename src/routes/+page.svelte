@@ -60,6 +60,7 @@ interface QuantCounts {
 	let expandedBucket = $state<SubmitterBucket | null>(null);
 	let selectedSubmitter = $state<string | null>(null);
 	let expandedCompanies = $state<Set<string>>(new Set());
+	let showAllFailures = $state(false);
 
 	const tickClock = () => {
 		nowStr = new Date().toLocaleString('sv-SE', {
@@ -647,7 +648,7 @@ const rowClass = (run: RunRecord) => {
 			<span>Needs Attention -- {failedRuns.length} failed run{failedRuns.length > 1 ? 's' : ''}</span>
 		</div>
 		<div class="flex flex-col gap-2">
-			{#each failedRuns.slice(0, 5) as run}
+			{#each (showAllFailures ? failedRuns : failedRuns.slice(0, 5)) as run}
 			<button class="grid grid-cols-1 items-center gap-1 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-left text-[0.8125rem] transition hover:bg-red-100 sm:grid-cols-[minmax(180px,auto)_auto_1fr] sm:gap-4" onclick={() => selectRun(run)}>
 				<span class="font-semibold text-slate-900">{run.owner}/{run.model_id}</span>
 				<span class="flex items-center gap-1.5 text-xs text-slate-500">
@@ -657,7 +658,7 @@ const rowClass = (run: RunRecord) => {
 			</button>
 			{/each}
 			{#if failedRuns.length > 5}
-			<button class="py-2 text-left text-[0.8125rem] font-bold text-red-600 transition hover:text-red-800" onclick={() => { status = 'failed'; }}>View all {failedRuns.length} failures</button>
+			<button class="py-2 text-left text-[0.8125rem] font-bold text-red-600 transition hover:text-red-800" onclick={() => (showAllFailures = !showAllFailures)}>{showAllFailures ? 'Show fewer' : `View all ${failedRuns.length} failures`}</button>
 			{/if}
 		</div>
 	</section>

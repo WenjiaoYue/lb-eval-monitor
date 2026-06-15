@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import shutil
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -28,16 +29,32 @@ def main() -> int:
     parser.add_argument("--mirror-dir", type=Path, default=None, help="Optional: also copy generated JSON here (e.g. build/data for the deployed bundle)")
     parser.add_argument("--source-repo", default="XuehaoSun/lb_eval", help="GitHub source repository")
     parser.add_argument("--source-branch", default="main", help="GitHub source branch")
+    parser.add_argument("--cache-dir", type=Path, default=None, help="Reusable cache dir for fetched remote files (default: a fixed temp dir). Reused & cleared each cycle to avoid filling the disk.")
     args = parser.parse_args()
+
+    # Reuse a single cache directory across cycles instead of creating a fresh
+    # tempfile.mkdtemp() every refresh (which never gets cleaned up and fills the
+    # disk over time). The directory is wiped at the start of each cycle so only
+    # one copy of the remote files exists on disk at any moment.
+    cache_dir = args.cache_dir or (Path(tempfile.gettempdir()) / "lb_eval_remote_cache")
 
     print(f"Starting watch mode: refreshing every {args.interval}s from {args.source_repo}")
     print(f"Output: {args.output_dir.resolve()}")
+    print(f"Cache:  {cache_dir.resolve()} (reused each cycle)")
     print("Press Ctrl+C to stop.\n")
 
     while True:
         try:
             print(f"[{time.strftime('%H:%M:%S')}] Fetching remote data...")
-            source_root = fetch_remote_results(repo=args.source_repo, branch=args.source_branch)
+            # Clear the cache before each fetch so stale/removed files don't pile up.
+            if cache_dir.exists():
+                shutil.rmtree(cache_dir, ignore_errors=True)
+            cache_dir.mkdir(parents=True, exist_ok=True)
+            source_root = fetch_remote_results(
+                repo=args.source_repo,
+                branch=args.source_branch,
+                dest_dir=cache_dir,
+            )
             runs, latest, summary = scan_results(
                 source_root=source_root,
                 output_dir=args.output_dir,
